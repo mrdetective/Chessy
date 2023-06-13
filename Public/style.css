@@ -1,115 +1,193 @@
-@import url("https://fonts.googleapis.com/css2?family=Delicious+Handrawn&family=Exo+2:wght@100&family=Inter:wght@100;200;300;400&family=Permanent+Marker&family=Righteous&family=Tajawal:wght@200;900&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Signika+Negative:300,400&display=swap");
-* {
-  animation: fadeIn 0.25s ease-in;
-}
-
-.btn {
-  height: 36px;
-  margin-left: 65%;
-  margin-top: 73px;
-  border-radius: 5px;
-  border-style: none;
-  position: fixed;
-  width: 115px;
-  background-color: #f9d342;
-  color: #292826;
-  font-family: "Righteous", cursive;
-  font-weight: bold;
-  font-size: 18px;
-  position: fixed;
-}
-
-.btn1 {
-  height: 36px;
-  margin-left: 74%;
-  margin-top: 73px;
-  border-radius: 5px;
-  position: fixed;
-  width: 115px;
-  background: transparent;
-  color: #f9d342;
-  font-family: "Righteous", cursive;
-  font-weight: bold;
-  font-size: 18px;
-  border-style: solid;
-  border-color: #f9d342;
-  position: fixed;
-}
-.navbar {
-  width: 100%;
-  max-width: 4600px;
-  display: flex;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 79px;
-}
-
-.image {
-  height: 400px;
-  width: 482px;
-  margin-left: 22%;
-  margin-top: 170px;
-  filter: brightness(90%);
-}
-
 body {
-  margin-top: 60px;
-  background-color: black;
-  overflow-y: scroll;
-  background-size: 2000vh 1000vw;
+  background: url(../media/backdround.jpg);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-.welcome {
-  color: #f9d342;
-  margin-top: -1281px;
-  margin-left: -238px;
-  position: fixed;
-  font-family: "Righteous", cursive;
-  font-size: 40px;
-}
-
-body {
-  font-family: "Signika Negative", sans-serif;
-  font-weight: 300;
-}
-.section {
-  height: 100vh;
-  width: 100%;
-  position: relative;
-  padding: 0;
-  text-align: center;
-  overflow: hidden;
+.chesspieces {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: auto;
+  padding-top: 300px;
+  padding-right: 650px;
 }
-.bg1 {
-  background-color: #ccc;
+.chessboard {
+  height: 600px;
+  width: 600px;
+  margin-top: 168px;
+  transform: rotate(90deg);
+  border-style: double;
+  border-width: 5px;
+  position: absolute;
+  margin-left: 651px;
+  filter: invert(40%) sepia(53%) saturate(3141%) hue-rotate(343deg)
+    brightness(95%) contrast(80%);
 }
-.bg2 {
-  background-color: #333;
+
+.rook1 {
+  margin-top: 680px;
+  margin-bottom: -12px;
+  margin-left: 125px;
+  position: absolute;
 }
-h1 {
-  font-size: 40px;
-  line-height: 1.2;
-  margin: 0;
+
+.rook2 {
+  margin-top: 680px;
+  margin-bottom: -12px;
+  margin-left: 1170px;
+  position: absolute;
 }
-.revealUp {
-  opacity: 0;
-  visibility: hidden;
+
+.knight_white1 {
+  margin-top: 680px;
+  margin-bottom: -12px;
+  margin-left: 1021px;
+  height: 71px;
+  position: absolute;
 }
-.spacer {
-  height: 50vh;
-  background-color: #000;
+.knight_white2 {
+  margin-top: 680px;
+  margin-bottom: -12px;
+  margin-left: 276px;
+  height: 71px;
+  position: absolute;
+}
+
+.white_bishop1 {
+  margin-top: 680px;
+  margin-bottom: -12px;
+  margin-left: 424px;
+  height: 71px;
+  position: absolute;
+}
+
+.white_bishop2 {
+  margin-top: 680px;
+  margin-bottom: -12px;
+  margin-left: 871px;
+  height: 71px;
+  position: absolute;
+}
+
+.white_king {
+  margin-top: 679px;
+  margin-bottom: -12px;
+  margin-left: 574px;
+  height: 71px;
+  position: absolute;
+}
+
+.white_queen {
+  margin-top: 682px;
+  margin-bottom: -12px;
+  margin-left: 720px;
+  height: 71px;
+  position: absolute;
+}
+
+.white_pawn1 {
+  margin-top: 523px;
+  margin-bottom: -12px;
+  margin-left: 125px;
+  height: 71px;
+  position: absolute;
+}
+.white_pawn2 {
+  margin-top: 523px;
+  margin-bottom: -12px;
+  margin-left: 275px;
+  height: 71px;
+  position: absolute;
+}
+.white_pawn3 {
+  margin-top: 523px;
+  margin-bottom: -12px;
+  margin-left: 425px;
+  height: 71px;
+  position: absolute;
+}
+.white_pawn4 {
+  margin-top: 523px;
+  margin-bottom: -12px;
+  margin-left: 575px;
+  height: 71px;
+  position: absolute;
+}
+.white_pawn5 {
+  margin-top: 523px;
+  margin-bottom: -12px;
+  margin-left: 725px;
+  height: 71px;
+  position: absolute;
+}
+.white_pawn6 {
+  margin-top: 523px;
+  margin-bottom: -12px;
+  margin-left: 875px;
+  height: 71px;
+  position: absolute;
+}
+.white_pawn7 {
+  margin-top: 523px;
+  margin-bottom: -12px;
+  margin-left: 1025px;
+  height: 71px;
+  position: absolute;
+}
+.white_pawn8 {
+  margin-top: 523px;
+  margin-bottom: -12px;
+  margin-left: 1175px;
+  height: 71px;
+  position: absolute;
+}
+
+.black_rook1 {
+  margin-top: -371px;
+  margin-bottom: -12px;
+  margin-left: 1175px;
+  height: 71px;
+  position: absolute;
+}
+.black_rook2 {
+  margin-top: -371px;
+  margin-bottom: -12px;
+  margin-left: 125px;
+  height: 71px;
+  position: absolute;
+}
+
+.black_bishop1 {
+  margin-top: -365px;
+  margin-bottom: -12px;
+  margin-left: 424px;
+  height: 71px;
+  position: absolute;
+}
+.black_bishop2 {
+  margin-top: -365px;
+  margin-bottom: -12px;
+  margin-left: 875px;
+  height: 71px;
+  position: absolute;
+}
+.black_knight1 {
+  margin-top: -365px;
+  margin-bottom: -12px;
+  margin-left: 1025px;
+  height: 67px;
+  position: absolute;
+}
+.black_knight2 {
+  margin-top: -365px;
+  margin-bottom: -12px;
+  margin-left: 275px;
+  height: 67px;
+  position: absolute;
+}
+.black_king {
+  margin-top: -365px;
+  margin-bottom: -12px;
+  margin-left: 572px;
+  height: 67px;
+  position: absolute;
 }
