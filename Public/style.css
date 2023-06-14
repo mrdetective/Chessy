@@ -13,7 +13,7 @@ body {
 .chessboard {
   height: 600px;
   width: 600px;
-  margin-top: 168px;
+  margin-top: 108px;
   transform: rotate(90deg);
   position: absolute;
   margin-left: 651px;
@@ -153,6 +153,27 @@ body {
   height: 600px;
   width: 600px;
   position: absolute;
-  margin-left: 652px;
-  margin-top: 167px;
+  margin-left: 651px;
+  margin-top: 108px;
+}
+
+.rolabel {
+  position: absolute;
+  color: wheat;
+  font-size: 32px;
+  margin-top: 113px;
+}
+
+.colabel {
+  color: wheat;
+  font-size: 32px;
+  position: absolute;
+  margin-top: 760px;
+  margin-left: 1017px;
+  width: 993px;
+}
+
+.colabel span {
+  /* position: absolute; */
+  margin-left: 51px;
 }
