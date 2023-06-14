@@ -15,8 +15,6 @@ body {
   width: 600px;
   margin-top: 168px;
   transform: rotate(90deg);
-  border-style: double;
-  border-width: 5px;
   position: absolute;
   margin-left: 651px;
   filter: invert(40%) sepia(53%) saturate(3141%) hue-rotate(343deg)
@@ -24,170 +22,137 @@ body {
 }
 
 .rook1 {
-  margin-top: 680px;
-  margin-bottom: -12px;
-  margin-left: 125px;
+  margin-top: 8px;
+  margin-left: 5px;
   position: absolute;
 }
 
 .rook2 {
-  margin-top: 680px;
-  margin-bottom: -12px;
-  margin-left: 1170px;
+  margin-top: 8px;
+  margin-left: 5px;
   position: absolute;
 }
 
 .knight_white1 {
-  margin-top: 680px;
-  margin-bottom: -12px;
-  margin-left: 1021px;
-  height: 71px;
+  margin-top: 7px;
+  margin-left: 0px;
+  height: 68px;
   position: absolute;
 }
 .knight_white2 {
-  margin-top: 680px;
-  margin-bottom: -12px;
-  margin-left: 276px;
-  height: 71px;
+  margin-top: 7px;
+  margin-left: 0px;
+  height: 68px;
   position: absolute;
 }
 
 .white_bishop1 {
-  margin-top: 680px;
-  margin-bottom: -12px;
-  margin-left: 424px;
-  height: 71px;
+  margin-top: 7px;
+  margin-left: 2px;
+  height: 68px;
   position: absolute;
 }
 
 .white_bishop2 {
-  margin-top: 680px;
-  margin-bottom: -12px;
-  margin-left: 871px;
-  height: 71px;
+  margin-top: 7px;
+  margin-left: 2px;
+  height: 68px;
   position: absolute;
 }
 
 .white_king {
-  margin-top: 679px;
-  margin-bottom: -12px;
-  margin-left: 574px;
-  height: 71px;
+  margin-top: 4px;
+  margin-left: 2px;
+  height: 70px;
   position: absolute;
 }
 
 .white_queen {
-  margin-top: 682px;
-  margin-bottom: -12px;
-  margin-left: 720px;
-  height: 71px;
+  margin-top: 6px;
+  margin-left: 2px;
+  height: 70px;
   position: absolute;
 }
 
-.white_pawn1 {
-  margin-top: 523px;
-  margin-bottom: -12px;
-  margin-left: 125px;
-  height: 71px;
-  position: absolute;
-}
-.white_pawn2 {
-  margin-top: 523px;
-  margin-bottom: -12px;
-  margin-left: 275px;
-  height: 71px;
-  position: absolute;
-}
-.white_pawn3 {
-  margin-top: 523px;
-  margin-bottom: -12px;
-  margin-left: 425px;
-  height: 71px;
-  position: absolute;
-}
-.white_pawn4 {
-  margin-top: 523px;
-  margin-bottom: -12px;
-  margin-left: 575px;
-  height: 71px;
-  position: absolute;
-}
-.white_pawn5 {
-  margin-top: 523px;
-  margin-bottom: -12px;
-  margin-left: 725px;
-  height: 71px;
-  position: absolute;
-}
-.white_pawn6 {
-  margin-top: 523px;
-  margin-bottom: -12px;
-  margin-left: 875px;
-  height: 71px;
-  position: absolute;
-}
-.white_pawn7 {
-  margin-top: 523px;
-  margin-bottom: -12px;
-  margin-left: 1025px;
-  height: 71px;
-  position: absolute;
-}
-.white_pawn8 {
-  margin-top: 523px;
-  margin-bottom: -12px;
-  margin-left: 1175px;
-  height: 71px;
+.white_pawn {
+  margin-top: 6px;
+  margin-left: 2px;
+  height: 70px;
   position: absolute;
 }
 
 .black_rook1 {
-  margin-top: -371px;
-  margin-bottom: -12px;
-  margin-left: 1175px;
-  height: 71px;
+  height: 70px;
+  margin-top: 3px;
+  margin-left: 1px;
   position: absolute;
 }
 .black_rook2 {
-  margin-top: -371px;
-  margin-bottom: -12px;
-  margin-left: 125px;
-  height: 71px;
+  height: 70px;
+  margin-top: 3px;
+  margin-left: 1px;
   position: absolute;
 }
 
 .black_bishop1 {
-  margin-top: -365px;
-  margin-bottom: -12px;
-  margin-left: 424px;
-  height: 71px;
+  height: 70px;
+  margin-top: 3px;
+  margin-left: 1px;
   position: absolute;
 }
 .black_bishop2 {
-  margin-top: -365px;
-  margin-bottom: -12px;
-  margin-left: 875px;
-  height: 71px;
+  height: 70px;
+  margin-top: 3px;
+  margin-left: 1px;
   position: absolute;
 }
 .black_knight1 {
-  margin-top: -365px;
-  margin-bottom: -12px;
-  margin-left: 1025px;
-  height: 67px;
+  height: 70px;
+  margin-top: 3px;
+  margin-left: 1px;
   position: absolute;
 }
 .black_knight2 {
-  margin-top: -365px;
-  margin-bottom: -12px;
-  margin-left: 275px;
-  height: 67px;
+  height: 70px;
+  margin-top: 3px;
+  margin-left: 1px;
   position: absolute;
 }
 .black_king {
-  margin-top: -365px;
-  margin-bottom: -12px;
-  margin-left: 572px;
-  height: 67px;
+  height: 70px;
+  margin-top: 3px;
+  margin-left: 1px;
   position: absolute;
+}
+.black_queen {
+  height: 68px;
+  margin-top: 6px;
+  margin-left: 3px;
+  position: absolute;
+}
+
+.black_pawn {
+  margin-top: 6px;
+  margin-left: 2px;
+  height: 70px;
+  position: absolute;
+}
+
+.chesspieces img:hover {
+  cursor: pointer;
+}
+
+.chesspieces .chessboard:hover {
+  cursor: default;
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: repeat(8, 4fr);
+  grid-template-rows: repeat(8, 4fr);
+  height: 600px;
+  width: 600px;
+  position: absolute;
+  margin-left: 652px;
+  margin-top: 167px;
 }
