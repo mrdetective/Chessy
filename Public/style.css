@@ -21,39 +21,20 @@ body {
     brightness(95%) contrast(80%);
 }
 
-.rook1 {
+.white_rook {
   margin-top: 8px;
   margin-left: 5px;
   position: absolute;
 }
 
-.rook2 {
-  margin-top: 8px;
-  margin-left: 5px;
-  position: absolute;
-}
-
-.knight_white1 {
-  margin-top: 7px;
-  margin-left: 0px;
-  height: 68px;
-  position: absolute;
-}
-.knight_white2 {
+.white_knight {
   margin-top: 7px;
   margin-left: 0px;
   height: 68px;
   position: absolute;
 }
 
-.white_bishop1 {
-  margin-top: 7px;
-  margin-left: 2px;
-  height: 68px;
-  position: absolute;
-}
-
-.white_bishop2 {
+.white_bishop {
   margin-top: 7px;
   margin-left: 2px;
   height: 68px;
@@ -81,38 +62,19 @@ body {
   position: absolute;
 }
 
-.black_rook1 {
+.black_rook {
   height: 70px;
   margin-top: 3px;
   margin-left: 1px;
   position: absolute;
 }
-.black_rook2 {
+.black_bishop {
   height: 70px;
   margin-top: 3px;
   margin-left: 1px;
   position: absolute;
 }
-
-.black_bishop1 {
-  height: 70px;
-  margin-top: 3px;
-  margin-left: 1px;
-  position: absolute;
-}
-.black_bishop2 {
-  height: 70px;
-  margin-top: 3px;
-  margin-left: 1px;
-  position: absolute;
-}
-.black_knight1 {
-  height: 70px;
-  margin-top: 3px;
-  margin-left: 1px;
-  position: absolute;
-}
-.black_knight2 {
+.black_knight {
   height: 70px;
   margin-top: 3px;
   margin-left: 1px;
@@ -174,6 +136,9 @@ body {
 }
 
 .colabel span {
-  /* position: absolute; */
   margin-left: 51px;
+}
+
+.panel div.selected {
+  background-color: yellow;
 }
