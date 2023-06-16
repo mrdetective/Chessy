@@ -115,10 +115,14 @@ body {
   height: 600px;
   width: 600px;
   position: absolute;
-  margin-left: 651px;
+  margin-left: 649px;
   margin-top: 108px;
 }
 
+.panel div:hover {
+  border-style: solid;
+  border-color: indianred;
+}
 .rolabel {
   position: absolute;
   color: wheat;
@@ -141,4 +145,16 @@ body {
 
 .panel div.selected {
   background-color: yellow;
+}
+.selected {
+  background-color: red;
+  background-image: radial-gradient(rgb(255, 255, 255), rgb(0, 242, 255));
+}
+
+.black {
+  background-color: rgb(255, 255, 255);
+}
+
+.white {
+  background-color: rgb(253, 6, 6);
 }
