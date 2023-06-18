@@ -120,8 +120,8 @@ body {
 }
 
 .panel div:hover {
-  border-style: solid;
-  border-color: indianred;
+  border-style: double;
+  border-color: rgb(43, 144, 226);
 }
 .rolabel {
   position: absolute;
@@ -143,12 +143,10 @@ body {
   margin-left: 51px;
 }
 
-.panel div.selected {
-  background-color: yellow;
-}
 .selected {
   background-color: red;
   background-image: radial-gradient(rgb(255, 255, 255), rgb(0, 242, 255));
+  cursor: pointer;
 }
 
 .black {
@@ -157,4 +155,10 @@ body {
 
 .white {
   background-color: rgb(253, 6, 6);
+}
+
+.caneat {
+  background-color: red;
+  background-image: radial-gradient(rgb(255, 255, 255), rgb(255, 60, 0));
+  cursor: pointer;
 }
