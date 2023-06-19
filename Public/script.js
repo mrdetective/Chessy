@@ -1,4 +1,29 @@
 const chessPieces = document.querySelectorAll(".chesspieces img");
+function removeselected(panels) {
+  panels.forEach((panel) => panel.classList.remove("selected"));
+  panels.forEach((panel) => panel.classList.remove("caneat"));
+}
+
+function piecemove(panels, prevposition) {
+  const selected = document.querySelectorAll(".selected");
+  selected.forEach((position) => {
+    position.addEventListener("click", () => {
+      const topos = position.className[0] + position.className[1];
+      const curpos = prevposition[0] + prevposition[1];
+      const from = document.querySelector(`.${curpos}`);
+      const to = document.querySelector(`.${topos}`);
+      const piece = from.getElementsByTagName("img");
+      if (piece.length > 0) {
+        const image = piece[0];
+        from.removeChild(image);
+        to.appendChild(image);
+        removeselected(panels);
+        const audio = new Audio("../media/move.mp3");
+        audio.play();
+      }
+    });
+  });
+}
 
 function check(position) {
   const check = document.querySelector(`.${position}`);
@@ -15,7 +40,7 @@ function checkcolor(postion) {
   return true;
 }
 
-function pawnmove(position) {
+function pawnmove(position, prevposition, panels) {
   if (position[1] == "6") {
     document.getElementsByClassName(`${position}`)[0].classList.add("selected");
     let positionArray = position.split("");
@@ -28,17 +53,18 @@ function pawnmove(position) {
   } else {
     document.getElementsByClassName(`${position}`)[0].classList.add("selected");
   }
+  piecemove(panels, prevposition);
 }
 function diagpawnmove(position) {
   let positionArray = position.split("");
   positionArray[0] = String.fromCharCode(positionArray[0].charCodeAt(0) + 1);
   position = positionArray.join("");
-  if (position[0] <= "h" && checkcolor(position)) {
+  if (position[0] <= "h" && check(position) && checkcolor(position)) {
     document.getElementsByClassName(`${position}`)[0].classList.add("caneat");
   }
   positionArray[0] = String.fromCharCode(positionArray[0].charCodeAt(0) - 2);
   position = positionArray.join("");
-  if (position[0] >= "a" && checkcolor(position)) {
+  if (position[0] >= "a" && check(position) && checkcolor(position)) {
     document.getElementsByClassName(`${position}`)[0].classList.add("caneat");
   }
 }
@@ -385,8 +411,7 @@ function kingMove(position) {
 chessPieces.forEach((piece) => {
   piece.addEventListener("click", () => {
     const panels = document.querySelectorAll(".panel div");
-    panels.forEach((panel) => panel.classList.remove("selected"));
-    panels.forEach((panel) => panel.classList.remove("caneat"));
+    removeselected(panels);
     const parentPanel = piece.parentNode;
     const piecename = piece.className;
     if (piecename == "white_pawn") {
@@ -394,7 +419,7 @@ chessPieces.forEach((piece) => {
       const toclass = parentPanel.className[0] + tonum;
       if (!check(toclass)) {
         // console.log(1);
-        pawnmove(toclass);
+        pawnmove(toclass, parentPanel.className, panels);
       }
       diagpawnmove(toclass);
     } else if (piecename == "white_rook") {
