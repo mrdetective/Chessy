@@ -1,28 +1,10 @@
 const chessPieces = document.querySelectorAll(".chesspieces img");
 function removeselected(panels) {
-  panels.forEach((panel) => panel.classList.remove("selected"));
-  panels.forEach((panel) => panel.classList.remove("caneat"));
-}
-
-function piecemove(panels, prevposition) {
   const selected = document.querySelectorAll(".selected");
   selected.forEach((position) => {
-    position.addEventListener("click", () => {
-      const topos = position.className[0] + position.className[1];
-      const curpos = prevposition[0] + prevposition[1];
-      const from = document.querySelector(`.${curpos}`);
-      const to = document.querySelector(`.${topos}`);
-      const piece = from.getElementsByTagName("img");
-      if (piece.length > 0) {
-        const image = piece[0];
-        from.removeChild(image);
-        to.appendChild(image);
-        removeselected(panels);
-        const audio = new Audio("../media/move.mp3");
-        audio.play();
-      }
-    });
+    position.classList.remove("selected");
   });
+  panels.forEach((panel) => panel.classList.remove("caneat"));
 }
 
 function check(position) {
@@ -41,19 +23,40 @@ function checkcolor(postion) {
 }
 
 function pawnmove(position, prevposition, panels) {
+  removeselected(panels);
   if (position[1] == "6") {
     document.getElementsByClassName(`${position}`)[0].classList.add("selected");
     let positionArray = position.split("");
     positionArray[1] = String.fromCharCode(position.charCodeAt(1) - 1);
     position = positionArray.join("");
-    if (!check(position))
+    if (!check(position)) {
       document
         .getElementsByClassName(`${position}`)[0]
         .classList.add("selected");
+    }
   } else {
     document.getElementsByClassName(`${position}`)[0].classList.add("selected");
+    // console.log(document.getElementsByClassName(position)[0].className);
   }
-  piecemove(panels, prevposition);
+  // piecemove(panels, prevposition);
+  const selected = document.querySelectorAll(".selected");
+  selected.forEach((position) => {
+    position.addEventListener("click", () => {
+      const topos = position.className[0] + position.className[1];
+      const curpos = prevposition[0] + prevposition[1];
+      const from = document.querySelector(`.${curpos}`);
+      const to = document.querySelector(`.${topos}`);
+      const piece = from.getElementsByTagName("img");
+      if (piece.length > 0) {
+        const image = piece[0];
+        from.removeChild(image);
+        to.appendChild(image);
+        const audio = new Audio("../media/move.mp3");
+        audio.play();
+        removeselected(panels);
+      }
+    });
+  });
 }
 function diagpawnmove(position) {
   let positionArray = position.split("");
@@ -69,12 +72,13 @@ function diagpawnmove(position) {
   }
 }
 
-function parallelmove(postion) {
-  const curnum = postion.className[1] - "0";
-  const curalpha = postion.className[0];
+function parallelmove(position, prevposition, panels) {
+  removeselected(panels);
+  const curnum = position.className[1] - "0";
+  const curalpha = position.className[0];
   for (let i = curnum + 1; i <= 8; i++) {
     if (i != curnum) {
-      const toclass = postion.className[0] + i;
+      const toclass = position.className[0] + i;
       if (check(toclass)) {
         if (checkcolor(toclass)) {
           document
@@ -83,14 +87,16 @@ function parallelmove(postion) {
         }
         break;
       }
-      document
-        .getElementsByClassName(`${toclass}`)[0]
-        .classList.add("selected");
+      if (!check(toclass)) {
+        document
+          .getElementsByClassName(`${toclass}`)[0]
+          .classList.add("selected");
+      }
     }
   }
   for (let i = curnum - 1; i >= 1; i--) {
     if (i != curnum) {
-      const toclass = postion.className[0] + i;
+      const toclass = position.className[0] + i;
       if (check(toclass)) {
         if (checkcolor(toclass)) {
           document
@@ -99,15 +105,17 @@ function parallelmove(postion) {
         }
         break;
       }
-      document
-        .getElementsByClassName(`${toclass}`)[0]
-        .classList.add("selected");
+      if (!check(toclass)) {
+        document
+          .getElementsByClassName(`${toclass}`)[0]
+          .classList.add("selected");
+      }
     }
   }
   for (let i = curalpha.charCodeAt(0) + 1; i <= 104; i++) {
     const charCode = String.fromCharCode(i);
     if (charCode != curalpha) {
-      const toclass = charCode + postion.className[1];
+      const toclass = charCode + position.className[1];
       if (check(toclass)) {
         if (checkcolor(toclass)) {
           document
@@ -116,15 +124,17 @@ function parallelmove(postion) {
         }
         break;
       }
-      document
-        .getElementsByClassName(`${toclass}`)[0]
-        .classList.add("selected");
+      if (!check(toclass)) {
+        document
+          .getElementsByClassName(`${toclass}`)[0]
+          .classList.add("selected");
+      }
     }
   }
   for (let i = curalpha.charCodeAt(0) - 1; i >= 97; i--) {
     const charCode = String.fromCharCode(i);
     if (charCode != curalpha) {
-      const toclass = charCode + postion.className[1];
+      const toclass = charCode + position.className[1];
       if (check(toclass)) {
         if (checkcolor(toclass)) {
           document
@@ -138,8 +148,27 @@ function parallelmove(postion) {
         .classList.add("selected");
     }
   }
+  // piecemove(panels, prevposition);
+  const selected = document.querySelectorAll(".selected");
+  selected.forEach((position) => {
+    position.addEventListener("click", () => {
+      const topos = position.className[0] + position.className[1];
+      const curpos = prevposition[0] + prevposition[1];
+      const from = document.querySelector(`.${curpos}`);
+      const to = document.querySelector(`.${topos}`);
+      const piece = from.getElementsByTagName("img");
+      if (piece.length > 0) {
+        const image = piece[0];
+        from.removeChild(image);
+        to.appendChild(image);
+        const audio = new Audio("../media/move.mp3");
+        audio.play();
+        removeselected(panels);
+      }
+    });
+  });
 }
-function diagonalMove(position) {
+function diagonalMove(position, prevposition, panels) {
   const curnum = position.className[1] - "0";
   const curalpha = position.className[0];
   let i = curnum + 1,
@@ -206,13 +235,33 @@ function diagonalMove(position) {
     i3--;
     j3 = String.fromCharCode(j3.charCodeAt(0) + 1);
   }
+  // piecemove(panels, prevposition);
+  const selected = document.querySelectorAll(".selected");
+  selected.forEach((position) => {
+    position.addEventListener("click", () => {
+      const topos = position.className[0] + position.className[1];
+      const curpos = prevposition[0] + prevposition[1];
+      const from = document.querySelector(`.${curpos}`);
+      const to = document.querySelector(`.${topos}`);
+      const piece = from.getElementsByTagName("img");
+      if (piece.length > 0) {
+        const image = piece[0];
+        from.removeChild(image);
+        to.appendChild(image);
+        const audio = new Audio("../media/move.mp3");
+        audio.play();
+        removeselected(panels);
+      }
+    });
+  });
 }
 
-function knightMove(position) {
+function knightMove(position, prevposition, panels) {
   const curnum = position.className[1] - "0";
   const curalpha = position.className[0];
   let posnum = curnum + 2,
     posalpha = String.fromCharCode(curalpha.charCodeAt(0) + 1);
+  console.log(position, prevposition);
   if (posnum <= 8 && posalpha <= "h") {
     let toclass = posalpha.toString() + posnum.toString();
     if (!check(toclass)) {
@@ -241,6 +290,7 @@ function knightMove(position) {
   }
   (posnum = curnum - 2),
     (posalpha = String.fromCharCode(curalpha.charCodeAt(0) + 1));
+  // console.log(posnum, posalpha);
   if (posnum >= 1 && posalpha <= "h") {
     let toclass = posalpha.toString() + posnum.toString();
     if (!check(toclass)) {
@@ -311,9 +361,29 @@ function knightMove(position) {
       document.getElementsByClassName(`${toclass}`)[0].classList.add("caneat");
     }
   }
+  // piecemove(panels, prevposition);
+  const selected = document.querySelectorAll(".selected");
+  selected.forEach((position) => {
+    position.addEventListener("click", () => {
+      const topos = position.className[0] + position.className[1];
+      const curpos = prevposition[0] + prevposition[1];
+      const from = document.querySelector(`.${curpos}`);
+      const to = document.querySelector(`.${topos}`);
+      const piece = from.getElementsByTagName("img");
+      if (piece.length > 0) {
+        const image = piece[0];
+        from.removeChild(image);
+        to.appendChild(image);
+        const audio = new Audio("../media/move.mp3");
+        audio.play();
+        removeselected(panels);
+      }
+    });
+  });
 }
 
-function kingMove(position) {
+function kingMove(position, prevposition, panels) {
+  removeselected(panels);
   const curnum = position.className[1] - "0";
   const curalpha = position.className[0];
   let posalpha = String.fromCharCode(curalpha.charCodeAt(0) + 1);
@@ -407,32 +477,56 @@ function kingMove(position) {
       document.getElementsByClassName(`${toclass}`)[0].classList.add("caneat");
     }
   }
+  // piecemove(panels, prevposition);
+  const selected = document.querySelectorAll(".selected");
+  selected.forEach((position) => {
+    position.addEventListener("click", () => {
+      const topos = position.className[0] + position.className[1];
+      const curpos = prevposition[0] + prevposition[1];
+      const from = document.querySelector(`.${curpos}`);
+      const to = document.querySelector(`.${topos}`);
+      const piece = from.getElementsByTagName("img");
+      if (piece.length > 0) {
+        const image = piece[0];
+        from.removeChild(image);
+        to.appendChild(image);
+        const audio = new Audio("../media/move.mp3");
+        audio.play();
+        removeselected(panels);
+      }
+    });
+  });
 }
 chessPieces.forEach((piece) => {
-  piece.addEventListener("click", () => {
+  piece.addEventListener("click", function handleClick() {
     const panels = document.querySelectorAll(".panel div");
-    removeselected(panels);
     const parentPanel = piece.parentNode;
     const piecename = piece.className;
+    const images = document.querySelectorAll(".selected");
+    images.forEach((image) => {
+      image.removeEventListener("click", null);
+    });
+    piece.removeEventListener("click", handleClick);
     if (piecename == "white_pawn") {
       const tonum = parentPanel.className[1] - "0" - 1;
       const toclass = parentPanel.className[0] + tonum;
       if (!check(toclass)) {
-        // console.log(1);
         pawnmove(toclass, parentPanel.className, panels);
       }
       diagpawnmove(toclass);
     } else if (piecename == "white_rook") {
-      parallelmove(parentPanel);
+      parallelmove(parentPanel, parentPanel.className, panels);
     } else if (piecename == "white_bishop") {
-      diagonalMove(parentPanel);
+      diagonalMove(parentPanel, parentPanel.className, panels);
     } else if (piecename == "white_knight") {
-      knightMove(parentPanel);
+      removeselected(panels);
+      knightMove(parentPanel, parentPanel.className, panels);
     } else if (piecename == "white_king") {
-      kingMove(parentPanel);
+      removeselected(panels);
+      kingMove(parentPanel, parentPanel.className, panels);
     } else if (piecename == "white_queen") {
-      parallelmove(parentPanel);
-      diagonalMove(parentPanel);
+      parallelmove(parentPanel, parentPanel.className, panels);
+      diagonalMove(parentPanel, parentPanel.className, panels);
     } else if (piecename == "black_pawn") {
       console.log(piecename);
     } else if (piecename == "black_rook") {

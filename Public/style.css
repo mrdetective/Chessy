@@ -144,9 +144,12 @@ body {
 }
 
 .selected {
-  background-color: red;
-  background-image: radial-gradient(rgb(255, 255, 255), rgb(0, 242, 255));
-  cursor: pointer;
+  background-color: red !important;
+  background-image: radial-gradient(
+    rgb(255, 255, 255),
+    rgb(0, 242, 255)
+  ) !important;
+  cursor: pointer !important;
 }
 
 .black {
