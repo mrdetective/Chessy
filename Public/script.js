@@ -1,4 +1,5 @@
 const chessPieces = document.querySelectorAll(".chesspieces img");
+const selectedPositions = [];
 function removeselected(panels) {
   const selected = document.querySelectorAll(".selected");
   selected.forEach((position) => {
@@ -6,6 +7,28 @@ function removeselected(panels) {
   });
   panels.forEach((panel) => panel.classList.remove("caneat"));
 }
+function removeSelectedEventListeners() {
+  selectedPositions.forEach((item) => {
+    item.position.removeEventListener("click", item.listener);
+  });
+  selectedPositions.length = 0;
+}
+const piecemove = (panels, prevposition) => (event) => {
+  const position = event.target;
+  const topos = position.className[0] + position.className[1];
+  const curpos = prevposition[0] + prevposition[1];
+  const from = document.querySelector(`.${curpos}`);
+  const to = document.querySelector(`.${topos}`);
+  const piece = from.getElementsByTagName("img");
+  if (piece.length > 0) {
+    const image = piece[0];
+    from.removeChild(image);
+    to.appendChild(image);
+    const audio = new Audio("../media/move.mp3");
+    audio.play();
+    removeselected(panels);
+  }
+};
 
 function check(position) {
   const check = document.querySelector(`.${position}`);
@@ -21,7 +44,7 @@ function checkcolor(postion) {
   }
   return true;
 }
-
+var finalmove;
 function pawnmove(position, prevposition, panels) {
   removeselected(panels);
   if (position[1] == "6") {
@@ -36,26 +59,12 @@ function pawnmove(position, prevposition, panels) {
     }
   } else {
     document.getElementsByClassName(`${position}`)[0].classList.add("selected");
-    // console.log(document.getElementsByClassName(position)[0].className);
   }
-  // piecemove(panels, prevposition);
   const selected = document.querySelectorAll(".selected");
-  selected.forEach((position) => {
-    position.addEventListener("click", () => {
-      const topos = position.className[0] + position.className[1];
-      const curpos = prevposition[0] + prevposition[1];
-      const from = document.querySelector(`.${curpos}`);
-      const to = document.querySelector(`.${topos}`);
-      const piece = from.getElementsByTagName("img");
-      if (piece.length > 0) {
-        const image = piece[0];
-        from.removeChild(image);
-        to.appendChild(image);
-        const audio = new Audio("../media/move.mp3");
-        audio.play();
-        removeselected(panels);
-      }
-    });
+  selected.forEach((selectedposition) => {
+    finalmove = piecemove(panels, prevposition);
+    selectedposition.addEventListener("click", finalmove);
+    selectedPositions.push({position: selectedposition, listener: finalmove});
   });
 }
 function diagpawnmove(position) {
@@ -148,24 +157,11 @@ function parallelmove(position, prevposition, panels) {
         .classList.add("selected");
     }
   }
-  // piecemove(panels, prevposition);
   const selected = document.querySelectorAll(".selected");
-  selected.forEach((position) => {
-    position.addEventListener("click", () => {
-      const topos = position.className[0] + position.className[1];
-      const curpos = prevposition[0] + prevposition[1];
-      const from = document.querySelector(`.${curpos}`);
-      const to = document.querySelector(`.${topos}`);
-      const piece = from.getElementsByTagName("img");
-      if (piece.length > 0) {
-        const image = piece[0];
-        from.removeChild(image);
-        to.appendChild(image);
-        const audio = new Audio("../media/move.mp3");
-        audio.play();
-        removeselected(panels);
-      }
-    });
+  selected.forEach((selectedposition) => {
+    finalmove = piecemove(panels, prevposition);
+    selectedposition.addEventListener("click", finalmove);
+    selectedPositions.push({position: selectedposition, listener: finalmove});
   });
 }
 function diagonalMove(position, prevposition, panels) {
@@ -235,24 +231,11 @@ function diagonalMove(position, prevposition, panels) {
     i3--;
     j3 = String.fromCharCode(j3.charCodeAt(0) + 1);
   }
-  // piecemove(panels, prevposition);
   const selected = document.querySelectorAll(".selected");
-  selected.forEach((position) => {
-    position.addEventListener("click", () => {
-      const topos = position.className[0] + position.className[1];
-      const curpos = prevposition[0] + prevposition[1];
-      const from = document.querySelector(`.${curpos}`);
-      const to = document.querySelector(`.${topos}`);
-      const piece = from.getElementsByTagName("img");
-      if (piece.length > 0) {
-        const image = piece[0];
-        from.removeChild(image);
-        to.appendChild(image);
-        const audio = new Audio("../media/move.mp3");
-        audio.play();
-        removeselected(panels);
-      }
-    });
+  selected.forEach((selectedposition) => {
+    finalmove = piecemove(panels, prevposition);
+    selectedposition.addEventListener("click", finalmove);
+    selectedPositions.push({position: selectedposition, listener: finalmove});
   });
 }
 
@@ -261,7 +244,6 @@ function knightMove(position, prevposition, panels) {
   const curalpha = position.className[0];
   let posnum = curnum + 2,
     posalpha = String.fromCharCode(curalpha.charCodeAt(0) + 1);
-  console.log(position, prevposition);
   if (posnum <= 8 && posalpha <= "h") {
     let toclass = posalpha.toString() + posnum.toString();
     if (!check(toclass)) {
@@ -290,7 +272,6 @@ function knightMove(position, prevposition, panels) {
   }
   (posnum = curnum - 2),
     (posalpha = String.fromCharCode(curalpha.charCodeAt(0) + 1));
-  // console.log(posnum, posalpha);
   if (posnum >= 1 && posalpha <= "h") {
     let toclass = posalpha.toString() + posnum.toString();
     if (!check(toclass)) {
@@ -361,24 +342,11 @@ function knightMove(position, prevposition, panels) {
       document.getElementsByClassName(`${toclass}`)[0].classList.add("caneat");
     }
   }
-  // piecemove(panels, prevposition);
   const selected = document.querySelectorAll(".selected");
-  selected.forEach((position) => {
-    position.addEventListener("click", () => {
-      const topos = position.className[0] + position.className[1];
-      const curpos = prevposition[0] + prevposition[1];
-      const from = document.querySelector(`.${curpos}`);
-      const to = document.querySelector(`.${topos}`);
-      const piece = from.getElementsByTagName("img");
-      if (piece.length > 0) {
-        const image = piece[0];
-        from.removeChild(image);
-        to.appendChild(image);
-        const audio = new Audio("../media/move.mp3");
-        audio.play();
-        removeselected(panels);
-      }
-    });
+  selected.forEach((selectedposition) => {
+    finalmove = piecemove(panels, prevposition);
+    selectedposition.addEventListener("click", finalmove);
+    selectedPositions.push({position: selectedposition, listener: finalmove});
   });
 }
 
@@ -477,24 +445,11 @@ function kingMove(position, prevposition, panels) {
       document.getElementsByClassName(`${toclass}`)[0].classList.add("caneat");
     }
   }
-  // piecemove(panels, prevposition);
   const selected = document.querySelectorAll(".selected");
-  selected.forEach((position) => {
-    position.addEventListener("click", () => {
-      const topos = position.className[0] + position.className[1];
-      const curpos = prevposition[0] + prevposition[1];
-      const from = document.querySelector(`.${curpos}`);
-      const to = document.querySelector(`.${topos}`);
-      const piece = from.getElementsByTagName("img");
-      if (piece.length > 0) {
-        const image = piece[0];
-        from.removeChild(image);
-        to.appendChild(image);
-        const audio = new Audio("../media/move.mp3");
-        audio.play();
-        removeselected(panels);
-      }
-    });
+  selected.forEach((selectedposition) => {
+    finalmove = piecemove(panels, prevposition);
+    selectedposition.addEventListener("click", finalmove);
+    selectedPositions.push({position: selectedposition, listener: finalmove});
   });
 }
 chessPieces.forEach((piece) => {
@@ -502,11 +457,8 @@ chessPieces.forEach((piece) => {
     const panels = document.querySelectorAll(".panel div");
     const parentPanel = piece.parentNode;
     const piecename = piece.className;
-    const images = document.querySelectorAll(".selected");
-    images.forEach((image) => {
-      image.removeEventListener("click", null);
-    });
-    piece.removeEventListener("click", handleClick);
+    removeSelectedEventListeners();
+    removeselected(panels);
     if (piecename == "white_pawn") {
       const tonum = parentPanel.className[1] - "0" - 1;
       const toclass = parentPanel.className[0] + tonum;
@@ -519,10 +471,8 @@ chessPieces.forEach((piece) => {
     } else if (piecename == "white_bishop") {
       diagonalMove(parentPanel, parentPanel.className, panels);
     } else if (piecename == "white_knight") {
-      removeselected(panels);
       knightMove(parentPanel, parentPanel.className, panels);
     } else if (piecename == "white_king") {
-      removeselected(panels);
       kingMove(parentPanel, parentPanel.className, panels);
     } else if (piecename == "white_queen") {
       parallelmove(parentPanel, parentPanel.className, panels);
