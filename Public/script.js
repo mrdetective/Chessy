@@ -7,6 +7,7 @@ import {
   diagpawnmove,
   selectedPositions5,
 } from "./modules/pawn_move.js";
+import {queenmove, selectedPositions6} from "./modules/queen_move.js";
 
 const chessPieces = document.querySelectorAll(".chesspieces img");
 function removeselected(panels) {
@@ -22,7 +23,8 @@ function removeSelectedEventListeners() {
     selectedPositions2,
     selectedPositions3,
     selectedPositions4,
-    selectedPositions5
+    selectedPositions5,
+    selectedPositions6
   );
   selectedPositions.forEach((item) => {
     item.position.removeEventListener("click", item.listener);
@@ -43,6 +45,7 @@ const piecemove = (panels, prevposition) => (event) => {
     const audio = new Audio("../media/move.mp3");
     audio.play();
     removeselected(panels);
+    removeSelectedEventListeners();
   }
 };
 function check(position) {
@@ -83,8 +86,7 @@ chessPieces.forEach((piece) => {
     } else if (piecename == "white_king") {
       kingMove(parentPanel, parentPanel.className, panels);
     } else if (piecename == "white_queen") {
-      parallelmove(parentPanel, parentPanel.className, panels);
-      diagonalMove(parentPanel, parentPanel.className, panels);
+      queenmove(parentPanel, parentPanel.className, panels);
     } else if (piecename == "black_pawn") {
       console.log(piecename);
     } else if (piecename == "black_rook") {
