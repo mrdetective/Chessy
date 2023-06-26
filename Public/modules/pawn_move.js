@@ -23,7 +23,7 @@ function pawnmove(position, prevposition, panels) {
   });
 }
 
-function diagpawnmove(position) {
+function diagpawnmove(position, prevposition, panels) {
   let positionArray = position.split("");
   positionArray[0] = String.fromCharCode(positionArray[0].charCodeAt(0) + 1);
   position = positionArray.join("");
@@ -35,6 +35,20 @@ function diagpawnmove(position) {
   if (position[0] >= "a" && check(position) && checkcolor(position)) {
     document.getElementsByClassName(`${position}`)[0].classList.add("caneat");
   }
+  const selected = document.querySelectorAll(".caneat");
+  selected.forEach((selectedposition) => {
+    let clickEvent = new Event("click");
+    let finalmove = piecemove(panels, prevposition);
+    selectedposition.addEventListener("click", finalmove);
+    let imgElement = selectedposition.querySelector("img");
+    imgElement.addEventListener("click", () => {
+      finalmove = piecemove(panels, prevposition);
+      selectedposition.addEventListener("click", finalmove);
+      clickEvent = new Event("click");
+      selectedposition.dispatchEvent(clickEvent);
+    });
+    selectedPositions5.push({position: selectedposition, listener: finalmove});
+  });
 }
 
 export {pawnmove, diagpawnmove, selectedPositions5};

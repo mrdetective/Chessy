@@ -37,16 +37,18 @@ const piecemove = (panels, prevposition) => (event) => {
   const curpos = prevposition[0] + prevposition[1];
   const from = document.querySelector(`.${curpos}`);
   const to = document.querySelector(`.${topos}`);
+  console.log(from, to, curpos, position);
   const piece = from.getElementsByTagName("img");
-  if (piece.length > 0) {
-    const image = piece[0];
-    from.removeChild(image);
-    to.appendChild(image);
-    const audio = new Audio("../media/move.mp3");
-    audio.play();
-    removeselected(panels);
-    removeSelectedEventListeners();
+  if (piece.length === 0) {
+    return;
   }
+  const image = piece[0];
+  from.removeChild(image);
+  to.appendChild(image);
+  const audio = new Audio("../media/move.mp3");
+  audio.play();
+  removeselected(panels);
+  removeSelectedEventListeners();
 };
 function check(position) {
   const check = document.querySelector(`.${position}`);
@@ -76,7 +78,7 @@ chessPieces.forEach((piece) => {
       if (!check(toclass)) {
         pawnmove(toclass, parentPanel.className, panels);
       }
-      diagpawnmove(toclass);
+      diagpawnmove(toclass, parentPanel.className, panels);
     } else if (piecename == "white_rook") {
       parallelmove(parentPanel, parentPanel.className, panels);
     } else if (piecename == "white_bishop") {
