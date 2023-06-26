@@ -1,6 +1,7 @@
 import {check, checkcolor, piecemove} from "../script.js";
 
 let selectedPositions6 = [];
+let caneatPositions6 = [];
 function queenmove(position, prevposition, panels) {
   let curnum = position.className[1] - "0";
   let curalpha = position.className[0];
@@ -148,6 +149,15 @@ function queenmove(position, prevposition, panels) {
     selectedposition.addEventListener("click", finalmove);
     selectedPositions6.push({position: selectedposition, listener: finalmove});
   });
+  const caneat = document.querySelectorAll(".caneat");
+  caneat.forEach((selectedposition) => {
+    let finalmove = piecemove(panels, prevposition);
+    selectedposition.addEventListener("click", finalmove);
+    let imgElement = selectedposition.querySelector("img");
+    imgElement.addEventListener("click", finalmove);
+    caneatPositions6.push({position: imgElement, listener: finalmove});
+    selectedPositions6.push({position: selectedposition, listener: finalmove});
+  });
 }
 
-export {queenmove, selectedPositions6};
+export {queenmove, selectedPositions6, caneatPositions6};

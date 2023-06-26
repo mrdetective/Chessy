@@ -1,6 +1,7 @@
 import {check, checkcolor, piecemove} from "../script.js";
 
 let selectedPositions5 = [];
+let caneatPositions5 = [];
 function pawnmove(position, prevposition, panels) {
   if (position[1] == "6") {
     document.getElementsByClassName(`${position}`)[0].classList.add("selected");
@@ -22,7 +23,6 @@ function pawnmove(position, prevposition, panels) {
     selectedPositions5.push({position: selectedposition, listener: finalmove});
   });
 }
-
 function diagpawnmove(position, prevposition, panels) {
   let positionArray = position.split("");
   positionArray[0] = String.fromCharCode(positionArray[0].charCodeAt(0) + 1);
@@ -37,18 +37,13 @@ function diagpawnmove(position, prevposition, panels) {
   }
   const selected = document.querySelectorAll(".caneat");
   selected.forEach((selectedposition) => {
-    let clickEvent = new Event("click");
     let finalmove = piecemove(panels, prevposition);
     selectedposition.addEventListener("click", finalmove);
     let imgElement = selectedposition.querySelector("img");
-    imgElement.addEventListener("click", () => {
-      finalmove = piecemove(panels, prevposition);
-      selectedposition.addEventListener("click", finalmove);
-      clickEvent = new Event("click");
-      selectedposition.dispatchEvent(clickEvent);
-    });
+    imgElement.addEventListener("click", finalmove);
+    caneatPositions5.push({position: imgElement, listener: finalmove});
     selectedPositions5.push({position: selectedposition, listener: finalmove});
   });
 }
 
-export {pawnmove, diagpawnmove, selectedPositions5};
+export {pawnmove, diagpawnmove, selectedPositions5, caneatPositions5};

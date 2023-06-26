@@ -1,6 +1,7 @@
 import {check, checkcolor, piecemove} from "../script.js";
 
 let selectedPositions3 = [];
+let caneatPositions3 = [];
 function parallelmove(position, prevposition, panels) {
   const curnum = position.className[1] - "0";
   const curalpha = position.className[0];
@@ -80,8 +81,17 @@ function parallelmove(position, prevposition, panels) {
   selected.forEach((selectedposition) => {
     let finalmove = piecemove(panels, prevposition);
     selectedposition.addEventListener("click", finalmove);
-    selectedPositions.push({position: selectedposition, listener: finalmove});
+    selectedPositions3.push({position: selectedposition, listener: finalmove});
+  });
+  const caneat = document.querySelectorAll(".caneat");
+  caneat.forEach((selectedposition) => {
+    let finalmove = piecemove(panels, prevposition);
+    selectedposition.addEventListener("click", finalmove);
+    let imgElement = selectedposition.querySelector("img");
+    imgElement.addEventListener("click", finalmove);
+    caneatPositions3.push({position: imgElement, listener: finalmove});
+    selectedPositions3.push({position: selectedposition, listener: finalmove});
   });
 }
 
-export {parallelmove, selectedPositions3};
+export {parallelmove, selectedPositions3, caneatPositions3};
