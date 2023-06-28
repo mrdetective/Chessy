@@ -1,4 +1,8 @@
-import {knightMove, selectedPositions1} from "./modules/knight_move.js";
+import {
+  knightMove,
+  selectedPositions1,
+  caneatPositions1,
+} from "./modules/knight_move.js";
 import {
   diagonalMove,
   caneatPositions2,
@@ -9,15 +13,24 @@ import {
   parallelmove,
   selectedPositions3,
 } from "./modules/parallel_move.js";
-import {kingMove, selectedPositions4} from "./modules/king_move.js";
+import {
+  kingMove,
+  caneatPositions4,
+  selectedPositions4,
+} from "./modules/king_move.js";
 import {
   pawnmove,
   diagpawnmove,
   selectedPositions5,
   caneatPositions5,
 } from "./modules/pawn_move.js";
-import {queenmove, selectedPositions6} from "./modules/queen_move.js";
+import {
+  queenmove,
+  caneatPositions6,
+  selectedPositions6,
+} from "./modules/queen_move.js";
 
+let stockFish = require("stockfish");
 const chessPieces = document.querySelectorAll(".chesspieces img");
 function removeselected(panels) {
   const selected = document.querySelectorAll(".selected");
@@ -29,6 +42,11 @@ function removeselected(panels) {
     position.classList.remove("caneat");
   });
 }
+
+function checkforcheck() {
+  const kingposition = document.querySelector(".white_king");
+  return kingposition.parentNode.classList.contains("caneat");
+}
 function removeSelectedEventListeners() {
   const selectedPositions = selectedPositions1.concat(
     selectedPositions2,
@@ -37,9 +55,12 @@ function removeSelectedEventListeners() {
     selectedPositions5,
     selectedPositions6
   );
-  const caneatPositions = caneatPositions2.concat(
+  const caneatPositions = caneatPositions1.concat(
+    caneatPositions2,
+    caneatPositions3,
+    caneatPositions4,
     caneatPositions5,
-    caneatPositions3
+    caneatPositions6
   );
   selectedPositions.forEach((item) => {
     item.position.removeEventListener("click", item.listener);
@@ -133,5 +154,12 @@ chessPieces.forEach((piece) => {
     }
   });
 });
+
+function Stockfishinteractor() {
+  const Stockfish = stockfish();
+  console.log(Stockfish);
+}
+
+Stockfishinteractor();
 
 export {check, checkcolor, piecemove};
