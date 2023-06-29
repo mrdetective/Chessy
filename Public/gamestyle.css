@@ -1,0 +1,167 @@
+body {
+  background: url(../media/backdround.jpg);
+}
+
+.chesspieces {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding-top: 300px;
+  padding-right: 650px;
+}
+.chessboard {
+  height: 600px;
+  width: 600px;
+  margin-top: 108px;
+  transform: rotate(90deg);
+  position: absolute;
+  margin-left: 651px;
+  filter: invert(40%) sepia(53%) saturate(3141%) hue-rotate(343deg)
+    brightness(95%) contrast(80%);
+}
+
+.white_rook {
+  margin-top: 8px;
+  margin-left: 5px;
+  position: absolute;
+}
+
+.white_knight {
+  margin-top: 7px;
+  margin-left: 0px;
+  height: 68px;
+  position: absolute;
+}
+
+.white_bishop {
+  margin-top: 7px;
+  margin-left: 2px;
+  height: 68px;
+  position: absolute;
+}
+
+.white_king {
+  margin-top: 4px;
+  margin-left: 2px;
+  height: 70px;
+  position: absolute;
+}
+
+.white_queen {
+  margin-top: 6px;
+  margin-left: 2px;
+  height: 70px;
+  position: absolute;
+}
+
+.white_pawn {
+  margin-top: 6px;
+  margin-left: 2px;
+  height: 70px;
+  position: absolute;
+}
+
+.black_rook {
+  height: 70px;
+  margin-top: 3px;
+  margin-left: 1px;
+  position: absolute;
+}
+.black_bishop {
+  height: 70px;
+  margin-top: 3px;
+  margin-left: 1px;
+  position: absolute;
+}
+.black_knight {
+  height: 70px;
+  margin-top: 3px;
+  margin-left: 1px;
+  position: absolute;
+}
+.black_king {
+  height: 70px;
+  margin-top: 3px;
+  margin-left: 1px;
+  position: absolute;
+}
+.black_queen {
+  height: 68px;
+  margin-top: 6px;
+  margin-left: 3px;
+  position: absolute;
+}
+
+.black_pawn {
+  margin-top: 6px;
+  margin-left: 2px;
+  height: 70px;
+  position: absolute;
+}
+
+.chesspieces img:hover {
+  cursor: pointer;
+}
+
+.chesspieces .chessboard:hover {
+  cursor: default;
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: repeat(8, 4fr);
+  grid-template-rows: repeat(8, 4fr);
+  height: 600px;
+  width: 600px;
+  position: absolute;
+  margin-left: 649px;
+  margin-top: 108px;
+}
+
+.panel div:hover {
+  border-style: double;
+  border-color: rgb(43, 144, 226);
+}
+.rolabel {
+  position: absolute;
+  color: wheat;
+  font-size: 32px;
+  margin-top: 113px;
+}
+
+.colabel {
+  color: wheat;
+  font-size: 32px;
+  position: absolute;
+  margin-top: 760px;
+  margin-left: 1017px;
+  width: 993px;
+}
+
+.colabel span {
+  margin-left: 51px;
+}
+
+.selected {
+  background-color: red !important;
+  background-image: radial-gradient(
+    rgb(255, 255, 255),
+    rgb(0, 242, 255)
+  ) !important;
+  cursor: pointer !important;
+}
+
+.black {
+  background-color: rgb(255, 255, 255);
+}
+
+.white {
+  background-color: rgb(253, 6, 6);
+}
+
+.caneat {
+  background-color: red;
+  background-image: radial-gradient(rgb(255, 255, 255), rgb(255, 60, 0));
+  cursor: pointer;
+}

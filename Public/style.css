@@ -1,167 +1,157 @@
-body {
-  background: url(../media/backdround.jpg);
-}
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300&display=swap");
 
-.chesspieces {
+* {
+  font-family: "Space Grotesk", sans-serif;
+}
+body {
+  background: url("../media/Index_bg.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: auto;
-  padding-top: 300px;
-  padding-right: 650px;
-}
-.chessboard {
-  height: 600px;
-  width: 600px;
-  margin-top: 108px;
-  transform: rotate(90deg);
-  position: absolute;
-  margin-left: 651px;
-  filter: invert(40%) sepia(53%) saturate(3141%) hue-rotate(343deg)
-    brightness(95%) contrast(80%);
 }
 
-.white_rook {
-  margin-top: 8px;
-  margin-left: 5px;
+.mainbox {
+  top: 10%;
+  height: 30rem;
+  width: 30rem;
+  border-color: white;
+  border-style: solid;
+  position: absolute;
+  border-radius: 50px;
+}
+
+.heading {
+  margin-top: 8%;
+  margin-left: 10%;
+  color: white;
+}
+
+.mode1 {
+  margin-left: 10%;
+  margin-top: 4%;
+  border-style: solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  height: 2rem;
+  border-color: aliceblue;
+  color: aliceblue;
+}
+
+.mode2 {
+  margin-left: 57%;
+  margin-top: -2.35rem;
+  border-style: solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  height: 2rem;
+  border-color: aliceblue;
+  color: aliceblue;
+}
+
+.color1 {
+  margin-left: 10%;
+  margin-top: 4%;
+  border-style: solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  height: 2rem;
+  border-color: aliceblue;
+  color: aliceblue;
+}
+
+.color2 {
+  margin-left: 57%;
+  margin-top: -2.35rem;
+  border-style: solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  height: 2rem;
+  border-color: aliceblue;
+  color: aliceblue;
+}
+
+.difficulty1 {
+  margin-left: 10%;
+  margin-top: 4%;
+  border-style: solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  height: 2rem;
+  border-color: aliceblue;
+  color: aliceblue;
+}
+
+.difficulty2 {
+  margin-left: 57%;
+  margin-top: -2.35rem;
+  border-style: solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  height: 2rem;
+  border-color: aliceblue;
+  color: aliceblue;
+}
+
+.difficulty3 {
+  margin-left: 34%;
+  margin-top: 1.5rem;
+  border-style: solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  height: 2rem;
+  border-color: aliceblue;
+  color: aliceblue;
   position: absolute;
 }
 
-.white_knight {
-  margin-top: 7px;
-  margin-left: 0px;
-  height: 68px;
-  position: absolute;
-}
-
-.white_bishop {
-  margin-top: 7px;
-  margin-left: 2px;
-  height: 68px;
-  position: absolute;
-}
-
-.white_king {
-  margin-top: 4px;
-  margin-left: 2px;
-  height: 70px;
-  position: absolute;
-}
-
-.white_queen {
-  margin-top: 6px;
-  margin-left: 2px;
-  height: 70px;
-  position: absolute;
-}
-
-.white_pawn {
-  margin-top: 6px;
-  margin-left: 2px;
-  height: 70px;
-  position: absolute;
-}
-
-.black_rook {
-  height: 70px;
-  margin-top: 3px;
-  margin-left: 1px;
-  position: absolute;
-}
-.black_bishop {
-  height: 70px;
-  margin-top: 3px;
-  margin-left: 1px;
-  position: absolute;
-}
-.black_knight {
-  height: 70px;
-  margin-top: 3px;
-  margin-left: 1px;
-  position: absolute;
-}
-.black_king {
-  height: 70px;
-  margin-top: 3px;
-  margin-left: 1px;
-  position: absolute;
-}
-.black_queen {
-  height: 68px;
-  margin-top: 6px;
-  margin-left: 3px;
-  position: absolute;
-}
-
-.black_pawn {
-  margin-top: 6px;
-  margin-left: 2px;
-  height: 70px;
-  position: absolute;
-}
-
-.chesspieces img:hover {
+.mode1:hover,
+.mode2:hover,
+.difficulty1:hover,
+.difficulty2:hover,
+.difficulty3:hover,
+.color1:hover,
+.color2:hover {
   cursor: pointer;
+  background-color: aliceblue;
+  color: rgb(2, 20, 46);
 }
 
-.chesspieces .chessboard:hover {
-  cursor: default;
+.playgame {
+  margin-left: 0.5%;
+  margin-top: 74.5rem;
+  border-style: solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  height: 2rem;
+  border-color: aliceblue;
+  color: aliceblue;
+  position: fixed;
 }
 
-.panel {
-  display: grid;
-  grid-template-columns: repeat(8, 4fr);
-  grid-template-rows: repeat(8, 4fr);
-  height: 600px;
-  width: 600px;
-  position: absolute;
-  margin-left: 649px;
-  margin-top: 108px;
-}
-
-.panel div:hover {
-  border-style: double;
-  border-color: rgb(43, 144, 226);
-}
-.rolabel {
-  position: absolute;
-  color: wheat;
-  font-size: 32px;
-  margin-top: 113px;
-}
-
-.colabel {
-  color: wheat;
-  font-size: 32px;
-  position: absolute;
-  margin-top: 760px;
-  margin-left: 1017px;
-  width: 993px;
-}
-
-.colabel span {
-  margin-left: 51px;
-}
-
-.selected {
-  background-color: red !important;
-  background-image: radial-gradient(
-    rgb(255, 255, 255),
-    rgb(0, 242, 255)
-  ) !important;
-  cursor: pointer !important;
-}
-
-.black {
-  background-color: rgb(255, 255, 255);
-}
-
-.white {
-  background-color: rgb(253, 6, 6);
-}
-
-.caneat {
-  background-color: red;
-  background-image: radial-gradient(rgb(255, 255, 255), rgb(255, 60, 0));
+.playgame:hover {
   cursor: pointer;
+  background-color: rgb(2, 20, 46);
+  color: aliceblue;
+  border-color: transparent;
+  position: fixed;
 }

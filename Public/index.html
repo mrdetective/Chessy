@@ -1,185 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="style.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Chessy</title>
-  </head>
-  <body>
-    <div class="chesspieces">
-      <div class="rolabel">
-        1 <br /><br />
-        2 <br /><br />
-        3 <br /><br />
-        4 <br /><br />
-        5 <br /><br />
-        6 <br /><br />7<br /><br />8<br />
+    <div class="mainbox">
+      <h2 class="heading">Select the mode :</h2>
+      <div class="mode">
+        <div class="mod mode1">Manual</div>
+        <div class="mod mode2">Voicecontrol</div>
       </div>
-      <div class="colabel">
-        <span>h</span>
-        <span>g</span>
-        <span>f</span>
-        <span>e</span>
-        <span>d</span>
-        <span>c</span>
-        <span>b</span>
-        <span>a</span>
+      <h2 class="heading">Your Color :</h2>
+      <div class="color">
+        <div class="col color1">White</div>
+        <div class="col color2">Black</div>
       </div>
-      <div class="panel">
-        <div class="h1 black">
-          <img class="blackpiece black_rook" src="../media/black_rook.svg" />
-        </div>
-        <div class="g1 white">
-          <img
-            class="blackpiece black_knight"
-            src="../media/black_knight.svg"
-          />
-        </div>
-        <div class="f1 black">
-          <img
-            class="blackpiece black_bishop"
-            src="../media/black_bishop.svg"
-          />
-        </div>
-        <div class="e1 white">
-          <img class="blackpiece black_queen" src="../media/black_queen.svg" />
-        </div>
-        <div class="d1 black">
-          <img class="blackpiece black_king" src="../media/black_king.svg" />
-        </div>
-        <div class="c1 white">
-          <img
-            class="blackpiece black_bishop"
-            src="../media/black_bishop.svg"
-          />
-        </div>
-        <div class="b1 black">
-          <img
-            class="blackpiece black_knight"
-            src="../media/black_knight.svg"
-          />
-        </div>
-        <div class="a1 white">
-          <img class="blackpiece black_rook" src="../media/black_rook.svg" />
-        </div>
-        <div class="h2 white">
-          <img class="blackpiece black_pawn" src="../media/black_pawn.png" />
-        </div>
-        <div class="g2 black">
-          <img class="blackpiece black_pawn" src="../media/black_pawn.png" />
-        </div>
-        <div class="f2 white">
-          <img class="blackpiece black_pawn" src="../media/black_pawn.png" />
-        </div>
-        <div class="e2 black">
-          <img class="blackpiece black_pawn" src="../media/black_pawn.png" />
-        </div>
-        <div class="d2 white">
-          <img class="blackpiece black_pawn" src="../media/black_pawn.png" />
-        </div>
-        <div class="c2 black">
-          <img class="blackpiece black_pawn" src="../media/black_pawn.png" />
-        </div>
-        <div class="b2 white">
-          <img class="blackpiece black_pawn" src="../media/black_pawn.png" />
-        </div>
-        <div class="a2 black">
-          <img class="blackpiece black_pawn" src="../media/black_pawn.png" />
-        </div>
-        <div class="h3 black"></div>
-        <div class="g3 white"></div>
-        <div class="f3 black"></div>
-        <div class="e3 white"></div>
-        <div class="d3 black"></div>
-        <div class="c3 white"></div>
-        <div class="b3 black"></div>
-        <div class="a3 white"></div>
-        <div class="h4 white"></div>
-        <div class="g4 black"></div>
-        <div class="f4 white"></div>
-        <div class="e4 black"></div>
-        <div class="d4 white"></div>
-        <div class="c4 black"></div>
-        <div class="b4 white"></div>
-        <div class="a4 black"></div>
-        <div class="h5 black"></div>
-        <div class="g5 white"></div>
-        <div class="f5 black"></div>
-        <div class="e5 white"></div>
-        <div class="d5 black"></div>
-        <div class="c5 white"></div>
-        <div class="b5 black"></div>
-        <div class="a5 white"></div>
-        <div class="h6 white"></div>
-        <div class="g6 black"></div>
-        <div class="f6 white"></div>
-        <div class="e6 black"></div>
-        <div class="d6 white"></div>
-        <div class="c6 black"></div>
-        <div class="b6 white"></div>
-        <div class="a6 black"></div>
-        <div class="h7 black">
-          <img class="white_pawn" src="../media/white_pawn.png" />
-        </div>
-        <div class="g7 white">
-          <img class="white_pawn" src="../media/white_pawn.png" />
-        </div>
-        <div class="f7 black">
-          <img class="white_pawn" src="../media/white_pawn.png" />
-        </div>
-        <div class="e7 white">
-          <img class="white_pawn" src="../media/white_pawn.png" />
-        </div>
-        <div class="d7 black">
-          <img class="white_pawn" src="../media/white_pawn.png" />
-        </div>
-        <div class="c7 white">
-          <img class="white_pawn" src="../media/white_pawn.png" />
-        </div>
-        <div class="b7 black">
-          <img class="white_pawn" src="../media/white_pawn.png" />
-        </div>
-        <div class="a7 white">
-          <img class="white_pawn" src="../media/white_pawn.png" />
-        </div>
-        <div class="h8 white">
-          <img class="white_rook" src="../media/white_rook.svg" />
-        </div>
-        <div class="g8 black">
-          <img class="white_knight" src="../media/white_knight.svg" />
-        </div>
-        <div class="f8 white">
-          <img class="white_bishop" src="../media/white_bishop.svg" />
-        </div>
-        <div class="e8 black">
-          <img class="white_queen" src="../media/white_queen.png" />
-        </div>
-        <div class="d8 white">
-          <img class="white_king" src="../media/white_king.svg" />
-        </div>
-        <div class="c8 black">
-          <img class="white_bishop" src="../media/white_bishop.svg" />
-        </div>
-        <div class="b8 white">
-          <img class="white_knight" src="../media/white_knight.svg" />
-        </div>
-        <div class="a8 black">
-          <img class="white_rook" src="../media/white_rook.svg" />
-        </div>
+      <h2 class="heading">Choose difficulty :</h2>
+      <div class="difficulty">
+        <div class="diff difficulty1">Easy</div>
+        <div class="diff difficulty2">Medium</div>
+        <div class="diff difficulty3">Hard</div>
       </div>
     </div>
-    <script type="module" src="script.js"></script>
-    <script type="module" src="./modules/diagonal_move.js"></script>
-    <script type="module" src="./modules/parallel_move.js"></script>
-    <script type="module" src="./modules/knight_move.js"></script>
-    <script type="module" src="./modules/king_move.js"></script>
-    <script type="module" src="./modules/pawn_move.js"></script>
-    <script type="module" src="./modules/queen_move.js"></script>
-    <script
-      type="module"
-      src="./node_modules/stockfish/src/stockfish.js"
-    ></script>
-    <script type="module" src="../backend/StockFishMoves.js"></script>
+    <div class="playgame">Play!</div>
+  </head>
+  <body>
+    <script src="script.js"></script>
   </body>
 </html>

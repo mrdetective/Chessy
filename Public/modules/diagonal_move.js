@@ -1,4 +1,4 @@
-import {check, checkcolor, piecemove} from "../script.js";
+import {check, checkcolor, piecemove} from "../game.js";
 
 let selectedPositions2 = [];
 let caneatPositions2 = [];
