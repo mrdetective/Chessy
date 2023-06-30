@@ -116,11 +116,16 @@ body {
   position: absolute;
   margin-left: 649px;
   margin-top: 108px;
+  transform: rotate(180deg);
 }
 
 .panel div:hover {
   border-style: double;
   border-color: rgb(43, 144, 226);
+}
+
+img {
+  transform: rotate(180deg);
 }
 .rolabel {
   position: absolute;
@@ -152,11 +157,11 @@ body {
 }
 
 .black {
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(253, 6, 6);
 }
 
 .white {
-  background-color: rgb(253, 6, 6);
+  background-color: rgb(255, 255, 255);
 }
 
 .caneat {

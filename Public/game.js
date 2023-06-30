@@ -19,22 +19,22 @@ import {
   selectedPositions4,
 } from "./modules/king_move.js";
 import {
-  pawnmove,
-  diagpawnmove,
+  blackpawnmove,
+  blackdiagpawnmove,
   selectedPositions5,
   caneatPositions5,
-} from "./modules/white_pawn_move.js";
+} from "./modules/black_pawn_move.js";
 import {
   queenmove,
   caneatPositions6,
   selectedPositions6,
 } from "./modules/queen_move.js";
 import {
-  blackpawnmove,
-  blackdiagpawnmove,
+  whitepawnmove,
+  whitediagpawnmove,
   selectedPositions7,
   caneatPositions7,
-} from "./modules/black_pawn_move.js";
+} from "./modules/white_pawn_move.js";
 import {tofen} from "./modules/to_fen.js";
 
 const chessPieces = document.querySelectorAll(".chesspieces img");
@@ -42,12 +42,39 @@ const details = JSON.parse(localStorage.getItem("details"));
 
 function toblack() {
   document.getElementsByClassName("panel")[0].style.transform =
-    "rotate(180deg)";
-
+    "rotate(360deg)";
   let imgElements = document.getElementsByTagName("img");
   Array.from(imgElements).forEach((element) => {
-    element.style.transform = "rotate(180deg)";
+    element.style.transform = "rotate(360deg)";
   });
+  const black = document.querySelectorAll(".black");
+  const white = document.querySelectorAll(".white");
+
+  // black.forEach((element) => {
+  //   element.style.backgroundColor = "white";
+  // });
+
+  // white.forEach((element) => {
+  //   element.style.backgroundColor = "rgb(253, 6, 6)";
+  // });
+  let rolabel = document.querySelector(".rolabel");
+  rolabel.innerHTML = `
+  1 <br /><br />
+  2 <br /><br />
+  3 <br /><br />
+  4 <br /><br />
+  5 <br /><br />
+  6 <br /><br />7<br /><br />8<br />
+`;
+  let colabel = document.querySelector(".colabel");
+  colabel.innerHTML = ` <span>h</span>
+  <span>g</span>
+  <span>f</span>
+  <span>e</span>
+  <span>d</span>
+  <span>c</span>
+  <span>b</span>
+  <span>a</span>`;
 }
 if (details["color"] == "black") {
   toblack();
@@ -160,14 +187,14 @@ chessPieces.forEach((piece) => {
     }
     if (piecename.substring(11) == `${details["color"]}_pawn`) {
       if (details["color"] == "white") {
-        const tonum = parentPanel.className[1] - "0" - 1;
+        const tonum = parentPanel.className[1] - "0" + 1;
         const toclass = parentPanel.className[0] + tonum;
         if (!check(toclass)) {
-          pawnmove(toclass, parentPanel.className, panels);
+          whitepawnmove(toclass, parentPanel.className, panels);
         }
-        diagpawnmove(toclass, parentPanel.className, panels);
+        whitediagpawnmove(toclass, parentPanel.className, panels);
       } else {
-        const tonum = parentPanel.className[1] - "0" + 1;
+        const tonum = parentPanel.className[1] - "0" - 1;
         const toclass = parentPanel.className[0] + tonum;
         if (!check(toclass)) {
           blackpawnmove(toclass, parentPanel.className, panels);

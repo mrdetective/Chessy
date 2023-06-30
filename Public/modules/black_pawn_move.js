@@ -1,12 +1,12 @@
 import {check, checkcolor, piecemove} from "../game.js";
 
-let selectedPositions7 = [];
-let caneatPositions7 = [];
+let selectedPositions5 = [];
+let caneatPositions5 = [];
 function blackpawnmove(position, prevposition, panels) {
-  if (position[1] == "3") {
+  if (position[1] == "6") {
     document.getElementsByClassName(`${position}`)[0].classList.add("selected");
     let positionArray = position.split("");
-    positionArray[1] = String.fromCharCode(position.charCodeAt(1) + 1);
+    positionArray[1] = String.fromCharCode(position.charCodeAt(1) - 1);
     position = positionArray.join("");
     if (!check(position)) {
       document
@@ -20,7 +20,7 @@ function blackpawnmove(position, prevposition, panels) {
   selected.forEach((selectedposition) => {
     let finalmove = piecemove(panels, prevposition);
     selectedposition.addEventListener("click", finalmove);
-    selectedPositions7.push({position: selectedposition, listener: finalmove});
+    selectedPositions5.push({position: selectedposition, listener: finalmove});
   });
 }
 function blackdiagpawnmove(position, prevposition, panels) {
@@ -41,9 +41,9 @@ function blackdiagpawnmove(position, prevposition, panels) {
     selectedposition.addEventListener("click", finalmove);
     let imgElement = selectedposition.querySelector("img");
     imgElement.addEventListener("click", finalmove);
-    caneatPositions7.push({position: imgElement, listener: finalmove});
-    selectedPositions7.push({position: selectedposition, listener: finalmove});
+    caneatPositions5.push({position: imgElement, listener: finalmove});
+    selectedPositions5.push({position: selectedposition, listener: finalmove});
   });
 }
 
-export {blackpawnmove, blackdiagpawnmove, selectedPositions7, caneatPositions7};
+export {blackpawnmove, blackdiagpawnmove, selectedPositions5, caneatPositions5};

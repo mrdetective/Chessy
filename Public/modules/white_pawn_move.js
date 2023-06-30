@@ -1,12 +1,12 @@
 import {check, checkcolor, piecemove} from "../game.js";
 
-let selectedPositions5 = [];
-let caneatPositions5 = [];
-function pawnmove(position, prevposition, panels) {
-  if (position[1] == "6") {
+let selectedPositions7 = [];
+let caneatPositions7 = [];
+function whitepawnmove(position, prevposition, panels) {
+  if (position[1] == "3") {
     document.getElementsByClassName(`${position}`)[0].classList.add("selected");
     let positionArray = position.split("");
-    positionArray[1] = String.fromCharCode(position.charCodeAt(1) - 1);
+    positionArray[1] = String.fromCharCode(position.charCodeAt(1) + 1);
     position = positionArray.join("");
     if (!check(position)) {
       document
@@ -20,10 +20,10 @@ function pawnmove(position, prevposition, panels) {
   selected.forEach((selectedposition) => {
     let finalmove = piecemove(panels, prevposition);
     selectedposition.addEventListener("click", finalmove);
-    selectedPositions5.push({position: selectedposition, listener: finalmove});
+    selectedPositions7.push({position: selectedposition, listener: finalmove});
   });
 }
-function diagpawnmove(position, prevposition, panels) {
+function whitediagpawnmove(position, prevposition, panels) {
   let positionArray = position.split("");
   positionArray[0] = String.fromCharCode(positionArray[0].charCodeAt(0) + 1);
   position = positionArray.join("");
@@ -41,9 +41,9 @@ function diagpawnmove(position, prevposition, panels) {
     selectedposition.addEventListener("click", finalmove);
     let imgElement = selectedposition.querySelector("img");
     imgElement.addEventListener("click", finalmove);
-    caneatPositions5.push({position: imgElement, listener: finalmove});
-    selectedPositions5.push({position: selectedposition, listener: finalmove});
+    caneatPositions7.push({position: imgElement, listener: finalmove});
+    selectedPositions7.push({position: selectedposition, listener: finalmove});
   });
 }
 
-export {pawnmove, diagpawnmove, selectedPositions5, caneatPositions5};
+export {whitepawnmove, whitediagpawnmove, selectedPositions7, caneatPositions7};
