@@ -14,7 +14,6 @@ body {
   height: 600px;
   width: 600px;
   margin-top: 108px;
-  transform: rotate(90deg);
   position: absolute;
   margin-left: 651px;
   filter: invert(40%) sepia(53%) saturate(3141%) hue-rotate(343deg)

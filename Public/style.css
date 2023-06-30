@@ -30,7 +30,7 @@ body {
   color: white;
 }
 
-.mode1 {
+.Manual {
   margin-left: 10%;
   margin-top: 4%;
   border-style: solid;
@@ -43,7 +43,7 @@ body {
   color: aliceblue;
 }
 
-.mode2 {
+.Voicecontrol {
   margin-left: 57%;
   margin-top: -2.35rem;
   border-style: solid;
@@ -56,7 +56,7 @@ body {
   color: aliceblue;
 }
 
-.color1 {
+.white {
   margin-left: 10%;
   margin-top: 4%;
   border-style: solid;
@@ -69,7 +69,7 @@ body {
   color: aliceblue;
 }
 
-.color2 {
+.black {
   margin-left: 57%;
   margin-top: -2.35rem;
   border-style: solid;
@@ -82,7 +82,7 @@ body {
   color: aliceblue;
 }
 
-.difficulty1 {
+.Easy {
   margin-left: 10%;
   margin-top: 4%;
   border-style: solid;
@@ -95,7 +95,7 @@ body {
   color: aliceblue;
 }
 
-.difficulty2 {
+.Medium {
   margin-left: 57%;
   margin-top: -2.35rem;
   border-style: solid;
@@ -108,7 +108,7 @@ body {
   color: aliceblue;
 }
 
-.difficulty3 {
+.Hard {
   margin-left: 34%;
   margin-top: 1.5rem;
   border-style: solid;
@@ -122,13 +122,13 @@ body {
   position: absolute;
 }
 
-.mode1:hover,
-.mode2:hover,
-.difficulty1:hover,
-.difficulty2:hover,
-.difficulty3:hover,
-.color1:hover,
-.color2:hover {
+.Manual:hover,
+.Voicecontrol:hover,
+.Easy:hover,
+.Medium:hover,
+.Hard:hover,
+.white:hover,
+.black:hover {
   cursor: pointer;
   background-color: aliceblue;
   color: rgb(2, 20, 46);
@@ -153,5 +153,9 @@ body {
   background-color: rgb(2, 20, 46);
   color: aliceblue;
   border-color: transparent;
-  position: fixed;
+}
+
+.selected {
+  background-color: aliceblue;
+  color: rgb(2, 20, 46);
 }
