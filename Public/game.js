@@ -36,6 +36,15 @@ import {
   caneatPositions7,
 } from "./modules/white_pawn_move.js";
 import {tofen} from "./modules/to_fen.js";
+import {
+  blackdiagpawndanger,
+  whitediagpawndanger,
+  bishopdanger,
+  kingdanger,
+  queendanger,
+  knightdanger,
+  paralleldanger,
+} from "./modules/alldangerpositions.js";
 
 const chessPieces = document.querySelectorAll(".chesspieces img");
 const details = JSON.parse(localStorage.getItem("details"));
@@ -47,16 +56,6 @@ function toblack() {
   Array.from(imgElements).forEach((element) => {
     element.style.transform = "rotate(360deg)";
   });
-  const black = document.querySelectorAll(".black");
-  const white = document.querySelectorAll(".white");
-
-  // black.forEach((element) => {
-  //   element.style.backgroundColor = "white";
-  // });
-
-  // white.forEach((element) => {
-  //   element.style.backgroundColor = "rgb(253, 6, 6)";
-  // });
   let rolabel = document.querySelector(".rolabel");
   rolabel.innerHTML = `
   1 <br /><br />
@@ -90,12 +89,10 @@ function removeselected(panels) {
     position.classList.remove("caneat");
   });
 }
-
 function checkforcheck() {
   const kingposition = document.querySelector(`.${details["mode"]}_king`);
   return kingposition.parentNode.classList.contains("caneat");
 }
-
 function removeSelectedEventListeners() {
   const selectedPositions = selectedPositions1.concat(
     selectedPositions2,
@@ -157,6 +154,16 @@ const piecemove = (panels, prevposition) => (event) => {
   }
   removeselected(panels);
   removeSelectedEventListeners();
+  if (details["color"] == "white") {
+    whitediagpawndanger();
+  } else {
+    blackdiagpawndanger();
+  }
+  knightdanger();
+  kingdanger();
+  queendanger();
+  bishopdanger();
+  paralleldanger();
   tofen();
 };
 function check(position) {
