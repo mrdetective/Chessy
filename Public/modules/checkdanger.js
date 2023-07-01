@@ -1,5 +1,6 @@
 function todanger(position) {
-  if (document.querySelector(position).classList.contains("danger")) {
+  console.log(position);
+  if (document.querySelector(`.${position}`).classList.contains("danger")) {
     return false;
   }
   return true;

@@ -82,11 +82,15 @@ if (details["color"] == "black") {
 function removeselected(panels) {
   const selected = document.querySelectorAll(".selected");
   const caneat = document.querySelectorAll(".caneat");
+  const dangerpositions = document.querySelectorAll(".danger");
   selected.forEach((position) => {
     position.classList.remove("selected");
   });
   caneat.forEach((position) => {
     position.classList.remove("caneat");
+  });
+  dangerpositions.forEach((position) => {
+    position.classList.remove("danger");
   });
 }
 function checkforcheck() {
@@ -154,16 +158,6 @@ const piecemove = (panels, prevposition) => (event) => {
   }
   removeselected(panels);
   removeSelectedEventListeners();
-  if (details["color"] == "white") {
-    whitediagpawndanger();
-  } else {
-    blackdiagpawndanger();
-  }
-  knightdanger();
-  kingdanger();
-  queendanger();
-  bishopdanger();
-  paralleldanger();
   tofen();
 };
 function check(position) {
@@ -185,13 +179,57 @@ chessPieces.forEach((piece) => {
     const panels = document.querySelectorAll(".panel div");
     const parentPanel = piece.parentNode;
     const piecename = piece.className;
-    let color;
+    let color, bishoppos, knightpos, rookpos, pawnpos, kingpos, queenpos;
     if (details["color"] == "white") color = "black";
     else color = "white";
     if (piecename.substring(0, 10) != `${color}piece`) {
       removeSelectedEventListeners();
       removeselected(panels);
     }
+    if (details["color"] == "white") {
+      bishoppos = document.querySelectorAll(".black_bishop");
+      knightpos = document.querySelectorAll(".black_knight");
+      rookpos = document.querySelectorAll(".black_rook");
+      pawnpos = document.querySelectorAll(".black_pawn");
+      queenpos = document.querySelectorAll(".black_queen");
+      kingpos = document.querySelectorAll(".black_king");
+    } else {
+      bishoppos = document.querySelectorAll(".white_bishop");
+      knightpos = document.querySelectorAll(".white_knight");
+      rookpos = document.querySelectorAll(".white_rook");
+      pawnpos = document.querySelectorAll(".white_pawn");
+      queenpos = document.querySelectorAll(".white_queen");
+      kingpos = document.querySelectorAll(".white_king");
+    }
+    bishoppos.forEach((element) => {
+      bishopdanger(element.parentNode, element.parentNode.className, panels);
+    });
+    rookpos.forEach((element) => {
+      paralleldanger(element.parentNode, element.parentNode.className, panels);
+    });
+    queenpos.forEach((element) => {
+      queendanger(element.parentNode, element.parentNode.className, panels);
+    });
+    knightpos.forEach((element) => {
+      knightdanger(element.parentNode, element.parentNode.className, panels);
+    });
+    kingpos.forEach((element) => {
+      knightdanger(element.parentNode, element.parentNode.className, panels);
+    });
+    pawnpos.forEach((element) => {
+      if (details["color"] == "black")
+        whitediagpawndanger(
+          element.parentNode,
+          element.parentNode.className,
+          panels
+        );
+      else
+        blackdiagpawndanger(
+          element.parentNode,
+          element.parentNode.className,
+          panels
+        );
+    });
     if (piecename.substring(11) == `${details["color"]}_pawn`) {
       if (details["color"] == "white") {
         const tonum = parentPanel.className[1] - "0" + 1;

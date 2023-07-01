@@ -1,3 +1,4 @@
+import {check, checkcolor} from "../game.js";
 function bishopdanger(position, prevposition, panels) {
   const curnum = position.className[1] - "0";
   const curalpha = position.className[0];
@@ -466,9 +467,11 @@ function queendanger(position, prevposition, panels) {
   }
 }
 function whitediagpawndanger(position, prevposition, panels) {
-  let positionArray = position.split("");
+  // console.log(position.className);
+  let positionArray = position.className.split("");
   positionArray[0] = String.fromCharCode(positionArray[0].charCodeAt(0) + 1);
   position = positionArray.join("");
+  console.log(position);
   if (position[0] <= "h" && !check(position)) {
     document.getElementsByClassName(`${position}`)[0].classList.add("danger");
   }

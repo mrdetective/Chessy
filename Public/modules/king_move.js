@@ -1,4 +1,5 @@
 import {check, checkcolor, piecemove} from "../game.js";
+import {todanger} from "./checkdanger.js";
 
 let selectedPositions4 = [];
 let caneatPositions4 = [];
@@ -9,22 +10,22 @@ function kingMove(position, prevposition, panels) {
   let posnum = curnum;
   if (posalpha <= "h") {
     let toclass = posalpha.toString() + posnum.toString();
-    if (!check(toclass))
+    if (!check(toclass) && todanger(`${toclass}`))
       document
         .getElementsByClassName(`${toclass}`)[0]
         .classList.add("selected");
-    else if (checkcolor(toclass)) {
+    else if (check(toclass) && checkcolor(toclass) && todanger(`${toclass}`)) {
       document.getElementsByClassName(`${toclass}`)[0].classList.add("caneat");
     }
   }
   posalpha = String.fromCharCode(posalpha.charCodeAt(0) - 2);
   if (posalpha >= "a") {
     let toclass = posalpha.toString() + posnum.toString();
-    if (!check(toclass))
+    if (!check(toclass) && todanger(`${toclass}`))
       document
         .getElementsByClassName(`${toclass}`)[0]
         .classList.add("selected");
-    else if (checkcolor(toclass)) {
+    else if (check(toclass) && checkcolor(toclass) && todanger(`${toclass}`)) {
       document.getElementsByClassName(`${toclass}`)[0].classList.add("caneat");
     }
   }
@@ -32,33 +33,33 @@ function kingMove(position, prevposition, panels) {
   posnum++;
   if (posnum <= 8) {
     let toclass = posalpha.toString() + posnum.toString();
-    if (!check(toclass))
+    if (!check(toclass) && todanger(`${toclass}`))
       document
         .getElementsByClassName(`${toclass}`)[0]
         .classList.add("selected");
-    else if (checkcolor(toclass)) {
+    else if (check(toclass) && checkcolor(toclass) && todanger(`${toclass}`)) {
       document.getElementsByClassName(`${toclass}`)[0].classList.add("caneat");
     }
   }
   posalpha = String.fromCharCode(posalpha.charCodeAt(0) + 1);
   if (posnum <= 8 && posalpha <= "h") {
     let toclass = posalpha.toString() + posnum.toString();
-    if (!check(toclass))
+    if (!check(toclass) && todanger(`${toclass}`))
       document
         .getElementsByClassName(`${toclass}`)[0]
         .classList.add("selected");
-    else if (checkcolor(toclass)) {
+    else if (check(toclass) && checkcolor(toclass) && todanger(`${toclass}`)) {
       document.getElementsByClassName(`${toclass}`)[0].classList.add("caneat");
     }
   }
   posalpha = String.fromCharCode(posalpha.charCodeAt(0) - 2);
   if (posnum <= 8 && posalpha >= "a") {
     let toclass = posalpha.toString() + posnum.toString();
-    if (!check(toclass))
+    if (!check(toclass) && todanger(`${toclass}`))
       document
         .getElementsByClassName(`${toclass}`)[0]
         .classList.add("selected");
-    else if (checkcolor(toclass)) {
+    else if (check(toclass) && checkcolor(toclass) && todanger(`${toclass}`)) {
       document.getElementsByClassName(`${toclass}`)[0].classList.add("caneat");
     }
   }
@@ -66,33 +67,33 @@ function kingMove(position, prevposition, panels) {
   posnum -= 2;
   if (posnum >= 1) {
     let toclass = posalpha.toString() + posnum.toString();
-    if (!check(toclass))
+    if (!check(toclass) && todanger(`${toclass}`))
       document
         .getElementsByClassName(`${toclass}`)[0]
         .classList.add("selected");
-    else if (checkcolor(toclass)) {
+    else if (check(toclass) && checkcolor(toclass) && todanger(`${toclass}`)) {
       document.getElementsByClassName(`${toclass}`)[0].classList.add("caneat");
     }
   }
   posalpha = String.fromCharCode(posalpha.charCodeAt(0) + 1);
   if (posnum >= 1 && posalpha <= "h") {
     let toclass = posalpha.toString() + posnum.toString();
-    if (!check(toclass))
+    if (!check(toclass) && todanger(`${toclass}`))
       document
         .getElementsByClassName(`${toclass}`)[0]
         .classList.add("selected");
-    else if (checkcolor(toclass)) {
+    else if (check(toclass) && checkcolor(toclass) && todanger(`${toclass}`)) {
       document.getElementsByClassName(`${toclass}`)[0].classList.add("caneat");
     }
   }
   posalpha = String.fromCharCode(posalpha.charCodeAt(0) - 2);
   if (posnum >= 1 && posalpha >= "a") {
     let toclass = posalpha.toString() + posnum.toString();
-    if (!check(toclass))
+    if (!check(toclass) && todanger(`${toclass}`))
       document
         .getElementsByClassName(`${toclass}`)[0]
         .classList.add("selected");
-    else if (checkcolor(toclass)) {
+    else if (check(toclass) && checkcolor(toclass) && todanger(`${toclass}`)) {
       document.getElementsByClassName(`${toclass}`)[0].classList.add("caneat");
     }
   }
