@@ -316,12 +316,12 @@ function blackdiagpawndanger(position, prevposition, panels) {
   let positionArray = position.split("");
   positionArray[0] = String.fromCharCode(positionArray[0].charCodeAt(0) + 1);
   position = positionArray.join("");
-  if (position[0] <= "h" && check(position) && checkcolor(position)) {
+  if (position[0] <= "h") {
     document.getElementsByClassName(`${position}`)[0].classList.add("danger");
   }
   positionArray[0] = String.fromCharCode(positionArray[0].charCodeAt(0) - 2);
   position = positionArray.join("");
-  if (position[0] >= "a" && check(position) && checkcolor(position)) {
+  if (position[0] >= "a") {
     document.getElementsByClassName(`${position}`)[0].classList.add("danger");
   }
 }
@@ -468,16 +468,15 @@ function queendanger(position, prevposition, panels) {
 }
 function whitediagpawndanger(position, prevposition, panels) {
   // console.log(position.className);
-  let positionArray = position.className.split("");
+  let positionArray = position.split("");
   positionArray[0] = String.fromCharCode(positionArray[0].charCodeAt(0) + 1);
   position = positionArray.join("");
-  console.log(position);
-  if (position[0] <= "h" && !check(position)) {
+  if (position[0] <= "h") {
     document.getElementsByClassName(`${position}`)[0].classList.add("danger");
   }
   positionArray[0] = String.fromCharCode(positionArray[0].charCodeAt(0) - 2);
   position = positionArray.join("");
-  if (position[0] >= "a" && !check(position)) {
+  if (position[0] >= "a") {
     document.getElementsByClassName(`${position}`)[0].classList.add("danger");
   }
 }

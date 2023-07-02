@@ -1,5 +1,9 @@
 function retrieveinfo() {
-  let details = {mode: "Manual", difficulty: "Medium", color: "white"};
+  let details = {
+    mode: "Manual",
+    difficulty: "Medium",
+    color: "white",
+  };
   let mode = document.querySelectorAll(".mod");
   mode.forEach((element) => {
     element.addEventListener("click", (event) => {
@@ -40,7 +44,10 @@ function retrieveinfo() {
     localStorage.setItem("details", JSON.stringify(details));
     localStorage.setItem("curcolor", "white");
     localStorage.setItem("movenumber", "1");
-    console.log(localStorage.getItem("movenumber"));
+    localStorage.setItem("left_white_castling", "1");
+    localStorage.setItem("right_white_castling", "1");
+    localStorage.setItem("left_black_castling", "1");
+    localStorage.setItem("right_black_castling", "1");
     window.location.href = "game.html";
   });
 }

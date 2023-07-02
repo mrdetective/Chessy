@@ -169,3 +169,9 @@ img {
   background-image: radial-gradient(rgb(255, 255, 255), rgb(255, 60, 0));
   cursor: pointer;
 }
+
+.castling {
+  background-color: red;
+  background-image: radial-gradient(rgb(255, 255, 255), rgb(236, 188, 239));
+  cursor: pointer;
+}

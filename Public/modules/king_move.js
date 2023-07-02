@@ -3,6 +3,7 @@ import {todanger} from "./checkdanger.js";
 
 let selectedPositions4 = [];
 let caneatPositions4 = [];
+let castlingpositions = [];
 function kingMove(position, prevposition, panels) {
   const curnum = position.className[1] - "0";
   const curalpha = position.className[0];
@@ -97,6 +98,47 @@ function kingMove(position, prevposition, panels) {
       document.getElementsByClassName(`${toclass}`)[0].classList.add("caneat");
     }
   }
+  let details = JSON.parse(localStorage.getItem("details"));
+  if (localStorage.getItem(`${details["color"]}_right_castling`) != "0") {
+    posalpha = position.className[0];
+    let f = 0;
+    for (let i = posalpha.charCodeAt(0) + 1; i <= "g".charCodeAt(0); i++) {
+      let classname = String.fromCharCode(i) + position.className[1];
+      if (
+        document
+          .querySelector(`.${classname}`)
+          .getElementsByTagName("img")[0] != undefined
+      ) {
+        f = 1;
+        break;
+      }
+    }
+    let castlingplace =
+      String.fromCharCode(posalpha.charCodeAt(0) + 2) + position.className[1];
+    if (f == 0 && todanger(`${castlingplace}`)) {
+      document.querySelector(`.${castlingplace}`).classList.add("castling");
+    }
+  }
+  if (localStorage.getItem(`${details["color"]}_left_castling`) != "0") {
+    posalpha = position.className[0];
+    let f = 0;
+    for (let i = posalpha.charCodeAt(0) - 1; i >= "b".charCodeAt(0); i--) {
+      let classname = String.fromCharCode(i) + position.className[1];
+      if (
+        document
+          .querySelector(`.${classname}`)
+          .getElementsByTagName("img")[0] != undefined
+      ) {
+        f = 1;
+        break;
+      }
+    }
+    let castlingplace =
+      String.fromCharCode(posalpha.charCodeAt(0) - 2) + position.className[1];
+    if (f == 0 && todanger(`${castlingplace}`)) {
+      document.querySelector(`.${castlingplace}`).classList.add("castling");
+    }
+  }
   const selected = document.querySelectorAll(".selected");
   selected.forEach((selectedposition) => {
     let finalmove = piecemove(panels, prevposition);
@@ -112,6 +154,12 @@ function kingMove(position, prevposition, panels) {
     caneatPositions4.push({position: imgElement, listener: finalmove});
     selectedPositions4.push({position: selectedposition, listener: finalmove});
   });
+  const castling = document.querySelectorAll(".castling");
+  castling.forEach((castlingposition) => {
+    let finalmove = piecemove(panels, prevposition, 1);
+    castlingposition.addEventListener("click", finalmove);
+    castlingpositions.push({position: castlingposition, listener: finalmove});
+  });
 }
 
-export {kingMove, selectedPositions4, caneatPositions4};
+export {kingMove, selectedPositions4, caneatPositions4, castlingpositions};

@@ -71,6 +71,5 @@ function tofen() {
   }
   let movenumber = localStorage.getItem("movenumber");
   val += ` ${turn} ${K + Q + k + q} - ${todraw} ${movenumber}`;
-  console.log(val);
 }
 export {tofen, turn, K, k, Q, q, todraw};

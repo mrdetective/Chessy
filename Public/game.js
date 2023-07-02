@@ -17,6 +17,7 @@ import {
   kingMove,
   caneatPositions4,
   selectedPositions4,
+  castlingpositions,
 } from "./modules/king_move.js";
 import {
   blackpawnmove,
@@ -83,6 +84,7 @@ function removeselected(panels) {
   const selected = document.querySelectorAll(".selected");
   const caneat = document.querySelectorAll(".caneat");
   const dangerpositions = document.querySelectorAll(".danger");
+  const castling = document.querySelectorAll(".castling");
   selected.forEach((position) => {
     position.classList.remove("selected");
   });
@@ -91,6 +93,9 @@ function removeselected(panels) {
   });
   dangerpositions.forEach((position) => {
     position.classList.remove("danger");
+  });
+  castling.forEach((position) => {
+    position.classList.remove("castling");
   });
 }
 function checkforcheck() {
@@ -120,46 +125,89 @@ function removeSelectedEventListeners() {
   caneatPositions.forEach((item) => {
     item.position.removeEventListener("click", item.listener);
   });
+  castlingpositions.forEach((item) => {
+    item.position.removeEventListener("click", item.listener);
+  });
   selectedPositions.length = 0;
   caneatPositions.length = 0;
+  castlingpositions.length = 0;
 }
-const piecemove = (panels, prevposition) => (event) => {
-  const position = event.target;
-  let topos;
-  if (position.tagName === "IMG") {
-    topos = position.parentNode.className[0] + position.parentNode.className[1];
-  } else {
-    topos = position.className[0] + position.className[1];
-  }
-  const curpos = prevposition[0] + prevposition[1];
-  const from = document.querySelector(`.${curpos}`);
-  const to = document.querySelector(`.${topos}`);
-  const piece = from.getElementsByTagName("img");
-  const piecetoeat = to.getElementsByTagName("img");
-  if (piece.length === 0) {
-    return;
-  }
-  if (piecetoeat.length != 0) {
-    to.removeChild(piecetoeat[0]);
-  }
-  const image = piece[0];
-  from.removeChild(image);
-  to.appendChild(image);
-  const audio = new Audio("../media/move.mp3");
-  audio.play();
-  let curcolor = localStorage.getItem("curcolor");
-  if (curcolor == "white") {
-    localStorage.setItem("curcolor", "black");
-  } else {
-    let movenumber = localStorage.getItem("movenumber");
-    let number = parseInt(movenumber) + 1;
-    localStorage.setItem("movenumber", `${number}`);
-    localStorage.setItem("curcolor", "white");
-  }
-  removeselected(panels);
-  removeSelectedEventListeners();
-  tofen();
-};
+const piecemove =
+  (panels, prevposition, castling = 0) =>
+  (event) => {
+    const position = event.target;
+    let topos;
+    if (position.tagName === "IMG") {
+      topos =
+        position.parentNode.className[0] + position.parentNode.className[1];
+    } else {
+      topos = position.className[0] + position.className[1];
+    }
+    const curpos = prevposition[0] + prevposition[1];
+    const from = document.querySelector(`.${curpos}`);
+    const to = document.querySelector(`.${topos}`);
+    const piece = from.getElementsByTagName("img");
+    const piecetoeat = to.getElementsByTagName("img");
+    if (piece.length === 0) {
+      return;
+    }
+    if (piece[0].classList.contains("white_rook")) {
+      if (piece[0].parentNode.classList.contains("h1")) {
+        localStorage.setItem("left_white_castling", "0");
+      } else if (piece[0].parentNode.classList.contains("a1")) {
+        localStorage.setItem("right_white_castling", "0");
+      }
+    } else if (piece[0].classList.contains("black_rook")) {
+      if (piece[0].parentNode.classList.contains("h8")) {
+        localStorage.setItem("left_black_castling", "0");
+      } else if (piece[0].parentNode.classList.contains("a8")) {
+        localStorage.setItem("right_black_castling", "0");
+      }
+    } else if (piece[0].classList.contains("black_king")) {
+      localStorage.setItem("left_black_castling", "0");
+      localStorage.setItem("right_black_castling", "0");
+    } else if (piece[0].classList.contains("white_king")) {
+      localStorage.setItem("left_white_castling", "0");
+      localStorage.setItem("right_white_castling", "0");
+    }
+    const audio = new Audio("../media/move.mp3");
+    if (castling == 1) {
+      if (to.className.substring(0, 2) == "g1") {
+        let rookimg = document
+          .querySelector(".h1")
+          .getElementsByTagName("img")[0];
+        audio.play();
+        document.querySelector(".h1").removeChild(rookimg);
+        document.querySelector(".f1").appendChild(rookimg);
+      } else {
+        let rookimg = document
+          .querySelector(".a1")
+          .getElementsByTagName("img")[0];
+        audio.play();
+        document.querySelector(".a1").removeChild(rookimg);
+        document.querySelector(".d1").appendChild(rookimg);
+      }
+    }
+    if (piecetoeat.length != 0) {
+      to.removeChild(piecetoeat[0]);
+    }
+    const image = piece[0];
+    from.removeChild(image);
+    to.appendChild(image);
+    audio.play();
+    let curcolor = localStorage.getItem("curcolor");
+    if (curcolor == "white") {
+      localStorage.setItem("curcolor", "black");
+    } else {
+      let movenumber = localStorage.getItem("movenumber");
+      let number = parseInt(movenumber) + 1;
+      localStorage.setItem("movenumber", `${number}`);
+      localStorage.setItem("curcolor", "white");
+    }
+    removeselected(panels);
+    removeSelectedEventListeners();
+    tofen();
+  };
 function check(position) {
   const check = document.querySelector(`.${position}`);
   const imgElements = check.getElementsByTagName("img");
@@ -214,21 +262,18 @@ chessPieces.forEach((piece) => {
       knightdanger(element.parentNode, element.parentNode.className, panels);
     });
     kingpos.forEach((element) => {
-      knightdanger(element.parentNode, element.parentNode.className, panels);
+      kingdanger(element.parentNode, element.parentNode.className, panels);
     });
     pawnpos.forEach((element) => {
-      if (details["color"] == "black")
-        whitediagpawndanger(
-          element.parentNode,
-          element.parentNode.className,
-          panels
-        );
-      else
-        blackdiagpawndanger(
-          element.parentNode,
-          element.parentNode.className,
-          panels
-        );
+      if (details["color"] == "black") {
+        const tonum = element.parentNode.className[1] - "0" + 1;
+        const toclass = element.parentNode.className[0] + tonum;
+        whitediagpawndanger(toclass, element.parentNode.className, panels);
+      } else {
+        const tonum = element.parentNode.className[1] - "0" - 1;
+        const toclass = element.parentNode.className[0] + tonum;
+        blackdiagpawndanger(toclass, element.parentNode.className, panels);
+      }
     });
     if (piecename.substring(11) == `${details["color"]}_pawn`) {
       if (details["color"] == "white") {
