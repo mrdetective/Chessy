@@ -44,10 +44,10 @@ function retrieveinfo() {
     localStorage.setItem("details", JSON.stringify(details));
     localStorage.setItem("curcolor", "white");
     localStorage.setItem("movenumber", "1");
-    localStorage.setItem("left_white_castling", "1");
-    localStorage.setItem("right_white_castling", "1");
-    localStorage.setItem("left_black_castling", "1");
-    localStorage.setItem("right_black_castling", "1");
+    localStorage.setItem("white_left_castling", "1");
+    localStorage.setItem("white_right_castling", "1");
+    localStorage.setItem("black_left_castling", "1");
+    localStorage.setItem("black_right_castling", "1");
     window.location.href = "game.html";
   });
 }

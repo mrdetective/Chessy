@@ -467,7 +467,6 @@ function queendanger(position, prevposition, panels) {
   }
 }
 function whitediagpawndanger(position, prevposition, panels) {
-  // console.log(position.className);
   let positionArray = position.split("");
   positionArray[0] = String.fromCharCode(positionArray[0].charCodeAt(0) + 1);
   position = positionArray.join("");
