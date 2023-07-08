@@ -1,5 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Hind:wght@300&family=Rubik:wght@300&display=swap");
 body {
-  background: url(../media/backdround.jpg);
+  background: #73523f;
 }
 
 .chesspieces {
@@ -18,6 +19,7 @@ body {
   margin-left: 651px;
   filter: invert(40%) sepia(53%) saturate(3141%) hue-rotate(343deg)
     brightness(95%) contrast(80%);
+  border-style: solid;
 }
 
 .white_rook {
@@ -130,21 +132,34 @@ img {
 .rolabel {
   position: absolute;
   color: wheat;
-  font-size: 32px;
-  margin-top: 113px;
+  font-size: 24px;
+  margin-top: 145px;
+  font-family: "Hind", sans-serif;
+  background-color: #654836;
+  width: 39px;
+  margin-right: -7px;
+  height: 639px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .colabel {
   color: wheat;
-  font-size: 32px;
+  font-size: 24px;
   position: absolute;
-  margin-top: 760px;
-  margin-left: 1017px;
-  width: 993px;
+  margin-top: 746px;
+  margin-left: 648px;
+  width: 603px;
+  font-family: "Hind", sans-serif;
+  word-spacing: 6px;
+  background-color: #654836;
+  align-items: center;
 }
 
 .colabel span {
-  margin-left: 51px;
+  margin-left: 50px;
+  margin-top: 2px;
 }
 
 .selected {
@@ -157,11 +172,11 @@ img {
 }
 
 .black {
-  background-color: rgb(253, 6, 6);
+  background-color: #b08268;
 }
 
 .white {
-  background-color: rgb(255, 255, 255);
+  background-color: #ffe1c4;
 }
 
 .caneat {

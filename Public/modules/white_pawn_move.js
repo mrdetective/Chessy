@@ -56,8 +56,7 @@ function whiteenpassantmove(position, prevposition, panels) {
   let position3 = positionArray.join("");
   positionArray[0] = String.fromCharCode(positionArray[0].charCodeAt(0) - 2);
   let position4 = positionArray.join("");
-  console.log(position, position2, position3, position4);
-  if (!check(position4)) {
+  if (position4[0] >= "a" && position4[0] <= "h" && !check(position4)) {
     if (check(position) && checkcolor(position)) {
       const enpassantcheck = document
         .querySelector(`.${position}`)
@@ -68,7 +67,7 @@ function whiteenpassantmove(position, prevposition, panels) {
       }
     }
   }
-  if (!check(position3)) {
+  if (position3[0] <= "h" && position3[0] >= "a" && !check(position3)) {
     if (check(position2) && checkcolor(position2)) {
       const enpassantcheck = document
         .querySelector(`.${position2}`)

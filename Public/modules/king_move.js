@@ -115,7 +115,6 @@ function kingMove(position, prevposition, panels) {
     }
     let castlingplace =
       String.fromCharCode(posalpha.charCodeAt(0) + 2) + position.className[1];
-    console.log(castlingplace);
     if (f == 0 && todanger(`${castlingplace}`)) {
       document.querySelector(`.${castlingplace}`).classList.add("castling");
     }
@@ -136,7 +135,6 @@ function kingMove(position, prevposition, panels) {
     }
     let castlingplace =
       String.fromCharCode(posalpha.charCodeAt(0) - 2) + position.className[1];
-    console.log(castlingplace);
     if (f == 0 && todanger(`${castlingplace}`)) {
       document.querySelector(`.${castlingplace}`).classList.add("castling");
     }

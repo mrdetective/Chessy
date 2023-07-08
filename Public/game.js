@@ -230,31 +230,31 @@ const piecemove =
     }
     if (piecetoeat.length != 0) {
       to.removeChild(piecetoeat[0]);
+      localStorage.setItem("to_draw", "0");
     }
     if (enpassant == 1) {
       if (details["color"] == "black") {
         let enpassantpos = to.className[0] + (parseInt(to.className[1]) + 1);
         let piece = document.querySelector(`.${enpassantpos}`);
         piece.removeChild(piece.getElementsByTagName("img")[0]);
+        localStorage.setItem("to_draw", "0");
       } else {
         let enpassantpos = to.className[0] + (parseInt(to.className[1]) - 1);
         let piece = document.querySelector(`.${enpassantpos}`);
         piece.removeChild(piece.getElementsByTagName("img")[0]);
+        localStorage.setItem("to_draw", "0");
       }
     }
+    if (piece[0].classList[1].includes("pawn")) {
+      localStorage.setItem("to_draw", "0");
+    }
+    let movenumber = localStorage.getItem("movenumber");
+    console.log(movenumber);
+    localStorage.setItem("movenumber", `${parseInt(movenumber) + 1}`);
     const image = piece[0];
     from.removeChild(image);
     to.appendChild(image);
     audio.play();
-    let curcolor = localStorage.getItem("curcolor");
-    if (curcolor == "white") {
-      localStorage.setItem("curcolor", "black");
-    } else {
-      let movenumber = localStorage.getItem("movenumber");
-      let number = parseInt(movenumber) + 1;
-      localStorage.setItem("movenumber", `${number}`);
-      localStorage.setItem("curcolor", "white");
-    }
     removeselected(panels);
     removeSelectedEventListeners();
     tofen();

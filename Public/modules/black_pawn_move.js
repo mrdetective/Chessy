@@ -58,7 +58,6 @@ function blackenpassantmove(position, prevposition, panels) {
   let position3 = positionArray.join("");
   positionArray[0] = String.fromCharCode(positionArray[0].charCodeAt(0) + 2);
   let position4 = positionArray.join("");
-  console.log(position, position2, position3, position4);
   if (!check(position4)) {
     if (check(position) && checkcolor(position)) {
       const enpassantcheck = document

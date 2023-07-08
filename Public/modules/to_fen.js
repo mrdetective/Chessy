@@ -1,9 +1,3 @@
-let turn = "w",
-  k = "k",
-  K = "K",
-  Q = "Q",
-  q = "q",
-  todraw = 0;
 function tofen() {
   let val = "",
     num = 0;
@@ -69,7 +63,32 @@ function tofen() {
     if (i != 8) val += "/";
     num = 0;
   }
-  let movenumber = localStorage.getItem("movenumber");
-  val += ` ${turn} ${K + Q + k + q} - ${todraw} ${movenumber}`;
+  let details = JSON.parse(localStorage.getItem("details"));
+  if (details["color"] == "white") val += " b ";
+  else val += " w ";
+  let f = 0;
+  if (localStorage.getItem("white_left_castling") != "0") {
+    f = 1;
+    val += "K";
+  }
+  if (localStorage.getItem("white_right_castling") != "0") {
+    f = 1;
+    val += "Q";
+  }
+  if (localStorage.getItem("black_left_castling") != "0") {
+    f = 1;
+    val += "k";
+  }
+  if (localStorage.getItem("black_right_castling") != "0") {
+    f = 1;
+    val += "q";
+  }
+  if (f == 0) {
+    val += "-";
+  }
+  val += " -";
+  val += " " + localStorage.getItem("to_draw");
+  val += " " + localStorage.getItem("movenumber");
+  console.log(val);
 }
-export {tofen, turn, K, k, Q, q, todraw};
+export {tofen};

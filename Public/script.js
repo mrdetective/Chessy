@@ -43,11 +43,12 @@ function retrieveinfo() {
   playgame.addEventListener("click", (event) => {
     localStorage.setItem("details", JSON.stringify(details));
     localStorage.setItem("curcolor", "white");
-    localStorage.setItem("movenumber", "1");
+    localStorage.setItem("movenumber", "0");
     localStorage.setItem("white_left_castling", "1");
     localStorage.setItem("white_right_castling", "1");
     localStorage.setItem("black_left_castling", "1");
     localStorage.setItem("black_right_castling", "1");
+    localStorage.setItem("to_draw", "0");
     window.location.href = "game.html";
   });
 }
