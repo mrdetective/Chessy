@@ -1,3 +1,5 @@
+import {movefetch} from "./movefetch.js";
+
 function tofen() {
   let val = "",
     num = 0;
@@ -64,8 +66,8 @@ function tofen() {
     num = 0;
   }
   let details = JSON.parse(localStorage.getItem("details"));
-  if (details["color"] == "white") val += " b ";
-  else val += " w ";
+  if (details["color"] == "white") val += " w ";
+  else val += " b ";
   let f = 0;
   if (localStorage.getItem("white_left_castling") != "0") {
     f = 1;
@@ -89,6 +91,6 @@ function tofen() {
   val += " -";
   val += " " + localStorage.getItem("to_draw");
   val += " " + localStorage.getItem("movenumber");
-  console.log(val);
+  movefetch(val);
 }
 export {tofen};

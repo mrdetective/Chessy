@@ -38,6 +38,7 @@ import {
   caneatPositions7,
   whiteenpassantmove,
 } from "./modules/white_pawn_move.js";
+import {movefetch} from "./modules/movefetch.js";
 import {tofen} from "./modules/to_fen.js";
 import {
   blackdiagpawndanger,
@@ -249,7 +250,6 @@ const piecemove =
       localStorage.setItem("to_draw", "0");
     }
     let movenumber = localStorage.getItem("movenumber");
-    console.log(movenumber);
     localStorage.setItem("movenumber", `${parseInt(movenumber) + 1}`);
     const image = piece[0];
     from.removeChild(image);
