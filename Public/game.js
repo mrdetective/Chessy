@@ -88,6 +88,7 @@ function removeselected(panels) {
   const caneat = document.querySelectorAll(".caneat");
   const dangerpositions = document.querySelectorAll(".danger");
   const castling = document.querySelectorAll(".castling");
+  const enpassant = document.querySelectorAll(".en-passant");
   selected.forEach((position) => {
     position.classList.remove("selected");
   });
@@ -99,6 +100,9 @@ function removeselected(panels) {
   });
   castling.forEach((position) => {
     position.classList.remove("castling");
+  });
+  enpassant.forEach((position) => {
+    position.classList.remove("en-passant");
   });
 }
 function checkforcheck() {
@@ -249,15 +253,18 @@ const piecemove =
     if (piece[0].classList[1].includes("pawn")) {
       localStorage.setItem("to_draw", "0");
     }
-    let movenumber = localStorage.getItem("movenumber");
-    localStorage.setItem("movenumber", `${parseInt(movenumber) + 1}`);
+    if (details["color"] == "white") {
+      let movenumber = localStorage.getItem("movenumber");
+      localStorage.setItem("movenumber", `${parseInt(movenumber) + 1}`);
+    }
     const image = piece[0];
     from.removeChild(image);
     to.appendChild(image);
     audio.play();
     removeselected(panels);
     removeSelectedEventListeners();
-    tofen();
+    let nextpos = tofen();
+    console.log(nextpos);
   };
 function check(position) {
   const check = document.querySelector(`.${position}`);
