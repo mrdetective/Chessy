@@ -39,6 +39,7 @@ import {
   whiteenpassantmove,
 } from "./modules/white_pawn_move.js";
 import {movefetch} from "./modules/movefetch.js";
+import {opponentmove} from "./modules/opponentmove.js";
 import {tofen} from "./modules/to_fen.js";
 import {
   blackdiagpawndanger,
@@ -263,8 +264,11 @@ const piecemove =
     audio.play();
     removeselected(panels);
     removeSelectedEventListeners();
-    let nextpos = tofen();
-    console.log(nextpos);
+    tofen().then((result) => {
+      setTimeout(() => {
+        opponentmove(result);
+      }, 2000);
+    });
   };
 function check(position) {
   const check = document.querySelector(`.${position}`);
