@@ -1,4 +1,6 @@
 import {check, checkcolor, piecemove} from "../game.js";
+import {tofen} from "./to_fen.js";
+import {setmove} from "./checkforcheck.js";
 
 let selectedPositions1 = [];
 let caneatPositions1 = [];
@@ -9,7 +11,9 @@ function knightMove(position, prevposition, panels) {
     posalpha = String.fromCharCode(curalpha.charCodeAt(0) + 1);
   if (posnum <= 8 && posalpha <= "h") {
     let toclass = posalpha.toString() + posnum.toString();
+    let frompos = position.classList[0].substring(0, 2);
     if (!check(toclass)) {
+      setmove(frompos, toclass);
       document
         .getElementsByClassName(`${toclass}`)[0]
         .classList.add("selected");
@@ -25,11 +29,12 @@ function knightMove(position, prevposition, panels) {
     (posalpha = String.fromCharCode(curalpha.charCodeAt(0) - 1));
   if (posnum <= 8 && posalpha >= "a") {
     let toclass = posalpha.toString() + posnum.toString();
+    let validcheck = position.classList[0].substring(0, 2) + toclass;
     if (!check(toclass)) {
       document
         .getElementsByClassName(`${toclass}`)[0]
         .classList.add("selected");
-    } else if (checkcolor(toclass)) {
+    } else if (checkcolor(toclass) && result != "false") {
       document.getElementsByClassName(`${toclass}`)[0].classList.add("caneat");
     }
   }

@@ -1,5 +1,4 @@
 import {movefetch} from "./movefetch.js";
-
 function tofen() {
   let val = "",
     num = 0;

@@ -50,6 +50,7 @@ import {
   knightdanger,
   paralleldanger,
 } from "./modules/alldangerpositions.js";
+import {setmove} from "./modules/checkforcheck.js";
 
 const chessPieces = document.querySelectorAll(".chesspieces img");
 const details = JSON.parse(localStorage.getItem("details"));
@@ -79,6 +80,9 @@ function toblack() {
   <span>c</span>
   <span>b</span>
   <span>a</span>`;
+  tofen().then((result) => {
+    opponentmove(result);
+  });
 }
 if (details["color"] == "black") {
   toblack();
@@ -105,10 +109,6 @@ function removeselected(panels) {
   enpassant.forEach((position) => {
     position.classList.remove("en-passant");
   });
-}
-function checkforcheck() {
-  const kingposition = document.querySelector(`.${details["mode"]}_king`);
-  return kingposition.parentNode.classList.contains("caneat");
 }
 function removeSelectedEventListeners() {
   const selectedPositions = selectedPositions1.concat(
@@ -235,8 +235,23 @@ const piecemove =
       }
     }
     if (piecetoeat.length != 0) {
-      to.removeChild(piecetoeat[0]);
       localStorage.setItem("to_draw", "0");
+      if (piecetoeat[0].classList[1].includes("rook")) {
+        if (details["color"] == "white") {
+          if (to.contains("a8")) {
+            localStorage.setItem("black_left_castling", "0");
+          } else if (to.contains("h8")) {
+            localStorage.setItem("black_right_castling", "0");
+          }
+        } else {
+          if (to.contains("h1")) {
+            localStorage.setItem("white_left_castling", "0");
+          } else if (to.contains("a1")) {
+            localStorage.setItem("white_right_castling", "0");
+          }
+        }
+      }
+      to.removeChild(piecetoeat[0]);
     }
     if (enpassant == 1) {
       if (details["color"] == "black") {
@@ -254,7 +269,7 @@ const piecemove =
     if (piece[0].classList[1].includes("pawn")) {
       localStorage.setItem("to_draw", "0");
     }
-    if (details["color"] == "white") {
+    if (details["color"] == "black") {
       let movenumber = localStorage.getItem("movenumber");
       localStorage.setItem("movenumber", `${parseInt(movenumber) + 1}`);
     }
@@ -262,6 +277,8 @@ const piecemove =
     from.removeChild(image);
     to.appendChild(image);
     audio.play();
+    if (details["color"] == "white") localStorage.setItem("turn", "black");
+    else localStorage.setItem("turn", "white");
     removeselected(panels);
     removeSelectedEventListeners();
     tofen().then((result) => {
@@ -286,85 +303,91 @@ function checkcolor(postion) {
 }
 chessPieces.forEach((piece) => {
   piece.addEventListener("click", function handleClick() {
-    const panels = document.querySelectorAll(".panel div");
-    const parentPanel = piece.parentNode;
-    const piecename = piece.className;
-    let color, bishoppos, knightpos, rookpos, pawnpos, kingpos, queenpos;
-    if (details["color"] == "white") color = "black";
-    else color = "white";
-    if (piecename.substring(0, 10) != `${color}piece`) {
-      removeSelectedEventListeners();
-      removeselected(panels);
-    }
-    if (details["color"] == "white") {
-      bishoppos = document.querySelectorAll(".black_bishop");
-      knightpos = document.querySelectorAll(".black_knight");
-      rookpos = document.querySelectorAll(".black_rook");
-      pawnpos = document.querySelectorAll(".black_pawn");
-      queenpos = document.querySelectorAll(".black_queen");
-      kingpos = document.querySelectorAll(".black_king");
-    } else {
-      bishoppos = document.querySelectorAll(".white_bishop");
-      knightpos = document.querySelectorAll(".white_knight");
-      rookpos = document.querySelectorAll(".white_rook");
-      pawnpos = document.querySelectorAll(".white_pawn");
-      queenpos = document.querySelectorAll(".white_queen");
-      kingpos = document.querySelectorAll(".white_king");
-    }
-    bishoppos.forEach((element) => {
-      bishopdanger(element.parentNode, element.parentNode.className, panels);
-    });
-    rookpos.forEach((element) => {
-      paralleldanger(element.parentNode, element.parentNode.className, panels);
-    });
-    queenpos.forEach((element) => {
-      queendanger(element.parentNode, element.parentNode.className, panels);
-    });
-    knightpos.forEach((element) => {
-      knightdanger(element.parentNode, element.parentNode.className, panels);
-    });
-    kingpos.forEach((element) => {
-      kingdanger(element.parentNode, element.parentNode.className, panels);
-    });
-    pawnpos.forEach((element) => {
-      if (details["color"] == "black") {
-        const tonum = element.parentNode.className[1] - "0" + 1;
-        const toclass = element.parentNode.className[0] + tonum;
-        whitediagpawndanger(toclass, element.parentNode.className, panels);
-      } else {
-        const tonum = element.parentNode.className[1] - "0" - 1;
-        const toclass = element.parentNode.className[0] + tonum;
-        blackdiagpawndanger(toclass, element.parentNode.className, panels);
+    if (details["color"] == localStorage.getItem("turn")) {
+      const panels = document.querySelectorAll(".panel div");
+      const parentPanel = piece.parentNode;
+      const piecename = piece.className;
+      let color, bishoppos, knightpos, rookpos, pawnpos, kingpos, queenpos;
+      if (details["color"] == "white") color = "black";
+      else color = "white";
+      if (piecename.substring(0, 10) != `${color}piece`) {
+        removeSelectedEventListeners();
+        removeselected(panels);
       }
-    });
-    if (piecename.substring(11, 21) == `${details["color"]}_pawn`) {
       if (details["color"] == "white") {
-        const tonum = parentPanel.className[1] - "0" + 1;
-        const toclass = parentPanel.className[0] + tonum;
-        if (!check(toclass)) {
-          whitepawnmove(toclass, parentPanel.className, panels);
-        }
-        whitediagpawnmove(toclass, parentPanel.className, panels);
-        whiteenpassantmove(toclass, parentPanel.className, panels);
+        bishoppos = document.querySelectorAll(".black_bishop");
+        knightpos = document.querySelectorAll(".black_knight");
+        rookpos = document.querySelectorAll(".black_rook");
+        pawnpos = document.querySelectorAll(".black_pawn");
+        queenpos = document.querySelectorAll(".black_queen");
+        kingpos = document.querySelectorAll(".black_king");
       } else {
-        const tonum = parentPanel.className[1] - "0" - 1;
-        const toclass = parentPanel.className[0] + tonum;
-        if (!check(toclass)) {
-          blackpawnmove(toclass, parentPanel.className, panels);
-        }
-        blackdiagpawnmove(toclass, parentPanel.className, panels);
-        blackenpassantmove(toclass, parentPanel.className, panels);
+        bishoppos = document.querySelectorAll(".white_bishop");
+        knightpos = document.querySelectorAll(".white_knight");
+        rookpos = document.querySelectorAll(".white_rook");
+        pawnpos = document.querySelectorAll(".white_pawn");
+        queenpos = document.querySelectorAll(".white_queen");
+        kingpos = document.querySelectorAll(".white_king");
       }
-    } else if (piecename.substring(11) == `${details["color"]}_rook`) {
-      parallelmove(parentPanel, parentPanel.className, panels);
-    } else if (piecename.substring(11) == `${details["color"]}_bishop`) {
-      diagonalMove(parentPanel, parentPanel.className, panels);
-    } else if (piecename.substring(11) == `${details["color"]}_knight`) {
-      knightMove(parentPanel, parentPanel.className, panels);
-    } else if (piecename.substring(11) == `${details["color"]}_king`) {
-      kingMove(parentPanel, parentPanel.className, panels);
-    } else if (piecename.substring(11) == `${details["color"]}_queen`) {
-      queenmove(parentPanel, parentPanel.className, panels);
+      bishoppos.forEach((element) => {
+        bishopdanger(element.parentNode, element.parentNode.className, panels);
+      });
+      rookpos.forEach((element) => {
+        paralleldanger(
+          element.parentNode,
+          element.parentNode.className,
+          panels
+        );
+      });
+      queenpos.forEach((element) => {
+        queendanger(element.parentNode, element.parentNode.className, panels);
+      });
+      knightpos.forEach((element) => {
+        knightdanger(element.parentNode, element.parentNode.className, panels);
+      });
+      kingpos.forEach((element) => {
+        kingdanger(element.parentNode, element.parentNode.className, panels);
+      });
+      pawnpos.forEach((element) => {
+        if (details["color"] == "black") {
+          const tonum = element.parentNode.className[1] - "0" + 1;
+          const toclass = element.parentNode.className[0] + tonum;
+          whitediagpawndanger(toclass, element.parentNode.className, panels);
+        } else {
+          const tonum = element.parentNode.className[1] - "0" - 1;
+          const toclass = element.parentNode.className[0] + tonum;
+          blackdiagpawndanger(toclass, element.parentNode.className, panels);
+        }
+      });
+      if (piecename.substring(11, 21) == `${details["color"]}_pawn`) {
+        if (details["color"] == "white") {
+          const tonum = parentPanel.className[1] - "0" + 1;
+          const toclass = parentPanel.className[0] + tonum;
+          if (!check(toclass)) {
+            whitepawnmove(toclass, parentPanel.className, panels);
+          }
+          whitediagpawnmove(toclass, parentPanel.className, panels);
+          whiteenpassantmove(toclass, parentPanel.className, panels);
+        } else {
+          const tonum = parentPanel.className[1] - "0" - 1;
+          const toclass = parentPanel.className[0] + tonum;
+          if (!check(toclass)) {
+            blackpawnmove(toclass, parentPanel.className, panels);
+          }
+          blackdiagpawnmove(toclass, parentPanel.className, panels);
+          blackenpassantmove(toclass, parentPanel.className, panels);
+        }
+      } else if (piecename.substring(11) == `${details["color"]}_rook`) {
+        parallelmove(parentPanel, parentPanel.className, panels);
+      } else if (piecename.substring(11) == `${details["color"]}_bishop`) {
+        diagonalMove(parentPanel, parentPanel.className, panels);
+      } else if (piecename.substring(11) == `${details["color"]}_knight`) {
+        knightMove(parentPanel, parentPanel.className, panels);
+      } else if (piecename.substring(11) == `${details["color"]}_king`) {
+        kingMove(parentPanel, parentPanel.className, panels);
+      } else if (piecename.substring(11) == `${details["color"]}_queen`) {
+        queenmove(parentPanel, parentPanel.className, panels);
+      }
     }
   });
 });

@@ -42,8 +42,8 @@ function retrieveinfo() {
   let playgame = document.querySelector(".playgame");
   playgame.addEventListener("click", (event) => {
     localStorage.setItem("details", JSON.stringify(details));
-    localStorage.setItem("curcolor", "white");
-    localStorage.setItem("movenumber", "0");
+    localStorage.setItem("turn", "white");
+    localStorage.setItem("movenumber", "1");
     localStorage.setItem("white_left_castling", "1");
     localStorage.setItem("white_right_castling", "1");
     localStorage.setItem("black_left_castling", "1");

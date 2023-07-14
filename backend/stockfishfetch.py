@@ -20,7 +20,7 @@ def stockfishfetch(fen, difficulty):
 
 
 @app.route('/', methods=['GET', 'POST'])
-def hello():
+def movefetch():
     return stockfishfetch(request.json["fen"], request.json["difficulty"])
 
 
