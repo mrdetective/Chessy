@@ -50,7 +50,7 @@ import {
   knightdanger,
   paralleldanger,
 } from "./modules/alldangerpositions.js";
-import {setmove} from "./modules/checkforcheck.js";
+import {setmove, inrange} from "./modules/checkforcheck.js";
 
 const chessPieces = document.querySelectorAll(".chesspieces img");
 const details = JSON.parse(localStorage.getItem("details"));

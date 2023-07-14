@@ -1,20 +1,29 @@
 import {check, checkcolor, piecemove} from "../game.js";
+import {setmove} from "./checkforcheck.js";
 
 let selectedPositions7 = [];
 let caneatPositions7 = [];
 function whitepawnmove(position, prevposition, panels) {
+  // console.log(prevposition);
+  let frompos = prevposition.substring(0, 2);
   if (position[1] == "3") {
-    document.getElementsByClassName(`${position}`)[0].classList.add("selected");
+    if (setmove(frompos, position))
+      document
+        .getElementsByClassName(`${position}`)[0]
+        .classList.add("selected");
     let positionArray = position.split("");
     positionArray[1] = String.fromCharCode(position.charCodeAt(1) + 1);
     position = positionArray.join("");
-    if (!check(position)) {
+    if (!check(position) && setmove(frompos, position)) {
       document
         .getElementsByClassName(`${position}`)[0]
         .classList.add("selected");
     }
   } else {
-    document.getElementsByClassName(`${position}`)[0].classList.add("selected");
+    if (setmove(frompos, position))
+      document
+        .getElementsByClassName(`${position}`)[0]
+        .classList.add("selected");
   }
   const selected = document.querySelectorAll(".selected");
   selected.forEach((selectedposition) => {
@@ -27,12 +36,23 @@ function whitediagpawnmove(position, prevposition, panels) {
   let positionArray = position.split("");
   positionArray[0] = String.fromCharCode(positionArray[0].charCodeAt(0) + 1);
   position = positionArray.join("");
-  if (position[0] <= "h" && check(position) && checkcolor(position)) {
+  let frompos = prevposition.substring(0, 2);
+  if (
+    position[0] <= "h" &&
+    check(position) &&
+    checkcolor(position) &&
+    setmove(frompos, position)
+  ) {
     document.getElementsByClassName(`${position}`)[0].classList.add("caneat");
   }
   positionArray[0] = String.fromCharCode(positionArray[0].charCodeAt(0) - 2);
   position = positionArray.join("");
-  if (position[0] >= "a" && check(position) && checkcolor(position)) {
+  if (
+    position[0] >= "a" &&
+    check(position) &&
+    checkcolor(position) &&
+    setmove(frompos, position)
+  ) {
     document.getElementsByClassName(`${position}`)[0].classList.add("caneat");
   }
   const selected = document.querySelectorAll(".caneat");
@@ -46,6 +66,7 @@ function whitediagpawnmove(position, prevposition, panels) {
   });
 }
 function whiteenpassantmove(position, prevposition, panels) {
+  let frompos = prevposition.substring(0, 2);
   let positionArray = position.split("");
   positionArray[0] = String.fromCharCode(positionArray[0].charCodeAt(0) - 1);
   positionArray[1] = String.fromCharCode(positionArray[1].charCodeAt(0) - 1);
@@ -73,7 +94,7 @@ function whiteenpassantmove(position, prevposition, panels) {
         .querySelector(`.${position2}`)
         .getElementsByTagName("img")[0]
         .classList.contains("en-passant");
-      if (enpassantcheck) {
+      if (enpassantcheck && setmove(frompos, topos)) {
         document.querySelector(`.${position3}`).classList.add("selected");
       }
     }
