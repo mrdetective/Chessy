@@ -44,8 +44,8 @@ function setmove(from, to) {
                   break;
                 }
               }
-              pos1 = dx[l] + i;
-              pos2 = dy[k] + j;
+              pos1 = dy[l] + i;
+              pos2 = dx[k] + j;
               if (pos1 < 8 && pos1 >= 0 && pos2 < 8 && pos2 >= 0) {
                 if (
                   board[pos1][pos2].includes(`${details["color"]}`) &&
