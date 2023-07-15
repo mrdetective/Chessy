@@ -147,7 +147,7 @@ function setmove(from, to) {
             dy--;
           }
           (dx = i - 1), (dy = j - 1);
-          while (dx < 8 && dy > -1) {
+          while (dx > -1 && dy > -1) {
             if (board[dx][dy] != "0") {
               if (
                 board[dx][dy].includes(`${details["color"]}`) &&
@@ -249,7 +249,7 @@ function setmove(from, to) {
             dy--;
           }
           (dx = i - 1), (dy = j - 1);
-          while (dx < 8 && dy > -1) {
+          while (dx > -1 && dy > -1) {
             if (board[dx][dy] != "0") {
               if (
                 board[dx][dy].includes(`${details["color"]}`) &&

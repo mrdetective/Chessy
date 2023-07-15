@@ -41,15 +41,6 @@ import {
 import {movefetch} from "./modules/movefetch.js";
 import {opponentmove} from "./modules/opponentmove.js";
 import {tofen} from "./modules/to_fen.js";
-import {
-  blackdiagpawndanger,
-  whitediagpawndanger,
-  bishopdanger,
-  kingdanger,
-  queendanger,
-  knightdanger,
-  paralleldanger,
-} from "./modules/alldangerpositions.js";
 import {setmove, inrange} from "./modules/checkforcheck.js";
 
 const chessPieces = document.querySelectorAll(".chesspieces img");
@@ -91,7 +82,6 @@ if (details["color"] == "black") {
 function removeselected(panels) {
   const selected = document.querySelectorAll(".selected");
   const caneat = document.querySelectorAll(".caneat");
-  const dangerpositions = document.querySelectorAll(".danger");
   const castling = document.querySelectorAll(".castling");
   const enpassant = document.querySelectorAll(".en-passant");
   selected.forEach((position) => {
@@ -99,9 +89,6 @@ function removeselected(panels) {
   });
   caneat.forEach((position) => {
     position.classList.remove("caneat");
-  });
-  dangerpositions.forEach((position) => {
-    position.classList.remove("danger");
   });
   castling.forEach((position) => {
     position.classList.remove("castling");
@@ -161,15 +148,15 @@ const piecemove =
     }
     if (piece[0].classList.contains("white_rook")) {
       if (piece[0].parentNode.classList.contains("h1")) {
-        localStorage.setItem("white_left_castling", "0");
-      } else if (piece[0].parentNode.classList.contains("a1")) {
         localStorage.setItem("white_right_castling", "0");
+      } else if (piece[0].parentNode.classList.contains("a1")) {
+        localStorage.setItem("white_left_castling", "0");
       }
     } else if (piece[0].classList.contains("black_rook")) {
       if (piece[0].parentNode.classList.contains("h8")) {
-        localStorage.setItem("black_left_castling", "0");
-      } else if (piece[0].parentNode.classList.contains("a8")) {
         localStorage.setItem("black_right_castling", "0");
+      } else if (piece[0].parentNode.classList.contains("a8")) {
+        localStorage.setItem("black_left_castling", "0");
       }
     } else if (piece[0].classList.contains("black_king")) {
       localStorage.setItem("black_left_castling", "0");
@@ -234,19 +221,20 @@ const piecemove =
         piece[0].classList.add("en-passant");
       }
     }
+    // console.log(to.classList);
     if (piecetoeat.length != 0) {
       localStorage.setItem("to_draw", "0");
       if (piecetoeat[0].classList[1].includes("rook")) {
         if (details["color"] == "white") {
-          if (to.contains("a8")) {
+          if (to.classList.contains("a8")) {
             localStorage.setItem("black_left_castling", "0");
-          } else if (to.contains("h8")) {
+          } else if (to.classList.contains("h8")) {
             localStorage.setItem("black_right_castling", "0");
           }
         } else {
-          if (to.contains("h1")) {
+          if (to.classList.contains("h1")) {
             localStorage.setItem("white_left_castling", "0");
-          } else if (to.contains("a1")) {
+          } else if (to.classList.contains("a1")) {
             localStorage.setItem("white_right_castling", "0");
           }
         }
@@ -294,9 +282,13 @@ function check(position) {
 }
 
 function checkcolor(postion) {
+  // console.log(postion);
   const check = document.querySelector(`.${postion}`);
   const imgElements = check.getElementsByTagName("img");
-  if (imgElements[0].className.substring(0, 5) == details["color"]) {
+  if (
+    imgElements.length > 0 &&
+    imgElements[0].className.substring(0, 5) == details["color"]
+  ) {
     return false;
   }
   return true;
@@ -329,36 +321,6 @@ chessPieces.forEach((piece) => {
         queenpos = document.querySelectorAll(".white_queen");
         kingpos = document.querySelectorAll(".white_king");
       }
-      bishoppos.forEach((element) => {
-        bishopdanger(element.parentNode, element.parentNode.className, panels);
-      });
-      rookpos.forEach((element) => {
-        paralleldanger(
-          element.parentNode,
-          element.parentNode.className,
-          panels
-        );
-      });
-      queenpos.forEach((element) => {
-        queendanger(element.parentNode, element.parentNode.className, panels);
-      });
-      knightpos.forEach((element) => {
-        knightdanger(element.parentNode, element.parentNode.className, panels);
-      });
-      kingpos.forEach((element) => {
-        kingdanger(element.parentNode, element.parentNode.className, panels);
-      });
-      pawnpos.forEach((element) => {
-        if (details["color"] == "black") {
-          const tonum = element.parentNode.className[1] - "0" + 1;
-          const toclass = element.parentNode.className[0] + tonum;
-          whitediagpawndanger(toclass, element.parentNode.className, panels);
-        } else {
-          const tonum = element.parentNode.className[1] - "0" - 1;
-          const toclass = element.parentNode.className[0] + tonum;
-          blackdiagpawndanger(toclass, element.parentNode.className, panels);
-        }
-      });
       if (piecename.substring(11, 21) == `${details["color"]}_pawn`) {
         if (details["color"] == "white") {
           const tonum = parentPanel.className[1] - "0" + 1;

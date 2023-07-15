@@ -17,7 +17,7 @@ function knightMove(position, prevposition, panels) {
         .getElementsByClassName(`${toclass}`)[0]
         .classList.add("selected");
     } else {
-      if (checkcolor(toclass) && setmove(frompos, toclass)) {
+      if (setmove(frompos, toclass) && checkcolor(toclass)) {
         document
           .getElementsByClassName(`${toclass}`)[0]
           .classList.add("caneat");
@@ -50,7 +50,7 @@ function knightMove(position, prevposition, panels) {
   }
   (posnum = curnum - 2),
     (posalpha = String.fromCharCode(curalpha.charCodeAt(0) - 1));
-  if (posnum >= 1 && posalpha >= "a" && setmove(frompos, toclass)) {
+  if (posnum >= 1 && posalpha >= "a") {
     let toclass = posalpha.toString() + posnum.toString();
     if (!check(toclass) && setmove(frompos, toclass))
       document
@@ -76,6 +76,7 @@ function knightMove(position, prevposition, panels) {
     (posalpha = String.fromCharCode(curalpha.charCodeAt(0) - 2));
   if (posnum <= 8 && posalpha >= "a") {
     let toclass = posalpha.toString() + posnum.toString();
+    console.log(toclass);
     if (!check(toclass) && setmove(frompos, toclass))
       document
         .getElementsByClassName(`${toclass}`)[0]

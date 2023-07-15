@@ -1,22 +1,24 @@
 import {check, checkcolor, piecemove} from "../game.js";
+import {setmove} from "./checkforcheck.js";
 
 let selectedPositions3 = [];
 let caneatPositions3 = [];
 function parallelmove(position, prevposition, panels) {
   const curnum = position.className[1] - "0";
   const curalpha = position.className[0];
+  let frompos = position.classList[0];
   for (let i = curnum + 1; i <= 8; i++) {
     if (i != curnum) {
       const toclass = position.className[0] + i;
       if (check(toclass)) {
-        if (checkcolor(toclass)) {
+        if (checkcolor(toclass) && setmove(frompos, toclass)) {
           document
             .getElementsByClassName(`${toclass}`)[0]
             .classList.add("caneat");
         }
         break;
       }
-      if (!check(toclass)) {
+      if (!check(toclass) && setmove(frompos, toclass)) {
         document
           .getElementsByClassName(`${toclass}`)[0]
           .classList.add("selected");
@@ -27,14 +29,14 @@ function parallelmove(position, prevposition, panels) {
     if (i != curnum) {
       const toclass = position.className[0] + i;
       if (check(toclass)) {
-        if (checkcolor(toclass)) {
+        if (checkcolor(toclass) && setmove(frompos, toclass)) {
           document
             .getElementsByClassName(`${toclass}`)[0]
             .classList.add("caneat");
         }
         break;
       }
-      if (!check(toclass)) {
+      if (!check(toclass) && setmove(frompos, toclass)) {
         document
           .getElementsByClassName(`${toclass}`)[0]
           .classList.add("selected");
@@ -46,14 +48,14 @@ function parallelmove(position, prevposition, panels) {
     if (charCode != curalpha) {
       const toclass = charCode + position.className[1];
       if (check(toclass)) {
-        if (checkcolor(toclass)) {
+        if (checkcolor(toclass) && setmove(frompos, toclass)) {
           document
             .getElementsByClassName(`${toclass}`)[0]
             .classList.add("caneat");
         }
         break;
       }
-      if (!check(toclass)) {
+      if (!check(toclass) && setmove(frompos, toclass)) {
         document
           .getElementsByClassName(`${toclass}`)[0]
           .classList.add("selected");
@@ -65,16 +67,17 @@ function parallelmove(position, prevposition, panels) {
     if (charCode != curalpha) {
       const toclass = charCode + position.className[1];
       if (check(toclass)) {
-        if (checkcolor(toclass)) {
+        if (checkcolor(toclass) && setmove(frompos, toclass)) {
           document
             .getElementsByClassName(`${toclass}`)[0]
             .classList.add("caneat");
         }
         break;
+      } else if (setmove(frompos, toclass)) {
+        document
+          .getElementsByClassName(`${toclass}`)[0]
+          .classList.add("selected");
       }
-      document
-        .getElementsByClassName(`${toclass}`)[0]
-        .classList.add("selected");
     }
   }
   const selected = document.querySelectorAll(".selected");

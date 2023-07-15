@@ -4,7 +4,6 @@ import {setmove} from "./checkforcheck.js";
 let selectedPositions7 = [];
 let caneatPositions7 = [];
 function whitepawnmove(position, prevposition, panels) {
-  // console.log(prevposition);
   let frompos = prevposition.substring(0, 2);
   if (position[1] == "3") {
     if (setmove(frompos, position))
@@ -19,11 +18,8 @@ function whitepawnmove(position, prevposition, panels) {
         .getElementsByClassName(`${position}`)[0]
         .classList.add("selected");
     }
-  } else {
-    if (setmove(frompos, position))
-      document
-        .getElementsByClassName(`${position}`)[0]
-        .classList.add("selected");
+  } else if (setmove(frompos, position)) {
+    document.getElementsByClassName(`${position}`)[0].classList.add("selected");
   }
   const selected = document.querySelectorAll(".selected");
   selected.forEach((selectedposition) => {
@@ -83,7 +79,7 @@ function whiteenpassantmove(position, prevposition, panels) {
         .querySelector(`.${position}`)
         .getElementsByTagName("img")[0]
         .classList.contains("en-passant");
-      if (enpassantcheck) {
+      if (enpassantcheck && setmove(frompos, position4)) {
         document.querySelector(`.${position4}`).classList.add("selected");
       }
     }
@@ -94,7 +90,7 @@ function whiteenpassantmove(position, prevposition, panels) {
         .querySelector(`.${position2}`)
         .getElementsByTagName("img")[0]
         .classList.contains("en-passant");
-      if (enpassantcheck && setmove(frompos, topos)) {
+      if (enpassantcheck && setmove(frompos, position3)) {
         document.querySelector(`.${position3}`).classList.add("selected");
       }
     }
