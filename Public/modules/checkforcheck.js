@@ -21,9 +21,32 @@ function setmove(from, to) {
       }
     }
   }
+  let fromx = parseInt(from[1]) - 1,
+    fromy = from[0].charCodeAt(0) - "a".charCodeAt(0),
+    tox = parseInt(to[1]) - 1,
+    toy = from[0].charCodeAt(0) - "a".charCodeAt(0);
+  if (
+    board[fromx][fromy].includes("pawn") &&
+    Math.abs(fromy - toy) == 1 &&
+    board[tox][toy] == "0"
+  ) {
+    if (details["color"] == "white") board[tox - 1][toy] = "0";
+    else board[tox + 1][toy] = "0";
+  }
+  if (board[fromx][fromy].includes("king") && Math.abs(toy - fromy) == 2) {
+    if (fromy == 6) {
+      board[fromx][5] = board[fromx][7];
+      board[fromx][7] = "0";
+    } else {
+      board[fromx][3] = board[fromx][0];
+      board[fromx][0] = "0";
+    }
+  }
   board[parseInt(to[1]) - 1][to[0].charCodeAt(0) - "a".charCodeAt(0)] =
     board[parseInt(from[1]) - 1][from[0].charCodeAt(0) - "a".charCodeAt(0)];
-  board[parseInt(from[1]) - 1][from[0].charCodeAt(0) - "a".charCodeAt(0)] = "0";
+  if (from != to)
+    board[parseInt(from[1]) - 1][from[0].charCodeAt(0) - "a".charCodeAt(0)] =
+      "0";
   let f = 0;
   for (let i = 0; i < 8; i++) {
     for (let j = 0; j < 8; j++) {

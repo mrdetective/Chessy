@@ -8,6 +8,20 @@
   </head>
   <body>
     <div class="chesspieces">
+      <div class="interactor">
+        <div class="robotbox">
+          <img class="robot" src="/media/robot.png" />
+          <img class="textbox" src="../media/textbox.png" />
+          <div class="messagetext">
+            Welcome to Chessy, a chess game with voice control mode. Challenge
+            yourself against Stockfish, where I'll guide your moves. Specify
+            source and destination positions; I'll handle the rest. Stay updated
+            with Stockfish's moves for strategic gameplay. Enjoy the unique
+            experience, have fun, and conquer Stockfish!
+          </div>
+        </div>
+        <button id="skipbutton">Skip</button>
+      </div>
       <div class="rolabel">
         8 <br /><br />
         7 <br /><br />
@@ -194,5 +208,7 @@
     <script type="module" src="./modules/opponentmove.js"></script>
     <script type="module" src="./modules/checkforcheck.js"></script>
     <script type="module" src="./modules/stalematecheck.js"></script>
+    <script type="module" src="./modules/audioprocess.js"></script>
+    <div></div>
   </body>
 </html>

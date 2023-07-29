@@ -76,7 +76,6 @@ function knightMove(position, prevposition, panels) {
     (posalpha = String.fromCharCode(curalpha.charCodeAt(0) - 2));
   if (posnum <= 8 && posalpha >= "a") {
     let toclass = posalpha.toString() + posnum.toString();
-    console.log(toclass);
     if (!check(toclass) && setmove(frompos, toclass))
       document
         .getElementsByClassName(`${toclass}`)[0]

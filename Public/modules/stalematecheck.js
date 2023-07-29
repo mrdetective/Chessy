@@ -39,7 +39,7 @@ function stalemate(color) {
                   !board[pos1][pos2].includes(color) &&
                   setmove(frompos, topos)
                 ) {
-                  (x = i), (y = j), (f = 1);
+                  f = 1;
                   break;
                 }
               }
@@ -52,7 +52,7 @@ function stalemate(color) {
                   !board[pos1][pos2].includes(color) &&
                   setmove(frompos, topos)
                 ) {
-                  (x = i), (y = j), (f = 1);
+                  f = 1;
                   break;
                 }
               }
@@ -63,11 +63,11 @@ function stalemate(color) {
             let topos = String.fromCharCode("a".charCodeAt(0) + j) + (k + 1);
             if (board[k][j] != "0") {
               if (!board[k][j].includes(color) && setmove(frompos, topos)) {
-                (x = i), (y = j), (f = 1);
+                f = 1;
               }
               break;
             } else if (setmove(frompos, topos)) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
           }
@@ -75,24 +75,24 @@ function stalemate(color) {
             let topos = String.fromCharCode("a".charCodeAt(0) + j) + (k + 1);
             if (board[k][j] != "0") {
               if (!board[k][j].includes(color) && setmove(frompos, topos)) {
-                (x = i), (y = j), (f = 1);
+                f = 1;
                 break;
               }
               break;
             } else if (setmove(frompos, topos)) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
           }
           for (let k = j + 1; k < 8; k++) {
             let topos = String.fromCharCode("a".charCodeAt(0) + k) + (i + 1);
             if (board[i][k] != "0") {
-              if (!board[k][j].includes(color) && setmove(frompos, topos)) {
-                (x = i), (y = j), (f = 1);
+              if (!board[i][k].includes(color) && setmove(frompos, topos)) {
+                f = 1;
               }
               break;
             } else if (setmove(frompos, topos)) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
           }
@@ -100,12 +100,12 @@ function stalemate(color) {
             let topos = String.fromCharCode("a".charCodeAt(0) + k) + (i + 1);
             if (board[i][k] != "0") {
               let topos = String.fromCharCode("a".charCodeAt(0) + k) + (i + 1);
-              if (!board[k][j].includes(color) && setmove(frompos, topos)) {
-                (x = i), (y = j), (f = 1);
+              if (!board[i][k].includes(color) && setmove(frompos, topos)) {
+                f = 1;
               }
               break;
             } else if (setmove(frompos, topos)) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
           }
@@ -116,12 +116,11 @@ function stalemate(color) {
             let topos = String.fromCharCode("a".charCodeAt(0) + dy) + (dx + 1);
             if (board[dx][dy] != "0") {
               if (!board[dx][dy].includes(color) && setmove(frompos, topos)) {
-                console.log(1);
-                (x = i), (y = j), (f = 1);
+                f = 1;
               }
               break;
             } else if (setmove(frompos, topos)) {
-              console.log(8)((x = i)), (y = j), (f = 1);
+              f = 1;
               break;
             }
             dx++;
@@ -129,17 +128,14 @@ function stalemate(color) {
           }
           (dx = i - 1), (dy = j + 1);
           while (dx > -1 && dy < 8) {
+            let topos = String.fromCharCode("a".charCodeAt(0) + dy) + (dx + 1);
             if (board[dx][dy] != "0") {
-              let topos =
-                String.fromCharCode("a".charCodeAt(0) + dy) + (dx + 1);
               if (!board[dx][dy].includes(color) && setmove(frompos, topos)) {
-                console.log(2);
-                (x = i), (y = j), (f = 1);
+                f = 1;
               }
               break;
             } else if (setmove(frompos, topos)) {
-              console.log(3);
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
             dx--;
@@ -150,13 +146,11 @@ function stalemate(color) {
             let topos = String.fromCharCode("a".charCodeAt(0) + dy) + (dx + 1);
             if (board[dx][dy] != "0") {
               if (!board[dx][dy].includes(color) && setmove(frompos, topos)) {
-                console.log(4);
-                (x = i), (y = j), (f = 1);
+                f = 1;
               }
               break;
             } else if (setmove(frompos, topos)) {
-              console.log(5);
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
             dx++;
@@ -164,17 +158,14 @@ function stalemate(color) {
           }
           (dx = i - 1), (dy = j - 1);
           while (dx > -1 && dy > -1) {
+            let topos = String.fromCharCode("a".charCodeAt(0) + dy) + (dx + 1);
             if (board[dx][dy] != "0") {
-              let topos =
-                String.fromCharCode("a".charCodeAt(0) + dy) + (dx + 1);
               if (!board[dx][dy].includes(color) && setmove(frompos, topos)) {
-                console.log(6);
-                (x = i), (y = j), (f = 1);
+                f = 1;
               }
               break;
             } else if (setmove(frompos, topos)) {
-              console.log(7);
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
             dx--;
@@ -185,11 +176,11 @@ function stalemate(color) {
             let topos = String.fromCharCode("a".charCodeAt(0) + j) + (k + 1);
             if (board[k][j] != "0") {
               if (!board[k][j].includes(color) && setmove(frompos, topos)) {
-                (x = i), (y = j), (f = 1);
+                f = 1;
               }
               break;
             } else if (setmove(frompos, topos)) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
           }
@@ -197,36 +188,36 @@ function stalemate(color) {
             let topos = String.fromCharCode("a".charCodeAt(0) + j) + (k + 1);
             if (board[k][j] != "0") {
               if (!board[k][j].includes(color) && setmove(frompos, topos)) {
-                (x = i), (y = j), (f = 1);
+                f = 1;
                 break;
               }
               break;
             } else if (setmove(frompos, topos)) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
           }
           for (let k = j + 1; k < 8; k++) {
             let topos = String.fromCharCode("a".charCodeAt(0) + k) + (i + 1);
             if (board[i][k] != "0") {
-              if (!board[k][j].includes(color) && setmove(frompos, topos)) {
-                (x = i), (y = j), (f = 1);
+              if (!board[i][k].includes(color) && setmove(frompos, topos)) {
+                f = 1;
               }
               break;
             } else if (setmove(frompos, topos)) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
           }
           for (let k = j - 1; k > -1; k--) {
             let topos = String.fromCharCode("a".charCodeAt(0) + k) + (i + 1);
             if (board[i][k] != "0") {
-              if (!board[k][j].includes(color) && setmove(frompos, topos)) {
-                (x = i), (y = j), (f = 1);
+              if (!board[i][k].includes(color) && setmove(frompos, topos)) {
+                f = 1;
               }
               break;
             } else if (setmove(frompos, topos)) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
           }
@@ -236,11 +227,11 @@ function stalemate(color) {
             let topos = String.fromCharCode("a".charCodeAt(0) + dy) + (dx + 1);
             if (board[dx][dy] != "0") {
               if (!board[dx][dy].includes(color) && setmove(frompos, topos)) {
-                (x = i), (y = j), (f = 1);
+                f = 1;
               }
               break;
             } else if (setmove(frompos, topos)) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
             dx++;
@@ -251,11 +242,11 @@ function stalemate(color) {
             let topos = String.fromCharCode("a".charCodeAt(0) + dy) + (dx + 1);
             if (board[dx][dy] != "0") {
               if (!board[dx][dy].includes(color) && setmove(frompos, topos)) {
-                (x = i), (y = j), (f = 1);
+                f = 1;
               }
               break;
             } else if (setmove(frompos, topos)) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
             dx--;
@@ -266,11 +257,11 @@ function stalemate(color) {
             let topos = String.fromCharCode("a".charCodeAt(0) + dy) + (dx + 1);
             if (board[dx][dy] != "0") {
               if (!board[dx][dy].includes(color) && setmove(frompos, topos)) {
-                (x = i), (y = j), (f = 1);
+                f = 1;
               }
               break;
             } else if (setmove(frompos, topos)) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
             dx++;
@@ -281,11 +272,11 @@ function stalemate(color) {
             let topos = String.fromCharCode("a".charCodeAt(0) + dy) + (dx + 1);
             if (board[dx][dy] != "0") {
               if (!board[dx][dy].includes(color) && setmove(frompos, topos)) {
-                (x = i), (y = j), (f = 1);
+                f = 1;
               }
               break;
             } else if (setmove(frompos, topos)) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
             dx--;
@@ -303,7 +294,7 @@ function stalemate(color) {
               board[dx][dy] != "0" &&
               setmove(frompos, topos)
             ) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
             dy = j - 1;
@@ -316,19 +307,19 @@ function stalemate(color) {
               board[dx][dy] != "0" &&
               setmove(frompos, topos)
             ) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
             dx = i - 1;
             topos = String.fromCharCode("a".charCodeAt(0) + j) + i;
             if (inrange(dx) && board[dx][j] == "0" && setmove(frompos, topos)) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
             if (i == 6) {
               topos = String.fromCharCode("a".charCodeAt(0) + j) + (i - 2);
               if (board[i - 2][j] == "0" && setmove(frompos, topos)) {
-                (x = i), (y = j), (f = 1);
+                f = 1;
                 break;
               }
             }
@@ -343,7 +334,7 @@ function stalemate(color) {
               board[dx][dy] != "0" &&
               setmove(frompos, topos)
             ) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
             dy = j - 1;
@@ -356,12 +347,12 @@ function stalemate(color) {
               board[dx][dy] != "0" &&
               setmove(frompos, topos)
             ) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
             topos = String.fromCharCode("a".charCodeAt(0) + j) + (i + 2);
             if (inrange(dx) && board[dx][j] == "0" && setmove(frompos, topos)) {
-              (x = i), (y = j), (f = 1);
+              f = 1;
               break;
             }
             if (i == 1) {
@@ -371,7 +362,7 @@ function stalemate(color) {
                 board[i + 2][j] == "0" &&
                 setmove(frompos, topos)
               ) {
-                (x = i), (y = j), (f = 1);
+                f = 1;
                 break;
               }
             }
@@ -386,15 +377,14 @@ function stalemate(color) {
               }
               let posy = j + d[l];
               let topos =
-                String.fromCharCode(j + posy + "a".charCodeAt(0)) +
-                (posx + i + 1);
+                String.fromCharCode(posy + "a".charCodeAt(0)) + (posx + 1);
               if (
                 inrange(posx) &&
                 inrange(posy) &&
                 !board[posx][posy].includes(color) &&
                 setmove(frompos, topos)
               ) {
-                (x = i), (y = j), (f = 1);
+                f = 1;
                 break;
               }
             }
@@ -411,7 +401,6 @@ function stalemate(color) {
     if (f) break;
   }
   if (f == 1) {
-    console.log(x, y);
     return false;
   }
   return true;

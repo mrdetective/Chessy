@@ -12,6 +12,7 @@ function retrieveinfo() {
         .classList.remove("selected");
       document.querySelector(`.${element.innerHTML}`).classList.add("selected");
       details["mode"] = element.innerHTML;
+      console.log(details["mode"]);
     });
   });
 
