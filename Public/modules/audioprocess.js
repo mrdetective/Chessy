@@ -17,6 +17,11 @@ function talk(message) {
   utterance.voice = window.speechSynthesis.getVoices()[ind];
   utterance.onend = function () {
     playNextMessage();
+    if (document.querySelector("#skipbutton").style != "none") {
+      document.querySelector("#skipbutton").style.display = "none";
+      document.querySelector(".messagetext").innerHTML =
+        messages[currentMessageIndex - 1];
+    }
   };
   window.speechSynthesis.speak(utterance);
 }
@@ -32,11 +37,8 @@ function resume() {
 function playNextMessage() {
   pause();
   if (currentMessageIndex < messages.length) {
-    console.log(messages[currentMessageIndex]);
     talk(messages[currentMessageIndex]);
     currentMessageIndex++;
-  } else {
-    currentMessageIndex = 0;
   }
 }
 function stopSpeechSynthesis() {
@@ -67,6 +69,10 @@ function processaudio() {
   playNextMessage();
   document.querySelector("#skipbutton").addEventListener("click", () => {
     document.querySelector("#skipbutton").style.display = "none";
+    pause();
+    playNextMessage();
+    document.querySelector(".messagetext").innerHTML =
+      messages[currentMessageIndex - 1];
   });
 }
 
