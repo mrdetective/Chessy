@@ -44,15 +44,10 @@ import {tofen} from "./modules/to_fen.js";
 import {setmove, inrange} from "./modules/checkforcheck.js";
 import {stalemate} from "./modules/stalematecheck.js";
 import {
-  processaudio,
-  talk,
-  pause,
-  resume,
-  playNextMessage,
-  messages,
-  currentMessageIndex,
-  findMaleVoiceIndex,
-  stopSpeechSynthesis,
+  robotappear,
+  welcomemessage,
+  usertalk,
+  response,
 } from "./modules/audioprocess.js";
 
 const chessPieces = document.querySelectorAll(".chesspieces img");
@@ -382,7 +377,8 @@ function gamestart() {
       });
     });
   } else if (details["mode"] == "Voicecontrol") {
-    processaudio();
+    robotappear();
+    welcomemessage();
   }
 }
 gamestart();

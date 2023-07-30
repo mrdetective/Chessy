@@ -1,89 +1,115 @@
-let messages = [];
-let currentMessageIndex = 0;
-
-function findMaleVoiceIndex(voices) {
-  for (let i = 0; i < voices.length; i++) {
-    if (voices[i].name.includes("male")) {
-      return i;
-    }
-  }
-  return -1;
+function robotappear() {
+  document.getElementsByClassName("interactor")[0].style.display = "revert";
 }
-function talk(message) {
-  const utterance = new SpeechSynthesisUtterance(message);
-  utterance.rate = 1.5;
-  utterance.pitch = 2;
-  let ind = findMaleVoiceIndex(window.speechSynthesis.getVoices());
-  utterance.voice = window.speechSynthesis.getVoices()[ind];
-  utterance.onend = function () {
-    playNextMessage();
-    if (document.querySelector("#skipbutton").style != "none") {
-      document.querySelector("#skipbutton").style.display = "none";
+
+function welcomemessage() {
+  let welcomespeech = new SpeechSynthesisUtterance();
+  welcomespeech.text = `Welcome to Chessy, a chess game with voice control mode. Challenge yourself against Stockfish, where I'll guide your moves. Specify source and destination positions; I'll handle the rest. Stay updated with Stockfish's moves for strategic gameplay. Enjoy the unique experience, have fun, and conquer Stockfish!`;
+  welcomespeech.rate = 2;
+  window.speechSynthesis.speak(welcomespeech);
+  document.querySelector("#skipbutton").addEventListener("click", () => {
+    speechSynthesis.cancel(welcomespeech);
+    document.querySelector("#skipbutton").style.display = "none";
+    let movespeech = new SpeechSynthesisUtterance(),
+      details = JSON.parse(localStorage.getItem("details"));
+    movespeech.rate = 2;
+    if (details["color"] == "white") {
+      movespeech.text = `As you have selected the color white, you will make the first move.`;
+    } else {
+      movespeech.text = `Since you've chosen the color black, the opponent will make the first move.`;
+    }
+    document.querySelector(".messagetext").innerHTML = movespeech.text;
+    window.speechSynthesis.speak(movespeech);
+    movespeech.onend = function () {
+      if (details["color"] == "white") {
+        setTimeout(() => {
+          usertalk();
+        }, 200);
+      } else {
+        setTimeout(() => {
+          response();
+        }, 200);
+      }
+    };
+  });
+  welcomespeech.onend = function () {
+    document.querySelector("#skipbutton").style.display = "none";
+    let movespeech = new SpeechSynthesisUtterance(),
+      details = JSON.parse(localStorage.getItem("details"));
+    movespeech.rate = 2;
+    if (details["color"] == "white") {
+      movespeech.text = `As you have selected the color white, you will make the first move.`;
+    } else {
+      movespeech.text = `Since you've chosen the color black, the opponent will make the first move.`;
+    }
+    document.querySelector(".messagetext").innerHTML = movespeech.text;
+    window.speechSynthesis.speak(movespeech);
+    movespeech.onend = function () {
+      if (details["color"] == "white") {
+        setTimeout(() => {
+          usertalk();
+        }, 200);
+      } else {
+        setTimeout(() => {
+          response();
+        }, 200);
+      }
+    };
+  };
+}
+function response() {}
+function usertalk() {
+  document.querySelector(".messagetext").innerHTML = "Enter starting position:";
+  let EnteringStart = new SpeechSynthesisUtterance();
+  EnteringStart.text = "Enter starting position: ";
+  window.speechSynthesis.speak(EnteringStart);
+  EnteringStart.onend = function () {
+    let speech = true;
+    window.SpeechRecognition = window.webkitSpeechRecognition;
+    let recognition = new SpeechRecognition();
+    recognition.interimResults = true;
+    recognition.addEventListener("result", (e) => {
+      const transcript = Array.from(e.results)
+        .map((result) => result[0])
+        .map((result) => result.transcript);
       document.querySelector(".messagetext").innerHTML =
-        messages[currentMessageIndex - 1];
+        "Enter destination position: " + transcript;
+    });
+    if (speech) {
+      recognition.start();
+      recognition.onaudioend = () => {
+        let startingpos =
+          document.querySelector(".messagetext").textContent.slice(-2) +
+          document.querySelector(".messagetext").textContent.slice(-1);
+        document.querySelector(".messagetext").innerHTML =
+          "Enter destination position:";
+        let Enteringdest = new SpeechSynthesisUtterance();
+        Enteringdest.text = "Enter destination position: ";
+        window.speechSynthesis.speak(Enteringdest);
+        Enteringdest.onend = function () {
+          speech = true;
+          recognition = new SpeechRecognition();
+          recognition.interimResults = true;
+          recognition.addEventListener("result", (e) => {
+            const transcript = Array.from(e.results)
+              .map((result) => result[0])
+              .map((result) => result.transcript);
+            document.querySelector(".messagetext").innerHTML =
+              "Enter destination position: " + transcript;
+          });
+          if (speech) {
+            recognition.start();
+            recognition.onaudioend = () => {
+              let destinationpos =
+                document.querySelector(".messagetext").textContent.slice(-2) +
+                document.querySelector(".messagetext").textContent.slice(-1);
+              console.log(startingpos, destinationpos);
+            };
+          }
+        };
+      };
     }
   };
-  window.speechSynthesis.speak(utterance);
 }
 
-function pause() {
-  window.speechSynthesis.cancel();
-}
-
-function resume() {
-  window.speechSynthesis.resume();
-}
-
-function playNextMessage() {
-  pause();
-  if (currentMessageIndex < messages.length) {
-    talk(messages[currentMessageIndex]);
-    currentMessageIndex++;
-  }
-}
-function stopSpeechSynthesis() {
-  pause();
-}
-function processaudio() {
-  window.addEventListener("beforeunload", stopSpeechSynthesis);
-  document.addEventListener("visibilitychange", function () {
-    if (document.visibilityState === "hidden") {
-      stopSpeechSynthesis();
-    }
-  });
-  document.querySelector(".interactor").style.display = "revert";
-  messages.push(
-    `Welcome to Chessy, a chess game with voice control mode. Challenge yourself against Stockfish, where I'll guide your moves. Specify source and destination positions; I'll handle the rest. Stay updated with Stockfish's moves for strategic gameplay. Enjoy the unique experience, have fun, and conquer Stockfish!`
-  );
-  let details = JSON.parse(localStorage.getItem("details"));
-
-  if (details["color"] == "white") {
-    messages.push(
-      `As you have selected the color white, you will make the first move.`
-    );
-  } else {
-    messages.push(
-      "As you have selected the color black, the first move is given by the opponent. It gave d2."
-    );
-  }
-  playNextMessage();
-  document.querySelector("#skipbutton").addEventListener("click", () => {
-    document.querySelector("#skipbutton").style.display = "none";
-    pause();
-    playNextMessage();
-    document.querySelector(".messagetext").innerHTML =
-      messages[currentMessageIndex - 1];
-  });
-}
-
-export {
-  processaudio,
-  talk,
-  pause,
-  resume,
-  playNextMessage,
-  messages,
-  currentMessageIndex,
-  findMaleVoiceIndex,
-  stopSpeechSynthesis,
-};
+export {robotappear, welcomemessage, response, usertalk};

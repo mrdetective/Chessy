@@ -54,3 +54,4 @@ function retrieveinfo() {
   });
 }
 retrieveinfo();
+window.speechSynthesis.cancel();
