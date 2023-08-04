@@ -43,16 +43,12 @@ import {opponentmove} from "./modules/opponentmove.js";
 import {tofen} from "./modules/to_fen.js";
 import {setmove, inrange} from "./modules/checkforcheck.js";
 import {stalemate} from "./modules/stalematecheck.js";
-import {
-  robotappear,
-  welcomemessage,
-  usertalk,
-  response,
-} from "./modules/audioprocess.js";
+import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 
 const chessPieces = document.querySelectorAll(".chesspieces img");
 const details = JSON.parse(localStorage.getItem("details"));
 
+const socket = io("http://127.0.0.1:3000");
 function toblack() {
   document.getElementsByClassName("panel")[0].style.transform =
     "rotate(360deg)";
@@ -78,12 +74,20 @@ function toblack() {
   <span>c</span>
   <span>b</span>
   <span>a</span>`;
-  tofen().then((result) => {
-    opponentmove(result);
-  });
+  if (details["mode"] != "friend") {
+    tofen().then((result) => {
+      opponentmove(result);
+    });
+  }
 }
 if (details["color"] == "black") {
   toblack();
+  if (details["mode"] == "friend") {
+    socket.emit("turn-change", "white");
+    socket.on("turn-change", function (color) {
+      details["color"] = "white";
+    });
+  }
 }
 
 function removeselected(panels) {
@@ -283,11 +287,15 @@ const piecemove =
     if (stalemate(details["color"]) && !setmove(pos, pos)) {
       console.log("did_checkmated");
     }
-    tofen().then((result) => {
-      setTimeout(() => {
-        opponentmove(result);
-      }, 2000);
-    });
+    if (details["mode"] == "stockfish") {
+      tofen().then((result) => {
+        setTimeout(() => {
+          opponentmove(result);
+        }, 2000);
+      });
+    } else {
+      socket.emit("move", from.classList[0], to.classList[0], details["color"]);
+    }
   };
 function check(position) {
   const check = document.querySelector(`.${position}`);
@@ -308,78 +316,116 @@ function checkcolor(postion) {
   return true;
 }
 function gamestart() {
-  if (details["mode"] == "Manual") {
-    chessPieces.forEach((piece) => {
-      piece.addEventListener("click", function handleClick() {
-        let pos = document.querySelector(`.${details["color"]}_king`).parentNode
-          .classList[0];
-        if (stalemate(details["color"]) && !setmove(pos, pos)) {
-          console.log("got_checkmated");
-        } else if (
-          !stalemate(details["color"]) &&
-          details["color"] == localStorage.getItem("turn")
-        ) {
-          const panels = document.querySelectorAll(".panel div");
-          const parentPanel = piece.parentNode;
-          const piecename = piece.className;
-          let color, bishoppos, knightpos, rookpos, pawnpos, kingpos, queenpos;
-          if (details["color"] == "white") color = "black";
-          else color = "white";
-          if (piecename.substring(0, 10) != `${color}piece`) {
-            removeSelectedEventListeners();
-            removeselected(panels);
-          }
-          if (details["color"] == "white") {
-            bishoppos = document.querySelectorAll(".black_bishop");
-            knightpos = document.querySelectorAll(".black_knight");
-            rookpos = document.querySelectorAll(".black_rook");
-            pawnpos = document.querySelectorAll(".black_pawn");
-            queenpos = document.querySelectorAll(".black_queen");
-            kingpos = document.querySelectorAll(".black_king");
-          } else {
-            bishoppos = document.querySelectorAll(".white_bishop");
-            knightpos = document.querySelectorAll(".white_knight");
-            rookpos = document.querySelectorAll(".white_rook");
-            pawnpos = document.querySelectorAll(".white_pawn");
-            queenpos = document.querySelectorAll(".white_queen");
-            kingpos = document.querySelectorAll(".white_king");
-          }
-          if (piecename.substring(11, 21) == `${details["color"]}_pawn`) {
-            if (details["color"] == "white") {
-              const tonum = parentPanel.className[1] - "0" + 1;
-              const toclass = parentPanel.className[0] + tonum;
-              if (!check(toclass)) {
-                whitepawnmove(toclass, parentPanel.className, panels);
-              }
-              whitediagpawnmove(toclass, parentPanel.className, panels);
-              whiteenpassantmove(toclass, parentPanel.className, panels);
-            } else {
-              const tonum = parentPanel.className[1] - "0" - 1;
-              const toclass = parentPanel.className[0] + tonum;
-              if (!check(toclass)) {
-                blackpawnmove(toclass, parentPanel.className, panels);
-              }
-              blackdiagpawnmove(toclass, parentPanel.className, panels);
-              blackenpassantmove(toclass, parentPanel.className, panels);
-            }
-          } else if (piecename.substring(11) == `${details["color"]}_rook`) {
-            parallelmove(parentPanel, parentPanel.className, panels);
-          } else if (piecename.substring(11) == `${details["color"]}_bishop`) {
-            diagonalMove(parentPanel, parentPanel.className, panels);
-          } else if (piecename.substring(11) == `${details["color"]}_knight`) {
-            knightMove(parentPanel, parentPanel.className, panels);
-          } else if (piecename.substring(11) == `${details["color"]}_king`) {
-            kingMove(parentPanel, parentPanel.className, panels);
-          } else if (piecename.substring(11) == `${details["color"]}_queen`) {
-            queenmove(parentPanel, parentPanel.className, panels);
-          }
-        }
-      });
+  if (details["mode"] == "friend") {
+    socket.on("recieve-move", function (from, to, turn) {
+      const frompiece = document
+        .querySelector(`.${from}`)
+        .getElementsByTagName("img")[0];
+      let topiece = document
+        .querySelector(`.${to}`)
+        .getElementsByTagName("img");
+      if (topiece.length) {
+        topiece = topiece[0];
+        document.querySelector(`.${to}`).removeChild(topiece);
+      }
+      document.querySelector(`.${to}`).appendChild(frompiece);
+      if (from == "e1" && to == "g1" && frompiece.classList.contains("king")) {
+        const img = document
+          .querySelector(".h1")
+          .getElementsByTagName("img")[0];
+        document.querySelector(`.f1`).appendChild(img);
+      }
+      if (from == "e1" && to == "c1" && frompiece.classList.contains("king")) {
+        const img = document
+          .querySelector(".a1")
+          .getElementsByTagName("img")[0];
+        document.querySelector(`.d1`).appendChild(img);
+      }
+      if (from == "e8" && to == "g8" && frompiece.classList.contains("king")) {
+        const img = document
+          .querySelector(".h8")
+          .getElementsByTagName("img")[0];
+        document.querySelector(`.f8`).appendChild(img);
+      }
+      if (from == "e8" && to == "c8" && frompiece.classList.contains("king")) {
+        const img = document
+          .querySelector(".a8")
+          .getElementsByTagName("img")[0];
+        document.querySelector(`.d8`).appendChild(img);
+      }
+      details["color"] = turn;
     });
-  } else if (details["mode"] == "Voicecontrol") {
-    robotappear();
-    welcomemessage();
+    socket.on("turn-change", function (color) {
+      details["color"] = color;
+    });
   }
+  chessPieces.forEach((piece) => {
+    piece.addEventListener("click", function handleClick() {
+      let pos = document.querySelector(`.${details["color"]}_king`).parentNode
+        .classList[0];
+      if (stalemate(details["color"]) && !setmove(pos, pos)) {
+        console.log("got_checkmated");
+      } else if (
+        !stalemate(details["color"]) &&
+        details["color"] == localStorage.getItem("turn")
+      ) {
+        const panels = document.querySelectorAll(".panel div");
+        const parentPanel = piece.parentNode;
+        const piecename = piece.className;
+        let color, bishoppos, knightpos, rookpos, pawnpos, kingpos, queenpos;
+        if (details["color"] == "white") color = "black";
+        else color = "white";
+        if (piecename.substring(0, 10) != `${color}piece`) {
+          removeSelectedEventListeners();
+          removeselected(panels);
+        }
+        if (details["color"] == "white") {
+          bishoppos = document.querySelectorAll(".black_bishop");
+          knightpos = document.querySelectorAll(".black_knight");
+          rookpos = document.querySelectorAll(".black_rook");
+          pawnpos = document.querySelectorAll(".black_pawn");
+          queenpos = document.querySelectorAll(".black_queen");
+          kingpos = document.querySelectorAll(".black_king");
+        } else {
+          bishoppos = document.querySelectorAll(".white_bishop");
+          knightpos = document.querySelectorAll(".white_knight");
+          rookpos = document.querySelectorAll(".white_rook");
+          pawnpos = document.querySelectorAll(".white_pawn");
+          queenpos = document.querySelectorAll(".white_queen");
+          kingpos = document.querySelectorAll(".white_king");
+        }
+        if (piecename.substring(11, 21) == `${details["color"]}_pawn`) {
+          if (details["color"] == "white") {
+            const tonum = parentPanel.className[1] - "0" + 1;
+            const toclass = parentPanel.className[0] + tonum;
+            if (!check(toclass)) {
+              whitepawnmove(toclass, parentPanel.className, panels);
+            }
+            whitediagpawnmove(toclass, parentPanel.className, panels);
+            whiteenpassantmove(toclass, parentPanel.className, panels);
+          } else {
+            const tonum = parentPanel.className[1] - "0" - 1;
+            const toclass = parentPanel.className[0] + tonum;
+            if (!check(toclass)) {
+              blackpawnmove(toclass, parentPanel.className, panels);
+            }
+            blackdiagpawnmove(toclass, parentPanel.className, panels);
+            blackenpassantmove(toclass, parentPanel.className, panels);
+          }
+        } else if (piecename.substring(11) == `${details["color"]}_rook`) {
+          parallelmove(parentPanel, parentPanel.className, panels);
+        } else if (piecename.substring(11) == `${details["color"]}_bishop`) {
+          diagonalMove(parentPanel, parentPanel.className, panels);
+        } else if (piecename.substring(11) == `${details["color"]}_knight`) {
+          knightMove(parentPanel, parentPanel.className, panels);
+        } else if (piecename.substring(11) == `${details["color"]}_king`) {
+          kingMove(parentPanel, parentPanel.className, panels);
+        } else if (piecename.substring(11) == `${details["color"]}_queen`) {
+          queenmove(parentPanel, parentPanel.className, panels);
+        }
+      }
+    });
+  });
 }
 gamestart();
 export {check, checkcolor, piecemove};

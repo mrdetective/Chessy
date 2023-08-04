@@ -30,7 +30,7 @@ body {
   color: white;
 }
 
-.Manual {
+.friend {
   margin-left: 10%;
   margin-top: 4%;
   border-style: solid;
@@ -43,7 +43,7 @@ body {
   color: aliceblue;
 }
 
-.Voicecontrol {
+.stockfish {
   margin-left: 57%;
   margin-top: -2.35rem;
   border-style: solid;
@@ -122,8 +122,8 @@ body {
   position: absolute;
 }
 
-.Manual:hover,
-.Voicecontrol:hover,
+.friend:hover,
+.stockfish:hover,
 .Easy:hover,
 .Medium:hover,
 .Hard:hover,

@@ -1,6 +1,6 @@
 function retrieveinfo() {
   let details = {
-    mode: "Manual",
+    mode: "stockfish",
     difficulty: "Medium",
     color: "white",
   };
@@ -10,9 +10,15 @@ function retrieveinfo() {
       document
         .querySelector(`.${details["mode"]}`)
         .classList.remove("selected");
-      document.querySelector(`.${element.innerHTML}`).classList.add("selected");
-      details["mode"] = element.innerHTML;
-      console.log(details["mode"]);
+      document
+        .querySelector(`.${element.innerHTML.toLowerCase()}`)
+        .classList.add("selected");
+      details["mode"] = element.innerHTML.toLowerCase();
+      if (details["mode"] == "friend") {
+        document.querySelector(`.difficulty`).style.display = "none";
+      } else {
+        document.querySelector(`.difficulty`).style.display = "revert";
+      }
     });
   });
 
