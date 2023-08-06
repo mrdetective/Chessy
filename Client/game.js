@@ -49,46 +49,6 @@ const chessPieces = document.querySelectorAll(".chesspieces img");
 const details = JSON.parse(localStorage.getItem("details"));
 
 const socket = io("http://127.0.0.1:3000");
-function toblack() {
-  document.getElementsByClassName("panel")[0].style.transform =
-    "rotate(360deg)";
-  let imgElements = document.getElementsByTagName("img");
-  Array.from(imgElements).forEach((element) => {
-    element.style.transform = "rotate(360deg)";
-  });
-  let rolabel = document.querySelector(".rolabel");
-  rolabel.innerHTML = `
-  1 <br /><br />
-  2 <br /><br />
-  3 <br /><br />
-  4 <br /><br />
-  5 <br /><br />
-  6 <br /><br />7<br /><br />8<br />
-`;
-  let colabel = document.querySelector(".colabel");
-  colabel.innerHTML = ` <span>h</span>
-  <span>g</span>
-  <span>f</span>
-  <span>e</span>
-  <span>d</span>
-  <span>c</span>
-  <span>b</span>
-  <span>a</span>`;
-  if (details["mode"] != "friend") {
-    tofen().then((result) => {
-      opponentmove(result);
-    });
-  }
-}
-if (details["color"] == "black") {
-  toblack();
-  if (details["mode"] == "friend") {
-    socket.emit("turn-change", "white");
-    socket.on("turn-change", function (color) {
-      details["color"] = "white";
-    });
-  }
-}
 
 function removeselected(panels) {
   const selected = document.querySelectorAll(".selected");
@@ -232,7 +192,6 @@ const piecemove =
         piece[0].classList.add("en-passant");
       }
     }
-    // console.log(to.classList);
     if (piecetoeat.length != 0) {
       localStorage.setItem("to_draw", "0");
       if (piecetoeat[0].classList[1].includes("rook")) {
@@ -276,8 +235,6 @@ const piecemove =
     from.removeChild(image);
     to.appendChild(image);
     audio.play();
-    if (details["color"] == "white") localStorage.setItem("turn", "black");
-    else localStorage.setItem("turn", "white");
     removeselected(panels);
     removeSelectedEventListeners();
     let pos;
@@ -293,8 +250,13 @@ const piecemove =
           opponentmove(result);
         }, 2000);
       });
+      if (details["color"] == "white") localStorage.setItem("turn", "black");
+      else localStorage.setItem("turn", "white");
     } else {
-      socket.emit("move", from.classList[0], to.classList[0], details["color"]);
+      socket.emit("move", from.classList[0], to.classList[0]);
+      if (localStorage.getItem("turn") == "white")
+        localStorage.setItem("turn", "black");
+      else localStorage.setItem("turn", "white");
     }
   };
 function check(position) {
@@ -304,7 +266,6 @@ function check(position) {
 }
 
 function checkcolor(postion) {
-  // console.log(postion);
   const check = document.querySelector(`.${postion}`);
   const imgElements = check.getElementsByTagName("img");
   if (
@@ -317,7 +278,12 @@ function checkcolor(postion) {
 }
 function gamestart() {
   if (details["mode"] == "friend") {
-    socket.on("recieve-move", function (from, to, turn) {
+    if (document.title.includes("White")) {
+      details["color"] = "white";
+    } else {
+      details["color"] = "black";
+    }
+    socket.on("recieve-move", function (from, to) {
       const frompiece = document
         .querySelector(`.${from}`)
         .getElementsByTagName("img")[0];
@@ -353,10 +319,6 @@ function gamestart() {
           .getElementsByTagName("img")[0];
         document.querySelector(`.d8`).appendChild(img);
       }
-      details["color"] = turn;
-    });
-    socket.on("turn-change", function (color) {
-      details["color"] = color;
     });
   }
   chessPieces.forEach((piece) => {

@@ -56,7 +56,8 @@ function retrieveinfo() {
     localStorage.setItem("black_left_castling", "1");
     localStorage.setItem("black_right_castling", "1");
     localStorage.setItem("to_draw", "0");
-    window.location.href = "game.html";
+    if (details["color"] == "white") window.location.href = "gamewhite.html";
+    else window.location.href = "gameblack.html";
   });
 }
 retrieveinfo();

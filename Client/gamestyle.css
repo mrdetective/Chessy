@@ -192,47 +192,10 @@ img {
   cursor: pointer;
 }
 
-.robot {
-  height: 200px;
-  margin-top: 10rem;
-  margin-left: 40rem;
-  position: absolute;
+.rotated {
   transform: rotate(360deg);
 }
 
-.textbox {
-  position: absolute;
-  height: 400px;
-  width: 23rem;
-  margin-left: 45rem;
-  margin-top: -11rem;
+.rotated img {
   transform: rotate(360deg);
-}
-
-.messagetext {
-  position: absolute;
-  width: 200px;
-  margin-left: 50.5rem;
-  margin-top: -7rem;
-  font-size: 17px;
-  font-family: "Odibee Sans", cursive;
-  font-weight: bold;
-}
-#skipbutton {
-  position: absolute;
-  margin-left: 54rem;
-  margin-top: 7rem;
-  width: 75px;
-  height: 30px;
-  border-radius: 10px;
-  background-color: rgb(0, 0, 0);
-  border-style: none;
-  color: white;
-  font-weight: bold;
-  font-family: "Hind", sans-serif;
-  cursor: pointer;
-}
-
-.interactor {
-  display: none;
 }
