@@ -7,6 +7,7 @@ const io = require("socket.io")(3000, {
 io.on("connection", async (socket) => {
   const roomname = await socket.handshake.query.roomname;
   socket.join(roomname);
+  console.log(socket.rooms);
   socket.on("move", function (from, to) {
     socket.to(roomname).emit(`recieve-move`, from, to);
   });
