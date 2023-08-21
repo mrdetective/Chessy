@@ -4,8 +4,10 @@ const io = require("socket.io")(3000, {
   },
 });
 
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
+  const roomname = await socket.handshake.query.roomname;
+  socket.join(roomname);
   socket.on("move", function (from, to) {
-    socket.broadcast.emit("recieve-move", from, to);
+    socket.to(roomname).emit(`recieve-move`, from, to);
   });
 });
