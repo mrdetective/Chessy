@@ -159,3 +159,54 @@ body {
   background-color: aliceblue;
   color: rgb(2, 20, 46);
 }
+
+.servername {
+  height: 30px;
+  width: 18rem;
+  display: flex;
+  /* margin: auto; */
+  margin-top: 1%;
+  margin-left: 6rem;
+  position: absolute;
+}
+
+.serverconfig {
+  margin-top: 4rem;
+  margin-left: 8rem;
+  display: none;
+  height: 4rem;
+  color: white;
+  width: 15rem;
+  gap: 7rem;
+  margin-top: 5.2rem;
+}
+
+.servername {
+  display: none;
+}
+
+.createserver {
+  border-style: solid;
+  display: flex;
+  width: 12rem;
+  height: 2rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.joinserver {
+  border-style: solid;
+  display: flex;
+  width: 12rem;
+  height: 2rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.joinserver:hover,
+.createserver:hover {
+  background-color: aliceblue;
+  color: rgb(2, 20, 46);
+}

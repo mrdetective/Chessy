@@ -48,7 +48,12 @@ import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 const chessPieces = document.querySelectorAll(".chesspieces img");
 const details = JSON.parse(localStorage.getItem("details"));
 
-const socket = io("http://127.0.0.1:3000");
+const urlParams = new URLSearchParams(window.location.search);
+const socket = io(`http://127.0.0.1:3000`, {
+  query: {
+    roomname: urlParams.get("id"),
+  },
+});
 
 function removeselected(panels) {
   const selected = document.querySelectorAll(".selected");
@@ -283,10 +288,11 @@ function gamestart() {
     } else {
       details["color"] = "black";
     }
-    socket.on("recieve-move", function (from, to) {
+    socket.on(`recieve-move`, function (from, to) {
       const frompiece = document
         .querySelector(`.${from}`)
         .getElementsByTagName("img")[0];
+      console.log(frompiece.classList);
       let topiece = document
         .querySelector(`.${to}`)
         .getElementsByTagName("img");
@@ -295,25 +301,42 @@ function gamestart() {
         document.querySelector(`.${to}`).removeChild(topiece);
       }
       document.querySelector(`.${to}`).appendChild(frompiece);
-      if (from == "e1" && to == "g1" && frompiece.classList.contains("king")) {
+      if (
+        from == "e1" &&
+        to == "g1" &&
+        frompiece.classList[1].includes("king")
+      ) {
         const img = document
           .querySelector(".h1")
           .getElementsByTagName("img")[0];
         document.querySelector(`.f1`).appendChild(img);
       }
-      if (from == "e1" && to == "c1" && frompiece.classList.contains("king")) {
+      if (
+        from == "e1" &&
+        to == "c1" &&
+        frompiece.classList[1].includes("king")
+      ) {
         const img = document
           .querySelector(".a1")
           .getElementsByTagName("img")[0];
         document.querySelector(`.d1`).appendChild(img);
       }
-      if (from == "e8" && to == "g8" && frompiece.classList.contains("king")) {
+      if (
+        from == "e8" &&
+        to == "g8" &&
+        frompiece.classList[1].includes("king")
+      ) {
         const img = document
           .querySelector(".h8")
           .getElementsByTagName("img")[0];
+        console.log(img);
         document.querySelector(`.f8`).appendChild(img);
       }
-      if (from == "e8" && to == "c8" && frompiece.classList.contains("king")) {
+      if (
+        from == "e8" &&
+        to == "c8" &&
+        frompiece.classList[1].includes("king")
+      ) {
         const img = document
           .querySelector(".a8")
           .getElementsByTagName("img")[0];
