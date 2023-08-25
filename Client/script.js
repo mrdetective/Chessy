@@ -85,14 +85,14 @@ function retrieveinfo() {
   });
   let playgame = document.querySelector(".playgame");
   playgame.addEventListener("click", (event) => {
-    localStorage.setItem("turn", "white");
-    localStorage.setItem("movenumber", "1");
-    localStorage.setItem("white_left_castling", "1");
-    localStorage.setItem("white_right_castling", "1");
-    localStorage.setItem("black_left_castling", "1");
-    localStorage.setItem("black_right_castling", "1");
-    localStorage.setItem("to_draw", "0");
-    localStorage.setItem("details", JSON.stringify(details));
+    sessionStorage.setItem("turn", "white");
+    sessionStorage.setItem("movenumber", "1");
+    sessionStorage.setItem("white_left_castling", "1");
+    sessionStorage.setItem("white_right_castling", "1");
+    sessionStorage.setItem("black_left_castling", "1");
+    sessionStorage.setItem("black_right_castling", "1");
+    sessionStorage.setItem("to_draw", "0");
+    sessionStorage.setItem("details", JSON.stringify(details));
     if (details["mode"] == "friend") {
       const val = document.getElementsByClassName("servername")[0].value;
       if (details["color"] == "white") {
@@ -139,7 +139,7 @@ function retrieveinfo() {
         }
       } else window.location.href = `gameblack.html?id=${val}`;
     } else {
-      localStorage.setItem("details", JSON.stringify(details));
+      sessionStorage.setItem("details", JSON.stringify(details));
       if (details["color"] == "white") window.location.href = "gamewhite.html";
       else window.location.href = "gameblack.html";
     }

@@ -4,7 +4,7 @@ function inrange(val) {
 
 function setmove(from, to) {
   let board = [];
-  let details = JSON.parse(localStorage.getItem("details"));
+  let details = JSON.parse(sessionStorage.getItem("details"));
   for (let i = 0; i < 8; i++) {
     board[i] = [];
     for (let j = 0; j < 8; j++) {

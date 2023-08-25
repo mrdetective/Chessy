@@ -131,8 +131,8 @@ function kingMove(position, prevposition, panels) {
       document.getElementsByClassName(`${toclass}`)[0].classList.add("caneat");
     }
   }
-  let details = JSON.parse(localStorage.getItem("details"));
-  if (localStorage.getItem(`${details["color"]}_right_castling`) != "0") {
+  let details = JSON.parse(sessionStorage.getItem("details"));
+  if (sessionStorage.getItem(`${details["color"]}_right_castling`) != "0") {
     posalpha = position.className[0];
     let f = 0;
     for (let i = posalpha.charCodeAt(0) + 1; i <= "g".charCodeAt(0); i++) {
@@ -156,7 +156,7 @@ function kingMove(position, prevposition, panels) {
       document.querySelector(`.${castlingplace}`).classList.add("castling");
     }
   }
-  if (localStorage.getItem(`${details["color"]}_left_castling`) != "0") {
+  if (sessionStorage.getItem(`${details["color"]}_left_castling`) != "0") {
     posalpha = position.className[0];
     let f = 0;
     for (let i = posalpha.charCodeAt(0) - 1; i >= "b".charCodeAt(0); i--) {

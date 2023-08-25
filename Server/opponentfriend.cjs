@@ -16,8 +16,8 @@ app.use(cors());
 io.on("connection", async (socket) => {
   const roomname = await socket.handshake.query.roomname;
   socket.join(roomname);
-  socket.on("move", function (from, to) {
-    socket.to(roomname).emit("recieve-move", from, to);
+  socket.on("move", function (from, to, positions) {
+    socket.to(roomname).emit("recieve-move", from, to, positions);
   });
 });
 

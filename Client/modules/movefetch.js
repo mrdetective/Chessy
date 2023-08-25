@@ -1,5 +1,5 @@
 function movefetch(fen) {
-  let details = JSON.parse(localStorage.getItem("details"));
+  let details = JSON.parse(sessionStorage.getItem("details"));
   let data = {
     fen: fen,
     difficulty: details["difficulty"],

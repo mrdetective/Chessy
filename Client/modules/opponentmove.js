@@ -2,39 +2,39 @@ function opponentmove(result) {
   const prevposition = document.querySelector(`.${result.substring(0, 2)}`);
   const topos = document.querySelector(`.${result.substring(2)}`);
   const img = prevposition.getElementsByTagName("img")[0];
-  let details = JSON.parse(localStorage.getItem("details"));
+  let details = JSON.parse(sessionStorage.getItem("details"));
   if (
     img.classList[1].includes("rook") &&
     result.substring(0, 2) == "h8" &&
     details["color"] == "white"
   ) {
-    localStorage.setItem("black_left_castling", "0");
+    sessionStorage.setItem("black_left_castling", "0");
   }
   if (
     img.classList[1].includes("rook") &&
     result.substring(0, 2) == "a8" &&
     details["color"] == "white"
   ) {
-    localStorage.setItem("black_right_castling", "0");
+    sessionStorage.setItem("black_right_castling", "0");
   }
   if (
     img.classList[1].includes("rook") &&
     result.substring(0, 2) == "h1" &&
     details["color"] == "black"
   ) {
-    localStorage.setItem("white_left_castling", "0");
+    sessionStorage.setItem("white_left_castling", "0");
   }
   if (
     img.classList[1].includes("rook") &&
     result.substring(0, 2) == "a1" &&
     details["color"] == "black"
   ) {
-    localStorage.setItem("white_right_castling", "0");
+    sessionStorage.setItem("white_right_castling", "0");
   }
   if (img.classList[1].includes("king")) {
     if (details["color"] == "white") {
-      localStorage.setItem("black_right_castling", "0");
-      localStorage.setItem("black_left_castling", "0");
+      sessionStorage.setItem("black_right_castling", "0");
+      sessionStorage.setItem("black_left_castling", "0");
       if (result.substring(0, 2) == "e8") {
         if (result.substring(2) == "g8") {
           let img2 = document
@@ -51,8 +51,8 @@ function opponentmove(result) {
         }
       }
     } else {
-      localStorage.setItem("white_right_castling", "0");
-      localStorage.setItem("white_left_castling", "0");
+      sessionStorage.setItem("white_right_castling", "0");
+      sessionStorage.setItem("white_left_castling", "0");
       if (result.substring(0, 2) == "e1") {
         if (result.substring(2) == "c1") {
           let img2 = document
@@ -80,35 +80,35 @@ function opponentmove(result) {
         img2.classList[1].includes("rook") &&
         topos.classList.contains("h1")
       ) {
-        localStorage.setItem("white_left_castling", "0");
+        sessionStorage.setItem("white_left_castling", "0");
       }
       if (
         img2.classList[1].includes("rook") &&
         topos.classList.contains("a1")
       ) {
-        localStorage.setItem("white_right_castling", "0");
+        sessionStorage.setItem("white_right_castling", "0");
       }
     } else {
       if (
         img2.classList[1].includes("rook") &&
         topos.classList.contains("h8")
       ) {
-        localStorage.setItem("black_left_castling", "0");
+        sessionStorage.setItem("black_left_castling", "0");
       }
       if (
         img2.classList[1].includes("rook") &&
         topos.classList.contains("a8")
       ) {
-        localStorage.setItem("black_right_castling", "0");
+        sessionStorage.setItem("black_right_castling", "0");
       }
     }
   }
   prevposition.removeChild(img);
   topos.appendChild(img);
-  localStorage.setItem("turn", `${details["color"]}`);
+  sessionStorage.setItem("turn", `${details["color"]}`);
   if (details["color"] == "white") {
-    let movenumber = localStorage.getItem("movenumber");
-    localStorage.setItem("movenumber", `${parseInt(movenumber) + 1}`);
+    let movenumber = sessionStorage.getItem("movenumber");
+    sessionStorage.setItem("movenumber", `${parseInt(movenumber) + 1}`);
   }
 }
 

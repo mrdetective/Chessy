@@ -64,23 +64,23 @@ function tofen() {
     if (i != 1) val += "/";
     num = 0;
   }
-  let details = JSON.parse(localStorage.getItem("details"));
+  let details = JSON.parse(sessionStorage.getItem("details"));
   if (details["color"] == "white") val += " b ";
   else val += " w ";
   let f = 0;
-  if (localStorage.getItem("white_left_castling") != "0") {
+  if (sessionStorage.getItem("white_left_castling") != "0") {
     f = 1;
     val += "K";
   }
-  if (localStorage.getItem("white_right_castling") != "0") {
+  if (sessionStorage.getItem("white_right_castling") != "0") {
     f = 1;
     val += "Q";
   }
-  if (localStorage.getItem("black_left_castling") != "0") {
+  if (sessionStorage.getItem("black_left_castling") != "0") {
     f = 1;
     val += "k";
   }
-  if (localStorage.getItem("black_right_castling") != "0") {
+  if (sessionStorage.getItem("black_right_castling") != "0") {
     f = 1;
     val += "q";
   }
@@ -88,8 +88,8 @@ function tofen() {
     val += "-";
   }
   val += " -";
-  val += " " + localStorage.getItem("to_draw");
-  val += " " + localStorage.getItem("movenumber");
+  val += " " + sessionStorage.getItem("to_draw");
+  val += " " + sessionStorage.getItem("movenumber");
   return movefetch(val);
 }
 export {tofen};

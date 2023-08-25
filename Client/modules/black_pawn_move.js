@@ -86,7 +86,7 @@ function blackenpassantmove(position, prevposition, panels) {
         .getElementsByTagName("img")[0]
         .classList.contains("en-passant");
       if (enpassantcheck) {
-        document.querySelector(`.${position4}`).classList.add("selected");
+        document.querySelector(`.${position4}`).classList.add("caneat");
       }
     }
   }
@@ -101,15 +101,15 @@ function blackenpassantmove(position, prevposition, panels) {
         .getElementsByTagName("img")[0]
         .classList.contains("en-passant");
       if (enpassantcheck) {
-        document.querySelector(`.${position3}`).classList.add("selected");
+        document.querySelector(`.${position3}`).classList.add("caneat");
       }
     }
   }
-  const selected = document.querySelectorAll(".selected");
-  selected.forEach((selectedposition) => {
+  const caneat = document.querySelectorAll(".caneat");
+  caneat.forEach((caneatposition) => {
     let finalmove = piecemove(panels, prevposition, 0, 1);
-    selectedposition.addEventListener("click", finalmove);
-    selectedPositions5.push({position: selectedposition, listener: finalmove});
+    caneatposition.addEventListener("click", finalmove);
+    caneatPositions5.push({position: caneatposition, listener: finalmove});
   });
 }
 export {

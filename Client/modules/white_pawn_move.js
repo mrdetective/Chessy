@@ -80,7 +80,7 @@ function whiteenpassantmove(position, prevposition, panels) {
         .getElementsByTagName("img")[0]
         .classList.contains("en-passant");
       if (enpassantcheck && setmove(frompos, position4)) {
-        document.querySelector(`.${position4}`).classList.add("selected");
+        document.querySelector(`.${position4}`).classList.add("caneat");
       }
     }
   }
@@ -91,15 +91,15 @@ function whiteenpassantmove(position, prevposition, panels) {
         .getElementsByTagName("img")[0]
         .classList.contains("en-passant");
       if (enpassantcheck && setmove(frompos, position3)) {
-        document.querySelector(`.${position3}`).classList.add("selected");
+        document.querySelector(`.${position3}`).classList.add("caneat");
       }
     }
   }
-  const selected = document.querySelectorAll(".selected");
-  selected.forEach((selectedposition) => {
+  const caneat = document.querySelectorAll(".caneat");
+  caneat.forEach((caneatposition) => {
     let finalmove = piecemove(panels, prevposition, 0, 1);
-    selectedposition.addEventListener("click", finalmove);
-    selectedPositions7.push({position: selectedposition, listener: finalmove});
+    caneatposition.addEventListener("click", finalmove);
+    caneatPositions7.push({position: caneatposition, listener: finalmove});
   });
 }
 export {
