@@ -25,7 +25,7 @@ function retrieveinfo() {
       } else {
         document.querySelector(`.difficulty`).style.display = "revert";
         document.querySelector(".diffheading").innerHTML =
-          "Choose your difficulty";
+          "Choose difficulty : ";
         document.querySelector(`.servername`).style.display = "none";
         document.querySelectorAll(`.serverconfig`)[0].style.display = "none";
       }
@@ -85,40 +85,26 @@ function retrieveinfo() {
   });
   let playgame = document.querySelector(".playgame");
   playgame.addEventListener("click", (event) => {
-    sessionStorage.setItem("turn", "white");
-    sessionStorage.setItem("movenumber", "1");
-    sessionStorage.setItem("white_left_castling", "1");
-    sessionStorage.setItem("white_right_castling", "1");
-    sessionStorage.setItem("black_left_castling", "1");
-    sessionStorage.setItem("black_right_castling", "1");
-    sessionStorage.setItem("to_draw", "0");
-    sessionStorage.setItem("details", JSON.stringify(details));
-    if (details["mode"] == "friend") {
-      const val = document.getElementsByClassName("servername")[0].value;
-      if (details["color"] == "white") {
-        if (
-          document.querySelector(".joinserver").classList.contains("selected")
-        ) {
-          const serverame = {
-            roomname: val,
-          };
-          fetch("http://localhost:3000/checkServer", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(serverame),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data) {
-                window.location.href = `gamewhite.html?id=${val}`;
-              } else {
-                alert("The server doesnot exist");
-              }
-            });
+    const username = document.getElementsByClassName("username")[2].value;
+    if (username == "") {
+      alert("Username can't be empty");
+    }
+    if (username != "") {
+      sessionStorage.setItem("turn", "white");
+      sessionStorage.setItem("movenumber", "1");
+      sessionStorage.setItem("white_left_castling", "1");
+      sessionStorage.setItem("white_right_castling", "1");
+      sessionStorage.setItem("black_left_castling", "1");
+      sessionStorage.setItem("black_right_castling", "1");
+      sessionStorage.setItem("to_draw", "0");
+      sessionStorage.setItem("details", JSON.stringify(details));
+      sessionStorage.setItem("username", username);
+      if (details["mode"] == "friend") {
+        const val = document.getElementsByClassName("servername")[0].value;
+        if (val == "") {
+          alert("Sorry but the servername can't be empty");
         } else {
-          const serverame = {
+          const servername = {
             roomname: val,
           };
           fetch("http://localhost:3000/checkServer", {
@@ -126,22 +112,53 @@ function retrieveinfo() {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(serverame),
+            body: JSON.stringify(servername),
           })
             .then((response) => response.json())
             .then((data) => {
-              if (!data) {
-                window.location.href = `gamewhite.html?id=${val}`;
+              let checkforservername = JSON.parse(data.split(" ")[0]);
+              let noofclients = parseInt(data.split(" ")[1]);
+              if (
+                document
+                  .getElementsByClassName("joinserver")[0]
+                  .classList.contains("selected") &&
+                checkforservername &&
+                noofclients < 2
+              ) {
+                sessionStorage.setItem("server-type", "join");
+                if (details["color"] == "white")
+                  window.location.href = `gamewhite.html?id=${val}`;
+                else window.location.href = `gameblack.html?id=${val}`;
+              } else if (
+                document
+                  .getElementsByClassName("createserver")[0]
+                  .classList.contains("selected") &&
+                !checkforservername &&
+                noofclients < 2
+              ) {
+                sessionStorage.setItem("server-type", "create");
+                if (details["color"] == "white")
+                  window.location.href = `gamewhite.html?id=${val}`;
+                else window.location.href = `gameblack.html?id=${val}`;
+              } else if (noofclients >= 2) {
+                alert("Server Full!");
+              } else if (
+                document
+                  .getElementsByClassName("joinserver")[0]
+                  .classList.contains("selected")
+              ) {
+                alert("Server doesnot exist!");
               } else {
-                alert("Sorry but the server already exist");
+                alert("Server already exist!");
               }
             });
         }
-      } else window.location.href = `gameblack.html?id=${val}`;
-    } else {
-      sessionStorage.setItem("details", JSON.stringify(details));
-      if (details["color"] == "white") window.location.href = "gamewhite.html";
-      else window.location.href = "gameblack.html";
+      } else {
+        sessionStorage.setItem("details", JSON.stringify(details));
+        if (details["color"] == "white")
+          window.location.href = "gamewhite.html";
+        else window.location.href = "gameblack.html";
+      }
     }
   });
 }

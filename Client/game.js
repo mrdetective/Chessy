@@ -49,14 +49,12 @@ import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 
 const chessPieces = document.querySelectorAll(".chesspieces img");
 const details = JSON.parse(sessionStorage.getItem("details"));
-
 const urlParams = new URLSearchParams(window.location.search);
 const socket = io(`http://127.0.0.1:3000`, {
   query: {
     roomname: urlParams.get("id"),
   },
 });
-
 function removeenpassant() {
   const enpassant = document.querySelectorAll(".en-passant");
   enpassant.forEach((position) => {
@@ -294,13 +292,83 @@ function checkcolor(postion) {
   return true;
 }
 function gamestart() {
-  console.log(localStorage.getItem("turn"));
+  if (details["mode"] == "stockfish") {
+    document.getElementsByClassName("username2")[0].innerHTML = JSON.parse(
+      sessionStorage.getItem("username")
+    );
+  }
   if (details["mode"] == "friend") {
     if (document.title.includes("White")) {
       details["color"] = "white";
+      document.getElementsByClassName("stockfish-img")[0].src =
+        "../media/blank-prof.png";
+      document.getElementsByClassName("username2")[0].innerHTML =
+        sessionStorage.getItem("username");
     } else {
       details["color"] = "black";
+      document.getElementsByClassName("bplayer-stockfish-img")[0].src =
+        "../media/blank-prof.png";
+      document.getElementsByClassName("busername2")[0].innerHTML =
+        sessionStorage.getItem("username");
     }
+    if (sessionStorage.getItem("server-type") == "join") {
+      socket.emit("join-create", sessionStorage.getItem("username"));
+      socket.on("create-join", function (username) {
+        if (details["color"] == "white") {
+          document.getElementsByClassName("username1")[0].innerHTML = username;
+        } else {
+          document.getElementsByClassName("busername1")[0].innerHTML = username;
+        }
+      });
+    } else {
+      if (details["color"] == "white") {
+        document.getElementsByClassName("stockfish-img")[0].style.opacity =
+          "0.4";
+        document.getElementsByClassName("username1")[0].style.opacity = "0.4";
+        document.getElementsByClassName("username1")[0].innerHTML =
+          "Not Joined";
+      } else {
+        document.getElementsByClassName(
+          "bplayer-stockfish-img"
+        )[0].style.opacity = "0.4";
+        document.getElementsByClassName("busername1")[0].style.opacity = "0.4";
+        document.getElementsByClassName("busername1")[0].innerHTML =
+          "Not Joined";
+      }
+      socket.on("join-create", function (username) {
+        alert(`${username} joined`);
+        if (details["color"] == "white") {
+          document.getElementsByClassName("username1")[0].innerHTML = username;
+          document.getElementsByClassName("stockfish-img")[0].style.opacity =
+            "1";
+          document.getElementsByClassName("username1")[0].style.opacity = "1";
+        } else {
+          document.getElementsByClassName("busername1")[0].innerHTML = username;
+          document.getElementsByClassName(
+            "bplayer-stockfish-img"
+          )[0].style.opacity = "1";
+          document.getElementsByClassName("busername1")[0].style.opacity = "1";
+        }
+        socket.emit("create-join", sessionStorage.getItem("username"));
+      });
+    }
+    socket.on("Player-left", function () {
+      alert("Opponent left");
+      if (details["color"] == "white") {
+        document.getElementsByClassName("stockfish-img")[0].style.opacity =
+          "0.4";
+        document.getElementsByClassName("username1")[0].style.opacity = "0.4";
+        document.getElementsByClassName("username1")[0].innerHTML =
+          "Not Joined";
+      } else {
+        document.getElementsByClassName(
+          "bplayer-stockfish-img"
+        )[0].style.opacity = "0.4";
+        document.getElementsByClassName("busername1")[0].style.opacity = "0.4";
+        document.getElementsByClassName("busername1")[0].innerHTML =
+          "Not Joined";
+      }
+    });
     socket.on(`recieve-move`, function (from, to, positions) {
       const frompiece = document
         .querySelector(`.${from}`)

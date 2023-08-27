@@ -4,24 +4,18 @@
   font-family: "Space Grotesk", sans-serif;
 }
 body {
-  background: url("../media/Index_bg.jpg") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #73523f;
 }
 
 .mainbox {
-  top: 10%;
-  height: 30rem;
+  top: 0%;
+  margin-left: -1%;
+  height: 100vh;
   width: 30rem;
-  border-color: white;
-  border-style: solid;
   position: absolute;
-  border-radius: 50px;
+  background-color: rgb(206, 177, 141);
+  display: flex;
+  flex-direction: column;
 }
 
 .heading {
@@ -33,7 +27,7 @@ body {
 .friend {
   margin-left: 10%;
   margin-top: 4%;
-  border-style: solid;
+  border: solid white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,7 +40,7 @@ body {
 .stockfish {
   margin-left: 57%;
   margin-top: -2.35rem;
-  border-style: solid;
+  border: solid white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,7 +53,7 @@ body {
 .white {
   margin-left: 10%;
   margin-top: 4%;
-  border-style: solid;
+  border: solid white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,7 +66,7 @@ body {
 .black {
   margin-left: 57%;
   margin-top: -2.35rem;
-  border-style: solid;
+  border: solid white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,7 +79,7 @@ body {
 .Easy {
   margin-left: 10%;
   margin-top: 4%;
-  border-style: solid;
+  border: solid white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,7 +92,7 @@ body {
 .Medium {
   margin-left: 57%;
   margin-top: -2.35rem;
-  border-style: solid;
+  border: solid white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,7 +105,7 @@ body {
 .Hard {
   margin-left: 34%;
   margin-top: 1.5rem;
-  border-style: solid;
+  border: solid white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -135,9 +129,9 @@ body {
 }
 
 .playgame {
-  margin-left: 0.5%;
-  margin-top: 74.5rem;
-  border-style: solid;
+  margin-left: 33.5%;
+  margin-top: 39rem;
+  border: solid white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -145,7 +139,7 @@ body {
   height: 2rem;
   border-color: aliceblue;
   color: aliceblue;
-  position: fixed;
+  position: absolute;
 }
 
 .playgame:hover {
@@ -158,6 +152,7 @@ body {
 .selected {
   background-color: aliceblue;
   color: rgb(2, 20, 46);
+  border: solid white;
 }
 
 .servername {
@@ -165,7 +160,7 @@ body {
   width: 18rem;
   display: flex;
   /* margin: auto; */
-  margin-top: 1%;
+  margin-top: 78%;
   margin-left: 6rem;
   position: absolute;
 }
@@ -178,7 +173,6 @@ body {
   color: white;
   width: 15rem;
   gap: 7rem;
-  margin-top: 5.2rem;
 }
 
 .servername {
@@ -186,7 +180,6 @@ body {
 }
 
 .createserver {
-  border-style: solid;
   display: flex;
   width: 12rem;
   height: 2rem;
@@ -196,7 +189,6 @@ body {
 }
 
 .joinserver {
-  border-style: solid;
   display: flex;
   width: 12rem;
   height: 2rem;
@@ -209,4 +201,20 @@ body {
 .createserver:hover {
   background-color: aliceblue;
   color: rgb(2, 20, 46);
+}
+
+.user-heading {
+  margin-bottom: -1rem;
+}
+
+.username {
+  width: 18rem;
+  margin-left: 3rem;
+  height: 2rem;
+  position: absolute;
+  margin-top: 31rem;
+}
+
+.user-input {
+  margin-top: 3rem;
 }

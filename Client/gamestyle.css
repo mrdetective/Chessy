@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Hind:wght@300&family=Rubik:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap");
+
+* {
+  font-family: "Hind", sans-serif;
+}
 body {
   background: #73523f;
 }
@@ -117,7 +121,7 @@ body {
   height: 600px;
   width: 600px;
   position: absolute;
-  margin-left: 649px;
+  margin-left: -39px;
   margin-top: 108px;
   transform: rotate(180deg);
 }
@@ -135,10 +139,10 @@ img {
   color: wheat;
   font-size: 24px;
   margin-top: 145px;
-  font-family: "Hind", sans-serif;
+  /* font-family: "Hind", sans-serif; */
   background-color: #654836;
   width: 39px;
-  margin-right: -7px;
+  margin-right: 682px;
   height: 639px;
   display: flex;
   align-items: center;
@@ -150,9 +154,9 @@ img {
   font-size: 24px;
   position: absolute;
   margin-top: 746px;
-  margin-left: 648px;
+  margin-left: -40px;
   width: 603px;
-  font-family: "Hind", sans-serif;
+  /* font-family: "Hind", sans-serif; */
   word-spacing: 6px;
   background-color: #654836;
   align-items: center;
@@ -198,4 +202,68 @@ img {
 
 .rotated img {
   transform: rotate(360deg);
+}
+
+.bplayers {
+  position: absolute;
+  height: 37.3rem;
+  width: 37.3rem;
+  margin-left: 37.6rem;
+}
+
+.bplayer-stockfish-img {
+  height: 3rem;
+}
+
+.busername1 {
+  color: white;
+  margin-top: -2.5rem;
+  margin-left: 3.5rem;
+}
+
+.bplayer-user-img {
+  height: 3rem;
+  margin-top: 31.5rem;
+}
+
+.busername2 {
+  color: white;
+  margin-top: -2rem;
+  margin-left: 4rem;
+}
+
+.players {
+  position: absolute;
+  height: 37.3rem;
+  width: 37rem;
+  margin-left: -37.3rem;
+}
+
+.stockfish-img {
+  height: 3rem;
+  width: 3rem;
+  margin-top: 34.4rem;
+  margin-left: 34.4rem;
+}
+
+.username1 {
+  transform: rotate(-180deg);
+  margin-right: 3.3rem;
+  margin-top: -3.3rem;
+  color: white;
+}
+
+.user-img {
+  position: absolute;
+  height: 3rem;
+  width: 3rem;
+  margin-top: -36.25rem;
+  margin-left: 34.3rem;
+}
+
+.username2 {
+  transform: rotate(180deg);
+  color: white;
+  margin-top: -36.2rem;
+  margin-right: 3.3rem;
 }

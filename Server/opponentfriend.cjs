@@ -19,12 +19,22 @@ io.on("connection", async (socket) => {
   socket.on("move", function (from, to, positions) {
     socket.to(roomname).emit("recieve-move", from, to, positions);
   });
+  socket.on("join-create", function (username) {
+    socket.to(roomname).emit("join-create", username);
+  });
+  socket.on("create-join", function (username) {
+    socket.to(roomname).emit("create-join", username);
+  });
+  socket.on("disconnect", function () {
+    socket.to(roomname).emit("Player-left");
+  });
 });
 
 app.post("/checkServer", (req, res) => {
   const {roomname} = req.body;
-  const roomExists = io.sockets.adapter.rooms.has(roomname);
-  res.json(roomExists);
+  const roomInfo =
+    io.sockets.adapter.rooms.has(roomname) + " " + io.engine.clientsCount;
+  res.json(roomInfo);
 });
 
 const PORT = 3000;
