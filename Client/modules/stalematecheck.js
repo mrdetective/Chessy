@@ -286,7 +286,8 @@ function stalemate(color) {
           if (color == "black") {
             let dy = j + 1;
             let dx = i - 1;
-            let topos = String.fromCharCode("a".charCodeAt(0) + dy) + dx + 1;
+            let topos = String.fromCharCode("a".charCodeAt(0) + dy) + (dx + 1);
+            console.log(topos);
             if (
               inrange(dx) &&
               inrange(dy) &&
@@ -299,7 +300,7 @@ function stalemate(color) {
             }
             dy = j - 1;
             dx = i - 1;
-            topos = String.fromCharCode("a".charCodeAt(0) + dy) + dx + 1;
+            topos = String.fromCharCode("a".charCodeAt(0) + dy) + (dx + 1);
             if (
               inrange(dx) &&
               inrange(dy) &&
@@ -326,7 +327,7 @@ function stalemate(color) {
           } else {
             let dy = j + 1;
             let dx = i + 1;
-            let topos = String.fromCharCode("a".charCodeAt(0) + dy) + dx + 1;
+            let topos = String.fromCharCode("a".charCodeAt(0) + dy) + (dx + 1);
             if (
               inrange(dx) &&
               inrange(dy) &&
@@ -339,7 +340,7 @@ function stalemate(color) {
             }
             dy = j - 1;
             dx = i + 1;
-            topos = String.fromCharCode("a".charCodeAt(0) + dy) + dx + 1;
+            topos = String.fromCharCode("a".charCodeAt(0) + dy) + (dx + 1);
             if (
               inrange(dx) &&
               inrange(dy) &&

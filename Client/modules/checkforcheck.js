@@ -42,6 +42,8 @@ function setmove(from, to) {
       board[fromx][0] = "0";
     }
   }
+  console.log(to);
+  console.log(parseInt(to[1]) - 1);
   board[parseInt(to[1]) - 1][to[0].charCodeAt(0) - "a".charCodeAt(0)] =
     board[parseInt(from[1]) - 1][from[0].charCodeAt(0) - "a".charCodeAt(0)];
   if (from != to)

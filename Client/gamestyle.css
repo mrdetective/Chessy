@@ -242,8 +242,8 @@ img {
 .stockfish-img {
   height: 3rem;
   width: 3rem;
-  margin-top: 34.4rem;
-  margin-left: 34.4rem;
+  margin-top: 34.5rem;
+  margin-left: 34.3rem;
 }
 
 .username1 {
@@ -257,8 +257,8 @@ img {
   position: absolute;
   height: 3rem;
   width: 3rem;
-  margin-top: -36.25rem;
-  margin-left: 34.3rem;
+  margin-top: -36.33rem;
+  margin-left: 34.28rem;
 }
 
 .username2 {
@@ -266,4 +266,42 @@ img {
   color: white;
   margin-top: -36.2rem;
   margin-right: 3.3rem;
+}
+
+.queen_pick {
+  position: absolute;
+  margin-top: 14.4rem;
+  margin-left: 0.2rem;
+}
+.rook_pick {
+  margin-top: 10rem;
+  margin-left: 0.35rem;
+}
+
+.knight_pick {
+  margin-top: 5rem;
+  margin-left: 0.25rem;
+}
+
+.bishop_pick {
+  margin-top: 0.3rem;
+  margin-left: 0.25rem;
+}
+
+.piece-pick {
+  background-color: wheat;
+  position: absolute;
+  height: 18.9rem;
+  width: 4.7rem;
+  margin-top: -14.2rem;
+  margin-left: 0rem;
+}
+
+.piece-pick img:hover {
+  background-color: burlywood;
+}
+
+.extra-pick-margin {
+  margin-top: 0rem;
+  z-index: 1;
 }
