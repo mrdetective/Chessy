@@ -241,6 +241,9 @@ const piecemove =
     const image = piece[0];
     from.removeChild(image);
     to.appendChild(image);
+    audio.play();
+    removeselected(panels);
+    removeSelectedEventListeners();
 
     // Check for piece-conversion for white
     if (
@@ -257,25 +260,32 @@ const piecemove =
       );
       piece_choice.forEach((piece) => {
         piece.addEventListener("click", function () {
+          let ExtraPiece = "";
           if (piece.classList[0].includes("queen")) {
             const queenImg = document.createElement("img");
-            queenImg.src = "../media/white_queen.png";
+            queenImg.src = "../media/white_queen.svg";
             queenImg.className = "whitepiece white_queen";
+            ExtraPiece = queenImg.classList[1];
             to.appendChild(queenImg);
           } else if (piece.classList[0].includes("rook")) {
             const rookImg = document.createElement("img");
             rookImg.src = "../media/white_rook.svg";
             rookImg.className = "whitepiece white_rook";
+            ExtraPiece = rookImg.classList[1];
             to.appendChild(rookImg);
           } else if (piece.classList[0].includes("knight")) {
             const knightImg = document.createElement("img");
             knightImg.src = "../media/white_knight.svg";
             knightImg.className = "whitepiece white_knight";
+            ExtraPiece = knightImg;
+            ExtraPiece = knightImg.classList[1];
             to.appendChild(knightImg);
           } else {
             const bishopImg = document.createElement("img");
             bishopImg.src = "../media/white_bishop.svg";
             bishopImg.className = "whitepiece white_bishop";
+            ExtraPiece = bishopImg;
+            ExtraPiece = bishopImg.classList[1];
             to.appendChild(bishopImg);
           }
           document.getElementsByClassName("piece-pick")[0].remove();
@@ -283,6 +293,40 @@ const piecemove =
             "click",
             PieceClick(to.getElementsByTagName("img")[0])
           );
+          let pos;
+          if (details["color"] == "white")
+            pos = document.querySelector(`.black_king`).parentNode.classList[0];
+          else
+            pos = document.querySelector(`.white_king`).parentNode.classList[0];
+          if (stalemate(details["color"]) && !setmove(pos, pos)) {
+            console.log("did_checkmated");
+          }
+          if (details["mode"] == "stockfish") {
+            tofen().then((result) => {
+              setTimeout(() => {
+                opponentmove(result);
+              }, 2000);
+            });
+            if (details["color"] == "white")
+              sessionStorage.setItem("turn", "black");
+            else sessionStorage.setItem("turn", "white");
+          } else {
+            const enpassant = document.querySelectorAll(".en-passant");
+            let positions = [];
+            enpassant.forEach((position) => {
+              positions.push(position.parentNode.classList[0]);
+            });
+            socket.emit(
+              "move",
+              from.classList[0],
+              to.classList[0],
+              positions,
+              ExtraPiece
+            );
+            if (sessionStorage.getItem("turn") == "white")
+              sessionStorage.setItem("turn", "black");
+            else sessionStorage.setItem("turn", "white");
+          }
         });
       });
     }
@@ -301,64 +345,102 @@ const piecemove =
       );
       piece_choice.forEach((piece) => {
         piece.addEventListener("click", function () {
-          if (piece.classList[0].includes("queen")) {
+          let ExtraPiece = "";
+          if (piece.classList[1].includes("queen")) {
             const queenImg = document.createElement("img");
             queenImg.src = "../media/black_queen.svg";
             queenImg.className = "blackpiece black_queen";
+            console.log(queenImg);
             to.appendChild(queenImg);
-          } else if (piece.classList[0].includes("rook")) {
+            ExtraPiece = queenImg.classList[1];
+          } else if (piece.classList[1].includes("rook")) {
             const rookImg = document.createElement("img");
             rookImg.src = "../media/black_rook.svg";
             rookImg.className = "blackpiece black_rook";
             to.appendChild(rookImg);
-          } else if (piece.classList[0].includes("knight")) {
+            ExtraPiece = rookImg.classList[1];
+          } else if (piece.classList[1].includes("knight")) {
             const knightImg = document.createElement("img");
             knightImg.src = "../media/black_knight.svg";
             knightImg.className = "blackpiece black_knight";
             to.appendChild(knightImg);
+            ExtraPiece = knightImg.classList[1];
           } else {
             const bishopImg = document.createElement("img");
             bishopImg.src = "../media/black_bishop.svg";
             bishopImg.className = "blackpiece black_bishop";
             to.appendChild(bishopImg);
+            ExtraPiece = bishopImg.classList[1];
           }
           document.getElementsByClassName("piece-pick")[0].remove();
           to.getElementsByTagName("img")[0].addEventListener(
             "click",
             PieceClick(to.getElementsByTagName("img")[0])
           );
+          let pos;
+          if (details["color"] == "white")
+            pos = document.querySelector(`.black_king`).parentNode.classList[0];
+          else
+            pos = document.querySelector(`.white_king`).parentNode.classList[0];
+          if (stalemate(details["color"]) && !setmove(pos, pos)) {
+            console.log("did_checkmated");
+          }
+          if (details["mode"] == "stockfish") {
+            tofen().then((result) => {
+              setTimeout(() => {
+                opponentmove(result);
+              }, 2000);
+            });
+            if (details["color"] == "white")
+              sessionStorage.setItem("turn", "black");
+            else sessionStorage.setItem("turn", "white");
+          } else {
+            const enpassant = document.querySelectorAll(".en-passant");
+            let positions = [];
+            enpassant.forEach((position) => {
+              positions.push(position.parentNode.classList[0]);
+            });
+            socket.emit(
+              "move",
+              from.classList[0],
+              to.classList[0],
+              positions,
+              ExtraPiece
+            );
+            if (sessionStorage.getItem("turn") == "white")
+              sessionStorage.setItem("turn", "black");
+            else sessionStorage.setItem("turn", "white");
+          }
         });
       });
-    }
-
-    audio.play();
-    removeselected(panels);
-    removeSelectedEventListeners();
-    let pos;
-    if (details["color"] == "white")
-      pos = document.querySelector(`.black_king`).parentNode.classList[0];
-    else pos = document.querySelector(`.white_king`).parentNode.classList[0];
-    if (stalemate(details["color"]) && !setmove(pos, pos)) {
-      console.log("did_checkmated");
-    }
-    if (details["mode"] == "stockfish") {
-      tofen().then((result) => {
-        setTimeout(() => {
-          opponentmove(result);
-        }, 2000);
-      });
-      if (details["color"] == "white") sessionStorage.setItem("turn", "black");
-      else sessionStorage.setItem("turn", "white");
     } else {
-      const enpassant = document.querySelectorAll(".en-passant");
-      let positions = [];
-      enpassant.forEach((position) => {
-        positions.push(position.parentNode.classList[0]);
-      });
-      socket.emit("move", from.classList[0], to.classList[0], positions);
-      if (sessionStorage.getItem("turn") == "white")
-        sessionStorage.setItem("turn", "black");
-      else sessionStorage.setItem("turn", "white");
+      let pos;
+      if (details["color"] == "white")
+        pos = document.querySelector(`.black_king`).parentNode.classList[0];
+      else pos = document.querySelector(`.white_king`).parentNode.classList[0];
+      if (stalemate(details["color"]) && !setmove(pos, pos)) {
+        console.log("did_checkmated");
+      }
+      if (details["mode"] == "stockfish") {
+        tofen().then((result) => {
+          setTimeout(() => {
+            opponentmove(result);
+          }, 2000);
+        });
+        if (details["color"] == "white")
+          sessionStorage.setItem("turn", "black");
+        else sessionStorage.setItem("turn", "white");
+      } else {
+        const enpassant = document.querySelectorAll(".en-passant");
+        let positions = [];
+        enpassant.forEach((position) => {
+          positions.push(position.parentNode.classList[0]);
+        });
+        socket.emit("move", from.classList[0], to.classList[0], positions, "");
+        if (sessionStorage.getItem("turn") == "white")
+          sessionStorage.setItem("turn", "black");
+        else sessionStorage.setItem("turn", "white");
+      }
     }
   };
 function check(position) {
@@ -523,7 +605,7 @@ function gamestart() {
           "Not Joined";
       }
     });
-    socket.on(`recieve-move`, function (from, to, positions) {
+    socket.on(`recieve-move`, function (from, to, positions, ExtraPiece) {
       const frompiece = document
         .querySelector(`.${from}`)
         .getElementsByTagName("img")[0];
@@ -581,6 +663,16 @@ function gamestart() {
           .getElementsByClassName(`${position}`)[0]
           .childNodes[0].classList.add("en-passant");
       });
+      if (ExtraPiece != "") {
+        document.querySelector(`.${to}`).lastChild.remove();
+        let ExtraPieceImg = document.createElement("img");
+        ExtraPieceImg.src = `../media/${ExtraPiece}.svg`;
+        if (details["color"] == "white")
+          ExtraPieceImg.classList.add("blackpiece");
+        else ExtraPieceImg.classList.add("whitepiece");
+        ExtraPieceImg.classList.add(ExtraPiece);
+        document.querySelector(`.${to}`).appendChild(ExtraPieceImg);
+      }
       sessionStorage.setItem("turn", details["color"]);
     });
   }

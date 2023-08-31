@@ -4,7 +4,7 @@ function extrapiecepick(pos, color) {
   let queenImg, rookImg, knightImg, bishopImg;
   if (color == "white") {
     queenImg = document.createElement("img");
-    queenImg.src = "../media/white_queen.png";
+    queenImg.src = "../media/white_queen.svg";
     queenImg.className = "white_queen queen_pick";
 
     rookImg = document.createElement("img");
