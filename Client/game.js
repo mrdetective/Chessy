@@ -45,6 +45,7 @@ import {setmove, inrange} from "./modules/checkforcheck.js";
 import {stalemate} from "./modules/stalematecheck.js";
 import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 import {extrapiecepick} from "./modules/extrapiecepick.js";
+import {configurevideo} from "./config_video.js";
 
 let chessPieces = Array.from(document.querySelectorAll(".chesspieces img"));
 const details = JSON.parse(sessionStorage.getItem("details"));
@@ -350,7 +351,6 @@ const piecemove =
             const queenImg = document.createElement("img");
             queenImg.src = "../media/black_queen.svg";
             queenImg.className = "blackpiece black_queen";
-            console.log(queenImg);
             to.appendChild(queenImg);
             ExtraPiece = queenImg.classList[1];
           } else if (piece.classList[1].includes("rook")) {
@@ -534,6 +534,7 @@ function gamestart() {
       sessionStorage.getItem("username");
   }
   if (details["mode"] == "friend") {
+    configurevideo();
     if (document.title.includes("White")) {
       details["color"] = "white";
       document.getElementsByClassName("stockfish-img")[0].src =
@@ -609,7 +610,6 @@ function gamestart() {
       const frompiece = document
         .querySelector(`.${from}`)
         .getElementsByTagName("img")[0];
-      console.log(from, to);
       let topiece = document
         .querySelector(`.${to}`)
         .getElementsByTagName("img");
