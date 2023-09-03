@@ -5,33 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <title>Chessy</title>
-    <div class="mainbox">
-      <h2 class="heading">Select your opponent :</h2>
-      <div class="mode">
-        <div class="mod friend">Friend</div>
-        <div class="mod stockfish selected">Stockfish</div>
+    <div class="bigbox">
+      <div class="mainbox">
+        <h2 class="heading">Select your opponent :</h2>
+        <div class="mode">
+          <div class="mod friend">Friend</div>
+          <div class="mod stockfish selected">Stockfish</div>
+        </div>
+        <h2 class="heading">Your Color :</h2>
+        <div class="color">
+          <div class="col white selected">White</div>
+          <div class="col black">Black</div>
+        </div>
+        <h2 class="heading diffheading">Choose difficulty :</h2>
+        <div class="difficulty">
+          <div class="diff Easy">Easy</div>
+          <div class="diff Medium selected">Medium</div>
+          <div class="diff Hard">Hard</div>
+        </div>
+        <div class="serverconfig">
+          <input
+            placeholder="Name your server"
+            class="severconfig servername"
+            type="text"
+          />
+          <div class="createserver">Create</div>
+          <div class="joinserver">Join</div>
+        </div>
+        <h2 class="heading username user-heading">Enter username:</h2>
+        <div class="username">
+          <input
+            placeholder="Enter Username"
+            class="username user-input"
+            type="text"
+          />
+        </div>
+        <div class="playgame">Play!</div>
       </div>
-      <h2 class="heading">Your Color :</h2>
-      <div class="color">
-        <div class="col white selected">White</div>
-        <div class="col black">Black</div>
-      </div>
-      <h2 class="heading diffheading">Choose difficulty :</h2>
-      <div class="difficulty">
-        <div class="diff Easy">Easy</div>
-        <div class="diff Medium selected">Medium</div>
-        <div class="diff Hard">Hard</div>
-      </div>
-      <input class="severconfig servername" type="text" />
-      <div class="serverconfig">
-        <div class="createserver">Create</div>
-        <div class="joinserver">Join</div>
-      </div>
-      <h2 class="heading username user-heading">Enter username:</h2>
-      <div class="username">
-        <input class="username user-input" type="text" />
-      </div>
-      <div class="playgame">Play!</div>
     </div>
   </head>
   <body>
