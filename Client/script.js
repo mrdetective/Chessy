@@ -107,6 +107,7 @@ function retrieveinfo() {
           const servername = {
             roomname: val,
           };
+          sessionStorage.setItem("roomID", val);
           fetch("http://localhost:3000/checkServer", {
             method: "POST",
             headers: {

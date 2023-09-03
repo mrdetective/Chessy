@@ -321,3 +321,50 @@ img {
 #user-1 {
   margin-top: 20rem;
 }
+#user-2 {
+  display: none;
+}
+
+#video-button-bg {
+  position: absolute;
+  background-color: rgb(47 255 110);
+  margin-left: 50rem;
+  margin-top: 15rem;
+  border-radius: 2rem;
+  height: 3.5rem;
+  width: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(32, 30, 30, 0.35) 0px 5px 15px;
+  cursor: pointer;
+}
+
+.video-button-img {
+  height: 2.5rem;
+  position: absolute;
+  transform: rotateX(180deg);
+  cursor: pointer;
+}
+
+#audio-button-bg {
+  position: absolute;
+  background-color: rgb(47 255 110);
+  margin-left: 50rem;
+  margin-top: 25rem;
+  border-radius: 2rem;
+  height: 3.5rem;
+  width: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(32, 30, 30, 0.35) 0px 5px 15px;
+  cursor: pointer;
+}
+
+.audio-button-img {
+  height: 1.7rem;
+  position: absolute;
+  transform: rotateY(180deg);
+  cursor: pointer;
+}

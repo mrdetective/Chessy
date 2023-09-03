@@ -534,7 +534,10 @@ function gamestart() {
       sessionStorage.getItem("username");
   }
   if (details["mode"] == "friend") {
-    configurevideo();
+    configurevideo(
+      sessionStorage.getItem("username"),
+      sessionStorage.getItem("roomID")
+    );
     if (document.title.includes("White")) {
       details["color"] = "white";
       document.getElementsByClassName("stockfish-img")[0].src =
